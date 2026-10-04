@@ -22,11 +22,11 @@
     "-ldflags=-s -w -buildid="
   ],
   "exportTrimpath": true,
-  "commit": "69c1ab0d6769facd266886deec90337fe4b52498",
-  "websiteCommit": "02e003f74ea097db172c4c7920c67adb8c4b7f5f",
+  "commit": "09f1eb258fc98217e5d03506f34957c9ee9aec4f",
+  "websiteCommit": "e21dfc8de42eacc1d6e2c4a1504cbc382a135250",
   "catalog": {
     "schemaVersion": 1,
-    "compilerCommit": "69c1ab0d6769facd266886deec90337fe4b52498",
+    "compilerCommit": "09f1eb258fc98217e5d03506f34957c9ee9aec4f",
     "reviewedAt": "2026-10-04",
     "statusLabels": {
       "proposal": "提案",
@@ -256,7 +256,7 @@
         "support": "cli",
         "summary": "format 2 的 goxide.toml 统一 module、原生 Go 依赖政策、增强依赖、feature 与目标；goxide.lock 固定真实解析结果。",
         "usage": "最小工程根只有 TOML 和源码：默认 pretty=true，关闭默认 feature 后 false。Go module 元数据只进入受管 target；锁记录真实选版和校验，不将历史 go.sum 当版本列表。",
-        "limitation": "TOML 作者根与 go.mod/go.sum 或旧 hgo.lock 并存会拒绝；无 TOML 的原生 Go 依赖仍受支持。offline 需要缓存，不冻结本地 path，不支持 workspace/vendor 自动迁移或旧 format 自动升级。",
+        "limitation": "TOML 作者根与 go.mod/go.sum 或旧 hgo.lock 并存会拒绝；无 TOML 的原生 Go 依赖仍受支持。offline 通常需要缓存，不冻结本地 path。原生 vendor 有独立模式；workspace 与旧 format 不自动升级。",
         "examples": [],
         "checks": [],
         "snippet": {
@@ -276,7 +276,7 @@
         "support": "cli",
         "summary": "import-go 先只读输出候选 TOML，再在全新目录 staging 构建显式目标，成功才发布目的工程。",
         "usage": "下方最小例从 main.go/go.mod 生成 format 2 TOML 与 schema 2 锁，原文件哈希不变；新目录首次 offline+locked 运行得到同一输出。",
-        "limitation": "仅接受未迁入的普通 Go module，不自动升级旧 format/JSON/增强锁。不覆盖现有目录；workspace、vendor、未支持指令整体拒绝。不执行用户程序、go generate 或脚本；实际运行是示例验证的单独步骤。",
+        "limitation": "仅接受未迁入的普通 Go module，不自动升级旧 format/JSON/增强锁。不覆盖现有目录；workspace 与未支持指令拒绝。原生 module vendor 的受限迁入见独立条目。不执行用户程序、go generate 或脚本；示例运行是单独验证步骤。",
         "examples": [],
         "checks": [],
         "snippet": {
@@ -474,6 +474,62 @@
           "option_no_context",
           "result_no_context"
         ]
+      },
+      {
+        "id": "cli-options",
+        "title": "CLI：明确的长短选项与参数边界",
+        "topic": "projects",
+        "rfcs": [
+          "0022",
+          "0023"
+        ],
+        "status": "partial",
+        "support": "cli",
+        "summary": "Cobra 命令树提供中文 help、四种 shell completion 与 scripts 六个动作子命令。业务入口使用独立 typed request/service。",
+        "usage": "长选项使用 --name，短选项使用 -x；选项放在输入之前。run INPUT -- ARGS 保留程序参数，其他命令不开放任意透传。",
+        "limitation": "拒绝旧 Go 风格 -go / -offline 并提示迁移；仅支持已定义的短选项组合，不承诺全部 POSIX 规则。help/completion 不运行构建、下载或脚本。",
+        "examples": [],
+        "checks": [],
+        "snippet": {
+          "language": "CLI · 本机使用",
+          "text": "hgo run --offline --locked project -- --name value\nhgo scripts --help\nhgo completion bash",
+          "note": "浏览器不执行 CLI；下方快照来自构建时真实验证。"
+        }
+      },
+      {
+        "id": "vendor",
+        "title": "原生 Go vendor：实际字节与离线锁",
+        "topic": "projects",
+        "rfcs": [
+          "0025"
+        ],
+        "status": "partial",
+        "support": "cli",
+        "summary": "import-go 接受一致的原生 module vendor，使用 Go 自身检查 modules.txt、版本和 replace；锁定实际 vendored 文件字节及权限。",
+        "usage": "迁入保留原工程，生成 [vendor] mode=\"go-mod\"；冷 module cache 下可 --offline --locked 运行。修改 vendor 文件后 locked 拒绝，见真实快照。",
+        "limitation": "不重建 vendor、不下载补齐缺包、不声称与上游相同；历史 go.sum 仅保留来源信息。workspace vendor、增强依赖图混用、符号链接与不受支持的布局拒绝。",
+        "examples": [],
+        "checks": [],
+        "snippet": {
+          "language": "CLI · 本机使用",
+          "text": "hgo import-go --bin app=. old-project\nhgo import-go --out new-project --bin app=. --offline old-project\nhgo run --bin app --offline --locked new-project",
+          "note": "浏览器不执行 CLI；下方快照来自构建时真实验证。"
+        }
+      },
+      {
+        "id": "workspace",
+        "title": "workspace：显式继承的设计提案",
+        "topic": "future",
+        "rfcs": [
+          "0026"
+        ],
+        "status": "proposal",
+        "support": "unavailable",
+        "summary": "整体仍为提案，生产 workspace 尚未实现；仅显式依赖继承这一约束已确认。",
+        "usage": "候选声明 package1 = { workspace = true } 才继承根模板。列为 member 或源码 import 不会创建依赖、激活模板或隐式改用本地来源。",
+        "limitation": "其余解析策略、根锁与实施阶段尚待确定；Go 机制试验不是 hgo 功能验收。这里不提供可运行 workspace 示例。",
+        "examples": [],
+        "checks": []
       }
     ],
     "checks": [
@@ -535,7 +591,7 @@
       "提案语法、Go 机制探针和文档标题都不能单独作为实现证据。"
     ]
   },
-  "compilerDigest": "c6b0c5b6ffe1fcb3ff3df77dd86fd39a9ccdb4b6291a1caf4eafcb0ef37fa510",
+  "compilerDigest": "9cebac63731cc5490e3ffc00a8a5b9b7ef0869d72482e29f1d8e7ae9bb16ec77",
   "exportsDigest": "d94e7ffcf6d932911e47db192b1b40e15fd0675b955741cbbb0c196a84fb34a6",
   "exportTarget": {
     "GOARCH": "amd64",
@@ -818,7 +874,7 @@
       "runs": [
         {
           "command": "hgo import-go --plan --bin app=. old-project",
-          "stdout": "[package]\nformat = 2\nmodule = 'example.org/import-demo'\ngo = '1.27'\n\n[[bin]]\nname = 'app'\npath = '.'\n"
+          "stdout": "# Plan: preserve original files; copy regular source into a new directory; create goxide.toml/goxide.lock; generate Go metadata only under target.\n[package]\nformat = 2\nmodule = 'example.org/import-demo'\ngo = '1.27'\n\n[[bin]]\nname = 'app'\npath = '.'\n"
         },
         {
           "command": "hgo import-go --out new-project --bin app=. --offline old-project",
@@ -837,7 +893,94 @@
           "main.go": "79015f96d7277ad39bb9233a335ab8b6ad4bd8c44499b70f5387d47646837883"
         }
       }
+    },
+    {
+      "id": "vendor",
+      "title": "原生 vendor：冷缓存离线与字节变更拒绝",
+      "note": "在空 module cache、GOPROXY=off、GOSUMDB=off 下实测；原 replace 目录已移除，Go 构建缓存可用。本机绝对路径仅替换为示例目录名。修改的 vendor 与上游是否相同：未检查，不联网比较。",
+      "files": [
+        {
+          "path": "old-project/go.mod",
+          "source": "module example.org/vendor-demo\n\ngo 1.27\n\nrequire example.org/catalogdep v1.0.0\nreplace example.org/catalogdep => ../dep\n"
+        },
+        {
+          "path": "old-project/main.go",
+          "source": "package main\nimport (\"fmt\"; \"example.org/catalogdep\")\nfunc main() { fmt.Println(catalogdep.Value()) }\n"
+        },
+        {
+          "path": "old-project/vendor/example.org/catalogdep/LICENSE",
+          "source": "Example fixture: freely reusable demonstration code.\n"
+        },
+        {
+          "path": "old-project/vendor/example.org/catalogdep/dep.go",
+          "source": "package catalogdep\nfunc Value() string { return \"vendored bytes\" }\n"
+        },
+        {
+          "path": "old-project/vendor/modules.txt",
+          "source": "# example.org/catalogdep v1.0.0 => ../dep\n## explicit; go 1.27\nexample.org/catalogdep\n# example.org/catalogdep => ../dep\n"
+        },
+        {
+          "path": "new-project/goxide.toml",
+          "source": "[vendor]\nmode = 'go-mod'\n\n[package]\nformat = 2\nmodule = 'example.org/vendor-demo'\ngo = '1.27'\n\n[go]\n[[go.require]]\nmodule = 'example.org/catalogdep'\nversion = 'v1.0.0'\n\n[[go.replace]]\nmodule = 'example.org/catalogdep'\npath = '../dep'\n\n[[bin]]\nname = 'app'\npath = '.'\n"
+        },
+        {
+          "path": "new-project/goxide.lock",
+          "source": "{\n  \"vendor\": {\n    \"mode\": \"go-mod\",\n    \"policy\": \"80994d3cc0104b2706c636418fc681b2c112e0a87fa15c49159041cc5f3c465b\",\n    \"digest\": \"85e20646fba0cf4db61385fb90b9a0a543adfcf6acee8635f7b2d38c01b4add2\",\n    \"files\": {\n      \"example.org/catalogdep/LICENSE\": \"218df5f91ee2ee29f3b5f318bf6424daf1597ad912ecb0672f8f70019113cf00\",\n      \"example.org/catalogdep/dep.go\": \"f32fb55cf8b5a90c9729e4a8f8c142713ad6886919b60056edf7015483bc4627\",\n      \"modules.txt\": \"eb920e349d0d4420883e242f6595c136e2ad202ece0d3778bd9fcb27129ce00f\"\n    },\n    \"modules\": [\n      {\n        \"path\": \"example.org/catalogdep\",\n        \"version\": \"v1.0.0\",\n        \"replace\": \"../dep\",\n        \"go\": \"1.27\",\n        \"explicit\": true,\n        \"packages\": [\n          \"example.org/catalogdep\"\n        ]\n      },\n      {\n        \"path\": \"example.org/catalogdep\",\n        \"replace\": \"../dep\"\n      }\n    ]\n  },\n  \"provenance\": \"c0a1e1fef427b219a003e1f3d7f78599e93640c7f675375fca31a233dffe47e8\",\n  \"version\": 2,\n  \"git\": {},\n  \"sums\": {}\n}\n"
+        }
+      ],
+      "runs": [
+        {
+          "command": "hgo import-go --bin app=. old-project",
+          "stdout": "# Plan: preserve original files; copy regular source into a new directory; create goxide.toml/goxide.lock; generate Go metadata only under target.\n# Vendor bytes and licenses copied unchanged; upstream content difference: unknown (no fetch); hashes describe supplied content, not proxy checksums.\n# vendor file example.org/catalogdep/dep.go f32fb55cf8b5a90c9729e4a8f8c142713ad6886919b60056edf7015483bc4627\n# vendor file modules.txt eb920e349d0d4420883e242f6595c136e2ad202ece0d3778bd9fcb27129ce00f\n# vendor license example.org/catalogdep/LICENSE 218df5f91ee2ee29f3b5f318bf6424daf1597ad912ecb0672f8f70019113cf00\n# vendor module example.org/catalogdep@ replace=../dep@ explicit=false go= packages=\n# vendor module example.org/catalogdep@v1.0.0 replace=../dep@ explicit=true go=1.27 packages=example.org/catalogdep\n[vendor]\nmode = 'go-mod'\n\n[package]\nformat = 2\nmodule = 'example.org/vendor-demo'\ngo = '1.27'\n\n[go]\n[[go.require]]\nmodule = 'example.org/catalogdep'\nversion = 'v1.0.0'\n\n[[go.replace]]\nmodule = 'example.org/catalogdep'\npath = '../dep'\n\n[[bin]]\nname = 'app'\npath = '.'\n"
+        },
+        {
+          "command": "hgo import-go --out new-project --bin app=. --offline old-project",
+          "stdout": "migrated project: new-project\noriginal go.mod/go.sum retained at: old-project\n"
+        },
+        {
+          "command": "hgo run --bin app --offline --locked new-project",
+          "stdout": "vendored bytes\n"
+        },
+        {
+          "command": "修改 vendor/dep.go 后重复 locked 运行（预期失败）",
+          "stdout": "--locked: vendor contents or policy changed\n"
+        }
+      ],
+      "verification": {
+        "coldModuleCache": true,
+        "proxyOff": true,
+        "originalFilesUnchanged": true,
+        "vendorMutationRejected": true
+      }
+    },
+    {
+      "id": "cli-options",
+      "title": "CLI：run 参数原样透传与旧选项拒绝",
+      "files": [
+        {
+          "path": "args.go",
+          "source": "package main\nimport (\"fmt\"; \"os\")\nfunc main() { fmt.Printf(\"%q\\n\", os.Args[1:]) }\n"
+        }
+      ],
+      "runs": [
+        {
+          "command": "hgo run args.go -- --name value -x '' -- '$(literal)'",
+          "stdout": "[\"--name\" \"value\" \"-x\" \"\" \"--\" \"$(literal)\"]\n"
+        },
+        {
+          "command": "hgo run -go args.go（预期失败）",
+          "stdout": "-go is not supported; use --go\nusage: hgo run [flags] INPUT [-- PROGRAM_ARGS...]\n"
+        },
+        {
+          "command": "hgo run -offline args.go（预期失败）",
+          "stdout": "-offline is not supported; use --offline\nusage: hgo run [flags] INPUT [-- PROGRAM_ARGS...]\n"
+        },
+        {
+          "command": "hgo scripts --help",
+          "stdout": "每个动作都需要显式项目路径，不会默认信任当前目录。兼容 --action ACTION 入口；省略动作时查看计划。\nhelp 不解析依赖或读取授权记录；plan 可能解析依赖，但不执行脚本。\n\n用法：\n  hgo scripts [flags] PROJECT\n\n子命令：\n  allow          允许计划中一个精确执行主体\n  clean          清理工具拥有的构建脚本缓存\n  forget-project 撤销指定根项目的信任\n  plan           查看当前脚本主体与授权状态\n  revoke         撤销一个精确执行主体的授权\n  trust-project  显式信任指定根项目的构建脚本\n\n选项：\n      --action string         legacy action: plan|trust-project|allow|revoke|forget-project|clean (default \"plan\")\n      --features string       project features\n      --go string             Go 1.27+ compiler (default \"go\")\n  -h, --help                  help for scripts\n      --locked                require unchanged dependency lock\n      --no-default-features   disable root default features\n      --offline               use cached dependencies; does not sandbox scripts\n      --subject string        exact SHA-256 host execution subject from plan\n      --target-dir string     managed project artifacts (default target or HGO_TARGET_DIR)\n\n示例：\n  hgo scripts plan --offline ./project\n  hgo scripts allow --subject EXACT_SHA256 ./project\n  hgo scripts --action plan ./project\n\n使用 \"hgo help COMMAND\" 或子命令的 --help 查看帮助。\n"
+        }
+      ]
     }
   ],
-  "wasmSha256": "bbfe1e05711e6b11f95134f221e66f2d8b4d0ddd30dd53d9755a60db654251c3"
+  "wasmSha256": "067bee987e8a215a0e31adb40320293fc2e77670173156e55ed2a65018dc540d"
 }
