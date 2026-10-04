@@ -1,21 +1,21 @@
 # goxide 网站与浏览器 Playground
 
-此仓库只托管静态网站产物。编译器版本：`ae61ec628b55e0fc66ce96d47261c0a6809c0280`，Go 1.27.1。包集合、源码摘要和真实生成示例记录在 [examples.json](examples.json)。页面文案适配公开访问；WASM 和示例保持该版本构建结果。
+正式站点：https://goxide-lang.github.io/ · [RFC 特性目录](https://goxide-lang.github.io/#catalog)
 
-GitHub Pages 从 `deploy/goxide-site-ae61ec6` 分支根目录发布本站。`.nojekyll` 用于关闭 Jekyll 处理。无需服务器端执行、账户、数据库或外部编译服务。
+此仓库只发布审计后的静态网站产物，GitHub Pages 使用 `deploy/goxide-site-ae61ec6` 分支根目录。分支名是部署路径，不能当作当前编译器版本。
 
-本地可运行 `python3 -m http.server 8080 --bind 127.0.0.1`，打开 http://127.0.0.1:8080 。
+当前编译器：`69c1ab0d6769facd266886deec90337fe4b52498`，Go 1.27.1，metadata schema 7。[examples.json](examples.json) 记录实际编译器/网站提交、源码和 export data 摘要、WASM SHA-256、公开依赖版本/checksum、真实 hgo/Go/stdout。
 
-浏览器只转译单文件和清单内随附包，不运行生成 Go、解析任意模块或执行构建脚本。源码限制 32 KiB；Worker 单次转译 10 秒，支持中断恢复。CLI 多包示例是构建时生成的只读快照，不是浏览器多包功能，也不是完整项目源码。
+22 个主题覆盖 RFC 0001–0025 及相关研究，状态针对限定能力；提案不代表已实现。当前已包含公开 std/sum 与 serde、明确上下文下的普通 Option/Result 省参、有限生成代码可读性改进。RFC 0024 的新 use 路径仍是提案；next 暂无公共 API。
 
-WASM 为可下载、可分析的浏览器编译器产物；未包含完整私有源码仓库、RFC、历史、凭据或本机调试路径。Go runtime 许可见 [GO-LICENSE.txt](GO-LICENSE.txt)。`_headers` 是静态资产中的托管配置，GitHub Pages 不使用它，不保证提供其中的 CSP 响应头。
+10 个单文件示例经 CLI 实际转译/运行，并与浏览器 WASM 逐字节对照；10 个目录拒绝例核对诊断。CLI 区展示 format 2 goxide.toml/goxide.lock、target 内真实生成 Go，以及 import-go 只读 plan→新目录迁入→offline/locked 运行的实证。迁入保留原工程，不自动升级旧格式，不支持 workspace/vendor 等未实现范围。
 
-## RFC 特性目录
+浏览器仅转译单文件与白名单包，不运行生成 Go，不解析多模块项目或执行脚本。UTF-8 输入 ≤32 KiB；Worker 转译 10 秒超时，支持中断恢复。无需后端执行服务、账户或数据库。
 
-正式入口：https://goxide-lang.github.io/#catalog
+公开依赖固定提交：std `3f2204770fd3b09cf9f5a1d9228464b7f7c1bdcd`；serde `a1b791e96d660c6be620e110c566a9a171631b7e`。生成 Go 使用共享类型别名和必要的具体载荷 validator，不复制通用 sum 实现；不承诺旧 schema 6 或 v1 ABI 兼容。
 
-21 个主题覆盖 RFC 0001–0024 及相关研究条目，区分提案、已确认待实现、部分实现、已实现并验证。状态只针对卡片限定范围；完整 RFC 不是全部已实现的承诺。开发快照与当前线上支持分别标记。
+清单以 no-store 读取；app/style URL 绑定网站版本，Worker/WASM URL 绑定编译器版本。执行前验证 WASM SHA-256，混版/损坏内容会被拒绝。WASM 可下载和分析，这不是逆向保密保证。
 
-10 个单文件示例经真实 CLI 转译/执行与浏览器 WASM 对照；8 个目录拒绝例同时核对诊断。目录提供主题、状态、入口和关键词筛选，生成 Go 默认折叠。CLI 多包快照、最小 feature 工程与构建脚本说明不会在浏览器执行。
+公开内容只有审核摘要、刻意示例和静态资源，不含私有 RFC 全文、实现证据索引、编译器源码历史、凭据或本机路径。Go runtime 许可见 [GO-LICENSE.txt](GO-LICENSE.txt)。`.nojekyll` 关闭 Jekyll；GitHub Pages 不应用 `_headers`，不承诺自托管服务器的同等 CSP 响应头。
 
-`examples.json.commit` 固定实际编译器基线，`websiteCommit` 标识本次网站源版本；新增目录未升级编译器。公开清单仅含审核摘要、刻意示例及状态，不含 RFC 全文或私有实现证据索引。
+本地预览：在资源目录运行 `python3 -m http.server 8080 --bind 127.0.0.1`，打开 http://127.0.0.1:8080 。
