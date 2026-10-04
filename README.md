@@ -2,7 +2,7 @@
 
 此仓库只托管静态网站产物。编译器版本：`ae61ec628b55e0fc66ce96d47261c0a6809c0280`，Go 1.27.1。包集合、源码摘要和真实生成示例记录在 [examples.json](examples.json)。页面文案适配公开访问；WASM 和示例保持该版本构建结果。
 
-`main` 分支根目录作为 GitHub Pages 发布源，`.nojekyll` 关闭 Jekyll 处理。无需服务器端执行、账户、数据库或外部编译服务。
+此独立发布分支用于审阅静态资源，尚未启用或更新 GitHub Pages。`.nojekyll` 用于关闭 Jekyll 处理。无需服务器端执行、账户、数据库或外部编译服务。
 
 本地可运行 `python3 -m http.server 8080 --bind 127.0.0.1`，打开 http://127.0.0.1:8080 。
 
