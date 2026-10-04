@@ -22,11 +22,11 @@
     "-ldflags=-s -w -buildid="
   ],
   "exportTrimpath": true,
-  "commit": "09f1eb258fc98217e5d03506f34957c9ee9aec4f",
-  "websiteCommit": "e21dfc8de42eacc1d6e2c4a1504cbc382a135250",
+  "commit": "2aa0d06625f3d25ee6ad08ea2666c226eb4b1dac",
+  "websiteCommit": "d76ceaabad43ae308c6d577e63281f666a61e26f",
   "catalog": {
     "schemaVersion": 1,
-    "compilerCommit": "09f1eb258fc98217e5d03506f34957c9ee9aec4f",
+    "compilerCommit": "2aa0d06625f3d25ee6ad08ea2666c226eb4b1dac",
     "reviewedAt": "2026-10-04",
     "statusLabels": {
       "proposal": "提案",
@@ -256,7 +256,7 @@
         "support": "cli",
         "summary": "format 2 的 goxide.toml 统一 module、原生 Go 依赖政策、增强依赖、feature 与目标；goxide.lock 固定真实解析结果。",
         "usage": "最小工程根只有 TOML 和源码：默认 pretty=true，关闭默认 feature 后 false。Go module 元数据只进入受管 target；锁记录真实选版和校验，不将历史 go.sum 当版本列表。",
-        "limitation": "TOML 作者根与 go.mod/go.sum 或旧 hgo.lock 并存会拒绝；无 TOML 的原生 Go 依赖仍受支持。offline 通常需要缓存，不冻结本地 path。原生 vendor 有独立模式；workspace 与旧 format 不自动升级。",
+        "limitation": "TOML 作者根与 go.mod/go.sum 或旧 hgo.lock 并存会拒绝；无 TOML 的原生 Go 依赖仍受支持。offline 通常需要缓存，不冻结本地 path。原生 vendor 有独立模式；go.work 不自动迁入，旧 format 不自动升级。",
         "examples": [],
         "checks": [],
         "snippet": {
@@ -518,18 +518,23 @@
       },
       {
         "id": "workspace",
-        "title": "workspace：显式继承的设计提案",
-        "topic": "future",
+        "title": "Workspace：作者核心与统一根锁",
+        "topic": "projects",
         "rfcs": [
           "0026"
         ],
-        "status": "proposal",
-        "support": "unavailable",
-        "summary": "整体仍为提案，生产 workspace 尚未实现；仅显式依赖继承这一约束已确认。",
-        "usage": "候选声明 package1 = { workspace = true } 才继承根模板。列为 member 或源码 import 不会创建依赖、激活模板或隐式改用本地来源。",
-        "limitation": "其余解析策略、根锁与实施阶段尚待确定；Go 机制试验不是 hgo 功能验收。这里不提供可运行 workspace 示例。",
+        "status": "partial",
+        "support": "cli",
+        "summary": "作者 workspace 核心已实现：显式继承、全 workspace 统一版本与根唯一 schema 3 锁；仅所选成员及活动依赖参与编译。",
+        "usage": "成员须显式 package1 = { workspace = true } 才继承模板。全体成员政策参与版本求解，选中构建另合并 feature；--package 选择成员，--bin / --example 选择命名目标。复制根锁拆出可复用可达版本与 Git pin。",
+        "limitation": "成员/import 不自动建边或覆盖来源。复制锁不复制 path 源码，继承须物化；首次锁定可能取未选依赖元数据，不运行脚本。go.work/workspace vendor 迁入、统一 host resolver、细粒度 lock update、publish/registry 尚未实现。批量构建不是事务性发布。",
         "examples": [],
-        "checks": []
+        "checks": [],
+        "snippet": {
+          "language": "CLI · 多文件工程",
+          "text": "hgo run --package example.org/service --bin web workspace\nhgo run --package example.org/service --example hello workspace\nhgo build --workspace --offline --locked workspace",
+          "note": "下面的真实工程快照展示统一选版、feature恢复及复制根锁拆出；不能放进单文件Playground。"
+        }
       }
     ],
     "checks": [
@@ -591,7 +596,7 @@
       "提案语法、Go 机制探针和文档标题都不能单独作为实现证据。"
     ]
   },
-  "compilerDigest": "9cebac63731cc5490e3ffc00a8a5b9b7ef0869d72482e29f1d8e7ae9bb16ec77",
+  "compilerDigest": "be5fa4d4276d4cd9cd8cffbe7fa55c63664be89e8fd08636cf3b0c3b51012dd4",
   "exportsDigest": "d94e7ffcf6d932911e47db192b1b40e15fd0675b955741cbbb0c196a84fb34a6",
   "exportTarget": {
     "GOARCH": "amd64",
@@ -980,7 +985,154 @@
           "stdout": "每个动作都需要显式项目路径，不会默认信任当前目录。兼容 --action ACTION 入口；省略动作时查看计划。\nhelp 不解析依赖或读取授权记录；plan 可能解析依赖，但不执行脚本。\n\n用法：\n  hgo scripts [flags] PROJECT\n\n子命令：\n  allow          允许计划中一个精确执行主体\n  clean          清理工具拥有的构建脚本缓存\n  forget-project 撤销指定根项目的信任\n  plan           查看当前脚本主体与授权状态\n  revoke         撤销一个精确执行主体的授权\n  trust-project  显式信任指定根项目的构建脚本\n\n选项：\n      --action string         legacy action: plan|trust-project|allow|revoke|forget-project|clean (default \"plan\")\n      --features string       project features\n      --go string             Go 1.27+ compiler (default \"go\")\n  -h, --help                  help for scripts\n      --locked                require unchanged dependency lock\n      --no-default-features   disable root default features\n      --offline               use cached dependencies; does not sandbox scripts\n      --subject string        exact SHA-256 host execution subject from plan\n      --target-dir string     managed project artifacts (default target or HGO_TARGET_DIR)\n\n示例：\n  hgo scripts plan --offline ./project\n  hgo scripts allow --subject EXACT_SHA256 ./project\n  hgo scripts --action plan ./project\n\n使用 \"hgo help COMMAND\" 或子命令的 --help 查看帮助。\n"
         }
       ]
+    },
+    {
+      "id": "workspace",
+      "title": "Workspace：统一版本、选中 feature 与多目标",
+      "note": "真实本地 CLI；example.org/version 的两个版本由本地 file proxy fixture 提供，不是公共可安装模块。service 要求1.0.0、worker要求1.1.0：单独service仍锁1.1.0，但只启用json；批量构建合并yaml，之后单独运行恢复json。example只在显式选择时运行。锁和输出中的临时根目录前缀已移除；不是可直接复用的锁文件。",
+      "files": [
+        {
+          "path": "workspace/apps/service/admin.hgo",
+          "source": "package main\nimport \"fmt\"\nimport \"example.org/shared\"\nfunc main() { fmt.Println(shared.Mode()) }\n"
+        },
+        {
+          "path": "workspace/apps/service/goxide.toml",
+          "source": "[package]\nformat = 2\nmodule = \"example.org/service\"\ngo.workspace = true\n\n[dependencies]\nshared = { workspace = true, features = [\"json\"] }\n\n[[bin]]\nname = \"web\"\npath = \"web.hgo\"\n\n[[bin]]\nname = \"admin\"\npath = \"admin.hgo\"\n\n[[example]]\nname = \"hello\"\npath = \"hello.hgo\"\n\n[[go.require]]\nmodule = \"example.org/version\"\nversion = \"v1.0.0\"\n"
+        },
+        {
+          "path": "workspace/apps/service/hello.hgo",
+          "source": "package main\nimport \"fmt\"\nimport \"example.org/shared\"\nfunc main() { fmt.Println(shared.Mode()) }\n"
+        },
+        {
+          "path": "workspace/apps/service/web.hgo",
+          "source": "package main\nimport (\"fmt\"; \"example.org/shared\"; \"example.org/version\")\nfunc main(){fmt.Println(version.Value(), shared.Mode())}\n"
+        },
+        {
+          "path": "workspace/apps/worker/goxide.toml",
+          "source": "[package]\nformat = 2\nmodule = \"example.org/worker\"\ngo.workspace = true\n\n[dependencies]\nshared = { workspace = true, features = [\"yaml\"] }\n\n[[bin]]\nname = \"web\"\npath = \"web.hgo\"\n\n[[go.require]]\nmodule = \"example.org/version\"\nversion = \"v1.1.0\"\n"
+        },
+        {
+          "path": "workspace/apps/worker/web.hgo",
+          "source": "package main\nimport (\"fmt\"; \"example.org/shared\"; \"example.org/version\")\nfunc main(){fmt.Println(version.Value(), shared.Mode())}\n"
+        },
+        {
+          "path": "workspace/goxide.toml",
+          "source": "[workspace]\nformat = 1\nmembers = [\"apps/service\", \"apps/worker\", \"libs/shared\"]\ndefault-members = [\"apps/service\"]\n\n[workspace.package]\ngo = \"1.27\"\n\n[workspace.dependencies]\nshared = { module = \"example.org/shared\", path = \"libs/shared\", default_features = false }\n"
+        },
+        {
+          "path": "workspace/libs/shared/goxide.toml",
+          "source": "[package]\nformat = 2\nmodule = \"example.org/shared\"\ngo.workspace = true\n\n[features]\njson = []\nyaml = []\n\n[lib]\nname = \"shared\"\npath = \"shared.hgo\"\n"
+        },
+        {
+          "path": "workspace/libs/shared/shared.hgo",
+          "source": "package shared\n\nfunc Mode() string {\n    if cfg!(feature(\"yaml\")) { return \"yaml\" }\n    if cfg!(feature(\"json\")) { return \"json\" }\n    return \"plain\"\n}\n"
+        },
+        {
+          "path": "workspace/goxide.lock（路径已归一化）",
+          "source": "{\n  \"unified\": {\n    \"git_pins\": {},\n    \"minimum_go\": \"1.27\",\n    \"workspace\": \"275feb86a9196699864a8e400e182c5c73c6e2dd2315943d8cc6a88c7e4e8a5c\",\n    \"sources\": {\n      \"example.org/service\": \"8751212d7e98086c8d8f4b897d04fd69eeb137b6bbd94a033e471d7d05cf8f82\",\n      \"example.org/shared\": \"cdd9c98c7ea48b99c172cd8fb9b07f0376edb602b4930425eb7ba5a8ee308173\",\n      \"example.org/worker\": \"23bd7dee876462ca69017d357d37c68e99c4d225e04f657583362ae753b30fe6\"\n    },\n    \"policy\": {\n      \"Toolchain\": \"\",\n      \"Module\": {\n        \"Path\": \"goxide-workspace.invalid/root\",\n        \"Version\": \"\"\n      },\n      \"Go\": \"1.27\",\n      \"Require\": null,\n      \"Replace\": null,\n      \"Exclude\": null\n    },\n    \"inputs\": {\n      \"example.org/service\": \"137c2fec5e4ce16ceb7a1340808fe67f8143f33f597c1e1a3e1a95cf3b3887ef\",\n      \"example.org/shared\": \"da9a44cf391256a69ef660e525b3ee13ab6dd9283ce867bd0ed8b2364f702cf0\",\n      \"example.org/worker\": \"fc33503f51e94a97762093682c4b8a709289cc69e2cf695f17f331634671b17c\"\n    },\n    \"modules\": {\n      \"example.org/service\": {\n        \"Path\": \"example.org/service\",\n        \"Version\": \"v0.0.0\",\n        \"Replace\": {\n          \"Path\": \"workspace/apps/service\",\n          \"Version\": \"\"\n        }\n      },\n      \"example.org/shared\": {\n        \"Path\": \"example.org/shared\",\n        \"Version\": \"v0.0.0\",\n        \"Replace\": {\n          \"Path\": \"workspace/libs/shared\",\n          \"Version\": \"\"\n        }\n      },\n      \"example.org/version\": {\n        \"Path\": \"example.org/version\",\n        \"Version\": \"v1.1.0\",\n        \"Sum\": \"h1:KL9B73YX+tfklNWb7K8X3TMUynUq9fjv3C7zA3sw0A4=\",\n        \"GoModSum\": \"h1:9/UMGBGdf40FPsDTnCdkzlE87YmqlnI99V0Thj0Tcxc=\"\n      },\n      \"example.org/worker\": {\n        \"Path\": \"example.org/worker\",\n        \"Version\": \"v0.0.0\",\n        \"Replace\": {\n          \"Path\": \"workspace/apps/worker\",\n          \"Version\": \"\"\n        }\n      }\n    }\n  },\n  \"planning_sums\": \"example.org/version v1.1.0 h1:KL9B73YX+tfklNWb7K8X3TMUynUq9fjv3C7zA3sw0A4=\\nexample.org/version v1.1.0/go.mod h1:9/UMGBGdf40FPsDTnCdkzlE87YmqlnI99V0Thj0Tcxc=\\n\",\n  \"version\": 3,\n  \"git\": {},\n  \"sums\": {}\n}\n"
+        }
+      ],
+      "runs": [
+        {
+          "command": "hgo run --bin web workspace",
+          "stdout": "v1.1.0 json\n"
+        },
+        {
+          "command": "hgo run --package example.org/worker --bin web workspace",
+          "stdout": "v1.1.0 yaml\n"
+        },
+        {
+          "command": "hgo run --package example.org/service --example hello workspace",
+          "stdout": "json\n"
+        },
+        {
+          "command": "hgo build --workspace --offline --locked workspace",
+          "stdout": "workspace/target/bin/linux-amd64/linux-amd64/bin/web/2999fd311bc9969374862efa26a0d7345371b5c39f764ea9f20f755b1e87d97f/web\nworkspace/target/bin/linux-amd64/linux-amd64/bin/admin/0d9b0c9aeb9e0bc322d430f255661942f1188aac102b97c89ab21bcadb4b60c8/admin\nworkspace/target/bin/linux-amd64/linux-amd64/bin/web/8dce2b6809523b89ee6ff5e7ed2d9d611f65454b164d889827e19c791bf4c1a5/web\n"
+        },
+        {
+          "command": "运行 workspace/target/bin/linux-amd64/linux-amd64/bin/web/2999fd311bc9969374862efa26a0d7345371b5c39f764ea9f20f755b1e87d97f/web",
+          "stdout": "v1.1.0 yaml\n"
+        },
+        {
+          "command": "运行 workspace/target/bin/linux-amd64/linux-amd64/bin/admin/0d9b0c9aeb9e0bc322d430f255661942f1188aac102b97c89ab21bcadb4b60c8/admin",
+          "stdout": "yaml\n"
+        },
+        {
+          "command": "运行 workspace/target/bin/linux-amd64/linux-amd64/bin/web/8dce2b6809523b89ee6ff5e7ed2d9d611f65454b164d889827e19c791bf4c1a5/web",
+          "stdout": "v1.1.0 yaml\n"
+        },
+        {
+          "command": "hgo run --bin web --offline --locked workspace",
+          "stdout": "v1.1.0 json\n"
+        },
+        {
+          "command": "hgo test --workspace --offline --locked workspace",
+          "stdout": "?   \texample.org/service/hgo_targets/bin/web\t[no test files]\n?   \texample.org/service/hgo_targets/bin/admin\t[no test files]\n?   \texample.org/shared\t[no test files]\n?   \texample.org/worker/hgo_targets/bin/web\t[no test files]\n"
+        }
+      ],
+      "verification": {
+        "rootLockOnly": true,
+        "schema": 3,
+        "unifiedVersion": "v1.1.0",
+        "selectedFeatureRestored": true,
+        "defaultBatchBins": 3
+      }
+    },
+    {
+      "id": "workspace-split",
+      "title": "复制根锁拆出：沿用 Git pin，忽略无关来源",
+      "note": "两个本地 Git fixture 的main最初返回one；锁定后used/main改为two，删除无关unused仓库。复制根锁与已独立配置到standalone，仍输出one。这里清单已显式配置来源；workspace=true须先物化，path源码不会随锁复制。临时Git地址/锁路径已移除根目录前缀，不是公共安装地址；首次locked可读取已锁内容，随后offline复用缓存。",
+      "files": [
+        {
+          "path": "git-workspace/goxide.toml",
+          "source": "[workspace]\nformat=1\nmembers=[\"app\",\"server\"]\ndefault-members=[\"app\"]\n"
+        },
+        {
+          "path": "git-workspace/app/goxide.toml",
+          "source": "[package]\nformat=2\nmodule=\"example.org/app\"\ngo=\"1.27\"\n[dependencies]\ndep={module=\"example.org/used\",git=\"repos/used\",rev=\"main\"}\n[[bin]]\nname=\"app\"\npath=\"main.go\"\n"
+        },
+        {
+          "path": "git-workspace/app/main.go",
+          "source": "package main\nimport(\"fmt\";d \"example.org/used\")\nfunc main(){fmt.Println(d.Value())}\n"
+        },
+        {
+          "path": "git-workspace/server/goxide.toml",
+          "source": "[package]\nformat=2\nmodule=\"example.org/server\"\ngo=\"1.27\"\n[dependencies]\ndep={module=\"example.org/unused\",git=\"repos/unused\",rev=\"main\"}\n[[bin]]\nname=\"app\"\npath=\"main.go\"\n"
+        },
+        {
+          "path": "git-workspace/server/main.go",
+          "source": "package main\nimport(\"fmt\";d \"example.org/unused\")\nfunc main(){fmt.Println(d.Value())}\n"
+        },
+        {
+          "path": "standalone/goxide.toml",
+          "source": "[package]\nformat=2\nmodule=\"example.org/app\"\ngo=\"1.27\"\n[dependencies]\ndep={module=\"example.org/used\",git=\"repos/used\",rev=\"main\"}\n[[bin]]\nname=\"app\"\npath=\"main.go\"\n"
+        },
+        {
+          "path": "standalone/main.go",
+          "source": "package main\nimport(\"fmt\";d \"example.org/used\")\nfunc main(){fmt.Println(d.Value())}\n"
+        },
+        {
+          "path": "standalone/goxide.lock",
+          "source": "{\n  \"unified\": {\n    \"git_pins\": {\n      \"b23dda98fc5bfd4a8f19e6b81d856c7d92c40de70aeabb682323577e0959cfbc\": \"c4fd6e99bffb0e78081d31a5b0e9559a75bb5e42\",\n      \"bf844fa4b7e3b001afc5e7d07b1b68841737597b1a64d9f9ecb8138bd7806a8f\": \"f8af805c29f7d82dec4bdf18498ee5c067648138\"\n    },\n    \"minimum_go\": \"1.27\",\n    \"workspace\": \"114495b1dce7e24d1e63d5b02470c67425e7c162f5d6672f1afa58f64ec299f2\",\n    \"sources\": {\n      \"example.org/app\": \"784e084252a2d7d579e89ed41a2edb65cc20a9f06d4794cf25b7a8cd50c72e71\",\n      \"example.org/server\": \"fe9ee24a8ba6d66ac85c193bef7079d682c1d537d959d715ea7c18d1d24880ff\",\n      \"example.org/unused\": \"8d87723ab81be12f71251415b55ea0dd54c941347eeb729aeb6bffe767ff6411\",\n      \"example.org/used\": \"3e1ebf5c3908a5ec43d8cbb1e9f474c75742e23a840095b658345ebbdc5bdebf\"\n    },\n    \"policy\": {\n      \"Toolchain\": \"\",\n      \"Module\": {\n        \"Path\": \"goxide-workspace.invalid/root\",\n        \"Version\": \"\"\n      },\n      \"Go\": \"1.27\",\n      \"Require\": null,\n      \"Replace\": null,\n      \"Exclude\": null\n    },\n    \"inputs\": {\n      \"example.org/app\": \"8ba2ba61d194bf90d96509ee2255835aebc45ca83f57265d628278a13eea1d8b\",\n      \"example.org/server\": \"94a9a5fe89ddfd541d82870eacb0805af32cdae77bddfea224ab3633c1355a2f\",\n      \"example.org/unused\": \"0edfc895dda04d69e2101f2748bda8cc4d71e237f18734ee6daaacd2171c895c\",\n      \"example.org/used\": \"bb0747213fa7d1c2e951ce287b7dfc7351050c712e3724824f653a113e7c9f5c\"\n    },\n    \"modules\": {\n      \"example.org/app\": {\n        \"Path\": \"example.org/app\",\n        \"Version\": \"v0.0.0\",\n        \"Replace\": {\n          \"Path\": \"git-workspace/app\",\n          \"Version\": \"\"\n        }\n      },\n      \"example.org/server\": {\n        \"Path\": \"example.org/server\",\n        \"Version\": \"v0.0.0\",\n        \"Replace\": {\n          \"Path\": \"git-workspace/server\",\n          \"Version\": \"\"\n        }\n      },\n      \"example.org/unused\": {\n        \"Path\": \"example.org/unused\",\n        \"Version\": \"v0.0.0\",\n        \"Replace\": {\n          \"Path\": \"git-workspace/.hgo/git/bf844fa4b7e3b001afc5e7d07b1b68841737597b1a64d9f9ecb8138bd7806a8f\",\n          \"Version\": \"\"\n        }\n      },\n      \"example.org/used\": {\n        \"Path\": \"example.org/used\",\n        \"Version\": \"v0.0.0\",\n        \"Replace\": {\n          \"Path\": \"git-workspace/.hgo/git/b23dda98fc5bfd4a8f19e6b81d856c7d92c40de70aeabb682323577e0959cfbc\",\n          \"Version\": \"\"\n        }\n      }\n    }\n  },\n  \"version\": 3,\n  \"git\": {\n    \"b23dda98fc5bfd4a8f19e6b81d856c7d92c40de70aeabb682323577e0959cfbc\": \"c4fd6e99bffb0e78081d31a5b0e9559a75bb5e42\",\n    \"bf844fa4b7e3b001afc5e7d07b1b68841737597b1a64d9f9ecb8138bd7806a8f\": \"f8af805c29f7d82dec4bdf18498ee5c067648138\"\n  },\n  \"sums\": {}\n}\n"
+        }
+      ],
+      "runs": [
+        {
+          "command": "hgo run --locked standalone",
+          "stdout": "one\n"
+        },
+        {
+          "command": "hgo run --offline --locked standalone",
+          "stdout": "one\n"
+        }
+      ],
+      "verification": {
+        "copiedRootLock": true,
+        "pinnedCommit": "c4fd6e99bffb0e78081d31a5b0e9559a75bb5e42",
+        "movedBranchCommit": "922068cf855ee5679823452e75c4f2a16d552c47",
+        "unreachableSourceRemoved": true
+      }
     }
   ],
-  "wasmSha256": "067bee987e8a215a0e31adb40320293fc2e77670173156e55ed2a65018dc540d"
+  "wasmSha256": "0852558ccf80feaaf7813791381606e668ed170adb5e032a693da78296a43892"
 }
