@@ -81,7 +81,7 @@ function renderCatalog() {
       usage.append(el('p',example.title,'sample-title'));
       const link=el('a','打开 Playground →','example-open');link.href='#playground';link.dataset.example=id;
       link.onclick=()=>{choose(manifest.examples.findIndex(e=>e.id===id));};usage.append(link);
-      usage.append(details('查看完整 hgo',example.source),details('查看真实 CLI 生成 Go',example.go));
+      usage.append(details('查看完整 goxide',example.source),details('查看真实 CLI 生成 Go',example.go));
       const output=details('查看 CLI 运行输出（浏览器不执行）',example.stdout);usage.append(output);
     }
     if(item.id==='reexports'){const a=el('a','查看 use / pub use 多文件快照 →','snapshot-link');a.href='#projects';usage.append(a);}
@@ -117,7 +117,7 @@ function renderCatalog() {
       const detail = document.createElement('details');
       const summary = document.createElement('summary'); summary.textContent = file.path;
       detail.append(summary);
-      for (const [label, value] of [['hgo 源码', file.source], ['CLI 生成 Go', file.go]]) {
+      for (const [label, value] of [['goxide 源码', file.source], ['CLI 生成 Go', file.go]]) {
         const title = document.createElement('p'); title.textContent = label;
         const pre = document.createElement('pre'); pre.tabIndex = 0; pre.textContent = value;
         detail.append(title, pre);
@@ -132,6 +132,6 @@ function renderCatalog() {
   if (document.modelContext?.registerTool) {
     const lifecycle = new AbortController();
     addEventListener('pagehide', () => lifecycle.abort(), {once:true});
-    Promise.resolve(document.modelContext.registerTool({name:'read_playground',description:'Read the current hgo source, generated Go and compiler status without executing code.', inputSchema:{type:'object',properties:{},additionalProperties:false}, annotations:{readOnlyHint:true,untrustedContentHint:true}, execute(input) { if (!input || typeof input !== 'object' || Object.keys(input).length) throw new Error('expected empty object'); return {source:$('source').value,go:$('output').value,status:$('status').textContent,diagnostic:$('diagnostic').hidden ? '' : $('diagnostic').textContent}; }}, {signal:lifecycle.signal})).catch(() => {});
+    Promise.resolve(document.modelContext.registerTool({name:'read_playground',description:'Read the current goxide source, generated Go and compiler status without executing code.', inputSchema:{type:'object',properties:{},additionalProperties:false}, annotations:{readOnlyHint:true,untrustedContentHint:true}, execute(input) { if (!input || typeof input !== 'object' || Object.keys(input).length) throw new Error('expected empty object'); return {source:$('source').value,go:$('output').value,status:$('status').textContent,diagnostic:$('diagnostic').hidden ? '' : $('diagnostic').textContent}; }}, {signal:lifecycle.signal})).catch(() => {});
   }
 })().catch(e => { $('catalog-count').textContent = '特性目录暂时不可用，请刷新重试。'; fail(String(e)); });
