@@ -22,11 +22,11 @@
     "-ldflags=-s -w -buildid="
   ],
   "exportTrimpath": true,
-  "commit": "2aa0d06625f3d25ee6ad08ea2666c226eb4b1dac",
-  "websiteCommit": "d76ceaabad43ae308c6d577e63281f666a61e26f",
+  "commit": "27d2e2740c5ee7dc3e3766bd7b5f0eec6bb852b8",
+  "websiteCommit": "51405a6982e45167c732fb01906e2b666b39fcdd",
   "catalog": {
     "schemaVersion": 1,
-    "compilerCommit": "2aa0d06625f3d25ee6ad08ea2666c226eb4b1dac",
+    "compilerCommit": "27d2e2740c5ee7dc3e3766bd7b5f0eec6bb852b8",
     "reviewedAt": "2026-10-04",
     "statusLabels": {
       "proposal": "提案",
@@ -256,7 +256,7 @@
         "support": "cli",
         "summary": "format 2 的 goxide.toml 统一 module、原生 Go 依赖政策、增强依赖、feature 与目标；goxide.lock 固定真实解析结果。",
         "usage": "最小工程根只有 TOML 和源码：默认 pretty=true，关闭默认 feature 后 false。Go module 元数据只进入受管 target；锁记录真实选版和校验，不将历史 go.sum 当版本列表。",
-        "limitation": "TOML 作者根与 go.mod/go.sum 或旧 hgo.lock 并存会拒绝；无 TOML 的原生 Go 依赖仍受支持。offline 通常需要缓存，不冻结本地 path。原生 vendor 有独立模式；go.work 不自动迁入，旧 format 不自动升级。",
+        "limitation": "TOML 作者根与 go.mod/go.sum 或旧 hgo.lock 并存会拒绝；无 TOML 的原生 Go 依赖仍受支持。offline 通常需要缓存，不冻结本地 path。原生 vendor 有独立模式；go.work 使用显式迁入模式，旧 format 不自动升级。",
         "examples": [],
         "checks": [],
         "snippet": {
@@ -276,7 +276,7 @@
         "support": "cli",
         "summary": "import-go 先只读输出候选 TOML，再在全新目录 staging 构建显式目标，成功才发布目的工程。",
         "usage": "下方最小例从 main.go/go.mod 生成 format 2 TOML 与 schema 2 锁，原文件哈希不变；新目录首次 offline+locked 运行得到同一输出。",
-        "limitation": "仅接受未迁入的普通 Go module，不自动升级旧 format/JSON/增强锁。不覆盖现有目录；workspace 与未支持指令拒绝。原生 module vendor 的受限迁入见独立条目。不执行用户程序、go generate 或脚本；示例运行是单独验证步骤。",
+        "limitation": "仅接受未迁入的普通 Go module，不自动升级旧 format/JSON/增强锁。不覆盖现有目录；go.work 需显式 --workspace；未支持指令拒绝。原生 module vendor 的受限迁入见独立条目。不执行用户程序、go generate 或脚本；示例运行是单独验证步骤。",
         "examples": [],
         "checks": [],
         "snippet": {
@@ -507,7 +507,7 @@
         "support": "cli",
         "summary": "import-go 接受一致的原生 module vendor，使用 Go 自身检查 modules.txt、版本和 replace；锁定实际 vendored 文件字节及权限。",
         "usage": "迁入保留原工程，生成 [vendor] mode=\"go-mod\"；冷 module cache 下可 --offline --locked 运行。修改 vendor 文件后 locked 拒绝，见真实快照。",
-        "limitation": "不重建 vendor、不下载补齐缺包、不声称与上游相同；历史 go.sum 仅保留来源信息。workspace vendor、增强依赖图混用、符号链接与不受支持的布局拒绝。",
+        "limitation": "不重建 vendor、不下载补齐缺包、不声称与上游相同；历史 go.sum 仅保留来源信息。单模块模式下的 workspace vendor、增强依赖图混用、符号链接与不受支持的布局拒绝。 独立的go.work迁入模式支持workspace vendor与渐进增强，见迁入条目。",
         "examples": [],
         "checks": [],
         "snippet": {
@@ -527,13 +527,33 @@
         "support": "cli",
         "summary": "作者 workspace 核心已实现：显式继承、全 workspace 统一版本与根唯一 schema 3 锁；仅所选成员及活动依赖参与编译。",
         "usage": "成员须显式 package1 = { workspace = true } 才继承模板。全体成员政策参与版本求解，选中构建另合并 feature；--package 选择成员，--bin / --example 选择命名目标。复制根锁拆出可复用可达版本与 Git pin。",
-        "limitation": "成员/import 不自动建边或覆盖来源。复制锁不复制 path 源码，继承须物化；首次锁定可能取未选依赖元数据，不运行脚本。go.work/workspace vendor 迁入、统一 host resolver、细粒度 lock update、publish/registry 尚未实现。批量构建不是事务性发布。",
+        "limitation": "成员/import 不自动建边或覆盖来源。复制锁不复制 path 源码，继承须物化；首次锁定可能取未选依赖元数据，不运行脚本。原生go.work迁入有独立schema4模式；workspace vendor独立拆出、统一host resolver、细粒度lock update、publish/registry尚未实现。批量构建不是事务性发布。",
         "examples": [],
         "checks": [],
         "snippet": {
           "language": "CLI · 多文件工程",
           "text": "hgo run --package example.org/service --bin web workspace\nhgo run --package example.org/service --example hello workspace\nhgo build --workspace --offline --locked workspace",
           "note": "下面的真实工程快照展示统一选版、feature恢复及复制根锁拆出；不能放进单文件Playground。"
+        }
+      },
+      {
+        "id": "workspace-import",
+        "title": "go.work / workspace vendor 迁入与渐进增强",
+        "topic": "projects",
+        "rfcs": [
+          "0026"
+        ],
+        "status": "partial",
+        "support": "cli",
+        "summary": "只读plan后向新目录迁入，保留成员go/require/replace/exclude/godebug与根work政策；真实Go包归属分析物化显式成员边，根schema4锁与作者模式schema3分开。",
+        "usage": "迁入后可逐步加入.hgo、现有features与明确授权的scripts；未授权不执行，撤销后缓存也拒绝。非vendor拆出显式物化继承/path并复制根锁，只消费可达记录，恢复成员独立政策。",
+        "limitation": "分析限迁入时平台、Go工具与C配置，换配置需重新分析。供应vendor保留字节/权限，不下载补包或重建；workspace vendor独立拆出须确认转换协议，当前拒绝。外部非成员replace不自动打包；不承诺全部workspace功能、统一host resolver或publish。",
+        "examples": [],
+        "checks": [],
+        "snippet": {
+          "language": "CLI · 多文件迁入",
+          "text": "hgo import-go --workspace --plan --offline native\nhgo import-go --workspace --out migrated --offline native\nhgo run --package example.org/app --locked --offline migrated",
+          "note": "offline要求可达依赖已在缓存，或供应完整一致vendor。脚本需先plan、trust-project与精确subject allow；迁入不授权。下方快照由真实CLI生成。"
         }
       }
     ],
@@ -596,7 +616,7 @@
       "提案语法、Go 机制探针和文档标题都不能单独作为实现证据。"
     ]
   },
-  "compilerDigest": "be5fa4d4276d4cd9cd8cffbe7fa55c63664be89e8fd08636cf3b0c3b51012dd4",
+  "compilerDigest": "c943fd6c94f7ef6d654449a316bf92e5088ae5f8b98ee8cfd02791c2e356ab11",
   "exportsDigest": "d94e7ffcf6d932911e47db192b1b40e15fd0675b955741cbbb0c196a84fb34a6",
   "exportTarget": {
     "GOARCH": "amd64",
@@ -1029,7 +1049,7 @@
         },
         {
           "path": "workspace/goxide.lock（路径已归一化）",
-          "source": "{\n  \"unified\": {\n    \"git_pins\": {},\n    \"minimum_go\": \"1.27\",\n    \"workspace\": \"275feb86a9196699864a8e400e182c5c73c6e2dd2315943d8cc6a88c7e4e8a5c\",\n    \"sources\": {\n      \"example.org/service\": \"8751212d7e98086c8d8f4b897d04fd69eeb137b6bbd94a033e471d7d05cf8f82\",\n      \"example.org/shared\": \"cdd9c98c7ea48b99c172cd8fb9b07f0376edb602b4930425eb7ba5a8ee308173\",\n      \"example.org/worker\": \"23bd7dee876462ca69017d357d37c68e99c4d225e04f657583362ae753b30fe6\"\n    },\n    \"policy\": {\n      \"Toolchain\": \"\",\n      \"Module\": {\n        \"Path\": \"goxide-workspace.invalid/root\",\n        \"Version\": \"\"\n      },\n      \"Go\": \"1.27\",\n      \"Require\": null,\n      \"Replace\": null,\n      \"Exclude\": null\n    },\n    \"inputs\": {\n      \"example.org/service\": \"137c2fec5e4ce16ceb7a1340808fe67f8143f33f597c1e1a3e1a95cf3b3887ef\",\n      \"example.org/shared\": \"da9a44cf391256a69ef660e525b3ee13ab6dd9283ce867bd0ed8b2364f702cf0\",\n      \"example.org/worker\": \"fc33503f51e94a97762093682c4b8a709289cc69e2cf695f17f331634671b17c\"\n    },\n    \"modules\": {\n      \"example.org/service\": {\n        \"Path\": \"example.org/service\",\n        \"Version\": \"v0.0.0\",\n        \"Replace\": {\n          \"Path\": \"workspace/apps/service\",\n          \"Version\": \"\"\n        }\n      },\n      \"example.org/shared\": {\n        \"Path\": \"example.org/shared\",\n        \"Version\": \"v0.0.0\",\n        \"Replace\": {\n          \"Path\": \"workspace/libs/shared\",\n          \"Version\": \"\"\n        }\n      },\n      \"example.org/version\": {\n        \"Path\": \"example.org/version\",\n        \"Version\": \"v1.1.0\",\n        \"Sum\": \"h1:KL9B73YX+tfklNWb7K8X3TMUynUq9fjv3C7zA3sw0A4=\",\n        \"GoModSum\": \"h1:9/UMGBGdf40FPsDTnCdkzlE87YmqlnI99V0Thj0Tcxc=\"\n      },\n      \"example.org/worker\": {\n        \"Path\": \"example.org/worker\",\n        \"Version\": \"v0.0.0\",\n        \"Replace\": {\n          \"Path\": \"workspace/apps/worker\",\n          \"Version\": \"\"\n        }\n      }\n    }\n  },\n  \"planning_sums\": \"example.org/version v1.1.0 h1:KL9B73YX+tfklNWb7K8X3TMUynUq9fjv3C7zA3sw0A4=\\nexample.org/version v1.1.0/go.mod h1:9/UMGBGdf40FPsDTnCdkzlE87YmqlnI99V0Thj0Tcxc=\\n\",\n  \"version\": 3,\n  \"git\": {},\n  \"sums\": {}\n}\n"
+          "source": "{\n  \"unified\": {\n    \"git_pins\": {},\n    \"minimum_go\": \"1.27\",\n    \"workspace\": \"25ec03509e0f179491519f92ac4c66ee9d6de4687fc60912c0c4503c0bf9851c\",\n    \"sources\": {\n      \"example.org/service\": \"e3b1658ca945d169910f415893f0842a40c9a9baf0d838e211450ee3569daaaa\",\n      \"example.org/shared\": \"625188565617b28631411bf70bcff5f11de0c932cb4957622aaeb72f0210ff07\",\n      \"example.org/worker\": \"0d4ed67d1769aef45ec0cbf20d86595e510ac0a4aa4944baf28d02dc86fa9e72\"\n    },\n    \"policy\": {\n      \"Godebug\": null,\n      \"Toolchain\": \"\",\n      \"Module\": {\n        \"Path\": \"goxide-workspace.invalid/root\",\n        \"Version\": \"\"\n      },\n      \"Go\": \"1.27\",\n      \"Require\": null,\n      \"Replace\": null,\n      \"Exclude\": null\n    },\n    \"inputs\": {\n      \"example.org/service\": \"b2e01d4ebb1291de9dc7e5438c10a363bd351322912bb70d5eb7b0c7c0bde9c7\",\n      \"example.org/shared\": \"da9a44cf391256a69ef660e525b3ee13ab6dd9283ce867bd0ed8b2364f702cf0\",\n      \"example.org/worker\": \"071aba244c484293edf7f5c01d71e8fc583184560b3e924c78b7ccdf80b532ab\"\n    },\n    \"modules\": {\n      \"example.org/service\": {\n        \"Path\": \"example.org/service\",\n        \"Version\": \"v0.0.0\",\n        \"Replace\": {\n          \"Path\": \"workspace/apps/service\",\n          \"Version\": \"\"\n        }\n      },\n      \"example.org/shared\": {\n        \"Path\": \"example.org/shared\",\n        \"Version\": \"v0.0.0\",\n        \"Replace\": {\n          \"Path\": \"workspace/libs/shared\",\n          \"Version\": \"\"\n        }\n      },\n      \"example.org/version\": {\n        \"Path\": \"example.org/version\",\n        \"Version\": \"v1.1.0\",\n        \"Sum\": \"h1:KL9B73YX+tfklNWb7K8X3TMUynUq9fjv3C7zA3sw0A4=\",\n        \"GoModSum\": \"h1:9/UMGBGdf40FPsDTnCdkzlE87YmqlnI99V0Thj0Tcxc=\"\n      },\n      \"example.org/worker\": {\n        \"Path\": \"example.org/worker\",\n        \"Version\": \"v0.0.0\",\n        \"Replace\": {\n          \"Path\": \"workspace/apps/worker\",\n          \"Version\": \"\"\n        }\n      }\n    }\n  },\n  \"planning_sums\": \"example.org/version v1.1.0 h1:KL9B73YX+tfklNWb7K8X3TMUynUq9fjv3C7zA3sw0A4=\\nexample.org/version v1.1.0/go.mod h1:9/UMGBGdf40FPsDTnCdkzlE87YmqlnI99V0Thj0Tcxc=\\n\",\n  \"version\": 3,\n  \"git\": {},\n  \"sums\": {}\n}\n"
         }
       ],
       "runs": [
@@ -1047,18 +1067,18 @@
         },
         {
           "command": "hgo build --workspace --offline --locked workspace",
-          "stdout": "workspace/target/bin/linux-amd64/linux-amd64/bin/web/2999fd311bc9969374862efa26a0d7345371b5c39f764ea9f20f755b1e87d97f/web\nworkspace/target/bin/linux-amd64/linux-amd64/bin/admin/0d9b0c9aeb9e0bc322d430f255661942f1188aac102b97c89ab21bcadb4b60c8/admin\nworkspace/target/bin/linux-amd64/linux-amd64/bin/web/8dce2b6809523b89ee6ff5e7ed2d9d611f65454b164d889827e19c791bf4c1a5/web\n"
+          "stdout": "workspace/target/bin/linux-amd64/linux-amd64/bin/web/423174076047e283ed0fe8b1f3bda4115f9589216a11b83ce70bad6faa34a763/web\nworkspace/target/bin/linux-amd64/linux-amd64/bin/admin/8ef9dfb51802f451fec898028a0673cd9ccce6938dd395e6c5aba75612d1389d/admin\nworkspace/target/bin/linux-amd64/linux-amd64/bin/web/7e08637f54dbacc8558106a044ec707887bedb0e01af75c01f53d3dc700bd5ec/web\n"
         },
         {
-          "command": "运行 workspace/target/bin/linux-amd64/linux-amd64/bin/web/2999fd311bc9969374862efa26a0d7345371b5c39f764ea9f20f755b1e87d97f/web",
+          "command": "运行 workspace/target/bin/linux-amd64/linux-amd64/bin/web/423174076047e283ed0fe8b1f3bda4115f9589216a11b83ce70bad6faa34a763/web",
           "stdout": "v1.1.0 yaml\n"
         },
         {
-          "command": "运行 workspace/target/bin/linux-amd64/linux-amd64/bin/admin/0d9b0c9aeb9e0bc322d430f255661942f1188aac102b97c89ab21bcadb4b60c8/admin",
+          "command": "运行 workspace/target/bin/linux-amd64/linux-amd64/bin/admin/8ef9dfb51802f451fec898028a0673cd9ccce6938dd395e6c5aba75612d1389d/admin",
           "stdout": "yaml\n"
         },
         {
-          "command": "运行 workspace/target/bin/linux-amd64/linux-amd64/bin/web/8dce2b6809523b89ee6ff5e7ed2d9d611f65454b164d889827e19c791bf4c1a5/web",
+          "command": "运行 workspace/target/bin/linux-amd64/linux-amd64/bin/web/7e08637f54dbacc8558106a044ec707887bedb0e01af75c01f53d3dc700bd5ec/web",
           "stdout": "v1.1.0 yaml\n"
         },
         {
@@ -1113,7 +1133,7 @@
         },
         {
           "path": "standalone/goxide.lock",
-          "source": "{\n  \"unified\": {\n    \"git_pins\": {\n      \"b23dda98fc5bfd4a8f19e6b81d856c7d92c40de70aeabb682323577e0959cfbc\": \"c4fd6e99bffb0e78081d31a5b0e9559a75bb5e42\",\n      \"bf844fa4b7e3b001afc5e7d07b1b68841737597b1a64d9f9ecb8138bd7806a8f\": \"f8af805c29f7d82dec4bdf18498ee5c067648138\"\n    },\n    \"minimum_go\": \"1.27\",\n    \"workspace\": \"114495b1dce7e24d1e63d5b02470c67425e7c162f5d6672f1afa58f64ec299f2\",\n    \"sources\": {\n      \"example.org/app\": \"784e084252a2d7d579e89ed41a2edb65cc20a9f06d4794cf25b7a8cd50c72e71\",\n      \"example.org/server\": \"fe9ee24a8ba6d66ac85c193bef7079d682c1d537d959d715ea7c18d1d24880ff\",\n      \"example.org/unused\": \"8d87723ab81be12f71251415b55ea0dd54c941347eeb729aeb6bffe767ff6411\",\n      \"example.org/used\": \"3e1ebf5c3908a5ec43d8cbb1e9f474c75742e23a840095b658345ebbdc5bdebf\"\n    },\n    \"policy\": {\n      \"Toolchain\": \"\",\n      \"Module\": {\n        \"Path\": \"goxide-workspace.invalid/root\",\n        \"Version\": \"\"\n      },\n      \"Go\": \"1.27\",\n      \"Require\": null,\n      \"Replace\": null,\n      \"Exclude\": null\n    },\n    \"inputs\": {\n      \"example.org/app\": \"8ba2ba61d194bf90d96509ee2255835aebc45ca83f57265d628278a13eea1d8b\",\n      \"example.org/server\": \"94a9a5fe89ddfd541d82870eacb0805af32cdae77bddfea224ab3633c1355a2f\",\n      \"example.org/unused\": \"0edfc895dda04d69e2101f2748bda8cc4d71e237f18734ee6daaacd2171c895c\",\n      \"example.org/used\": \"bb0747213fa7d1c2e951ce287b7dfc7351050c712e3724824f653a113e7c9f5c\"\n    },\n    \"modules\": {\n      \"example.org/app\": {\n        \"Path\": \"example.org/app\",\n        \"Version\": \"v0.0.0\",\n        \"Replace\": {\n          \"Path\": \"git-workspace/app\",\n          \"Version\": \"\"\n        }\n      },\n      \"example.org/server\": {\n        \"Path\": \"example.org/server\",\n        \"Version\": \"v0.0.0\",\n        \"Replace\": {\n          \"Path\": \"git-workspace/server\",\n          \"Version\": \"\"\n        }\n      },\n      \"example.org/unused\": {\n        \"Path\": \"example.org/unused\",\n        \"Version\": \"v0.0.0\",\n        \"Replace\": {\n          \"Path\": \"git-workspace/.hgo/git/bf844fa4b7e3b001afc5e7d07b1b68841737597b1a64d9f9ecb8138bd7806a8f\",\n          \"Version\": \"\"\n        }\n      },\n      \"example.org/used\": {\n        \"Path\": \"example.org/used\",\n        \"Version\": \"v0.0.0\",\n        \"Replace\": {\n          \"Path\": \"git-workspace/.hgo/git/b23dda98fc5bfd4a8f19e6b81d856c7d92c40de70aeabb682323577e0959cfbc\",\n          \"Version\": \"\"\n        }\n      }\n    }\n  },\n  \"version\": 3,\n  \"git\": {\n    \"b23dda98fc5bfd4a8f19e6b81d856c7d92c40de70aeabb682323577e0959cfbc\": \"c4fd6e99bffb0e78081d31a5b0e9559a75bb5e42\",\n    \"bf844fa4b7e3b001afc5e7d07b1b68841737597b1a64d9f9ecb8138bd7806a8f\": \"f8af805c29f7d82dec4bdf18498ee5c067648138\"\n  },\n  \"sums\": {}\n}\n"
+          "source": "{\n  \"unified\": {\n    \"git_pins\": {\n      \"34da4c63eb2e4d1cb93ecfb5db179a8d2e00d768a5156baeaf62ffaf862e634a\": \"c4fd6e99bffb0e78081d31a5b0e9559a75bb5e42\",\n      \"a162cbe2abecf06e802d9d826b6764b06260be0e70dee38c500ef00c54e2fe28\": \"f8af805c29f7d82dec4bdf18498ee5c067648138\"\n    },\n    \"minimum_go\": \"1.27\",\n    \"workspace\": \"5b0361029814a2cd463154a7192fb679f7c1f77aeafa353a662f45eb9cd254cb\",\n    \"sources\": {\n      \"example.org/app\": \"629d25f5e49939c412b79ba4851a20d1a827fe8921377fc7149716529fd02ca2\",\n      \"example.org/server\": \"341e367365a821660246bc026512071e172c43f4cbeaeaca02c36f6b0198657a\",\n      \"example.org/unused\": \"f04cb4dd7b63f8b4c2abb70439626bd627e6a1f6db496eba3208c2aef11977b8\",\n      \"example.org/used\": \"87030084351a9f7ad2022df54ac63c4e9d81ba9b32311cfafbae37ca7a09d5a1\"\n    },\n    \"policy\": {\n      \"Godebug\": null,\n      \"Toolchain\": \"\",\n      \"Module\": {\n        \"Path\": \"goxide-workspace.invalid/root\",\n        \"Version\": \"\"\n      },\n      \"Go\": \"1.27\",\n      \"Require\": null,\n      \"Replace\": null,\n      \"Exclude\": null\n    },\n    \"inputs\": {\n      \"example.org/app\": \"665fab7700c296e6d7abf61339e6e905b46bb7bf8d5f9e5b71f4eb07c2458c4c\",\n      \"example.org/server\": \"b742c93751322b6c092df8c85a5e0a48ba0a04e24f7380726cecd2c72254b044\",\n      \"example.org/unused\": \"0edfc895dda04d69e2101f2748bda8cc4d71e237f18734ee6daaacd2171c895c\",\n      \"example.org/used\": \"bb0747213fa7d1c2e951ce287b7dfc7351050c712e3724824f653a113e7c9f5c\"\n    },\n    \"modules\": {\n      \"example.org/app\": {\n        \"Path\": \"example.org/app\",\n        \"Version\": \"v0.0.0\",\n        \"Replace\": {\n          \"Path\": \"git-workspace/app\",\n          \"Version\": \"\"\n        }\n      },\n      \"example.org/server\": {\n        \"Path\": \"example.org/server\",\n        \"Version\": \"v0.0.0\",\n        \"Replace\": {\n          \"Path\": \"git-workspace/server\",\n          \"Version\": \"\"\n        }\n      },\n      \"example.org/unused\": {\n        \"Path\": \"example.org/unused\",\n        \"Version\": \"v0.0.0\",\n        \"Replace\": {\n          \"Path\": \"git-workspace/.hgo/git/a162cbe2abecf06e802d9d826b6764b06260be0e70dee38c500ef00c54e2fe28\",\n          \"Version\": \"\"\n        }\n      },\n      \"example.org/used\": {\n        \"Path\": \"example.org/used\",\n        \"Version\": \"v0.0.0\",\n        \"Replace\": {\n          \"Path\": \"git-workspace/.hgo/git/34da4c63eb2e4d1cb93ecfb5db179a8d2e00d768a5156baeaf62ffaf862e634a\",\n          \"Version\": \"\"\n        }\n      }\n    }\n  },\n  \"version\": 3,\n  \"git\": {\n    \"34da4c63eb2e4d1cb93ecfb5db179a8d2e00d768a5156baeaf62ffaf862e634a\": \"c4fd6e99bffb0e78081d31a5b0e9559a75bb5e42\",\n    \"a162cbe2abecf06e802d9d826b6764b06260be0e70dee38c500ef00c54e2fe28\": \"f8af805c29f7d82dec4bdf18498ee5c067648138\"\n  },\n  \"sums\": {}\n}\n"
         }
       ],
       "runs": [
@@ -1132,7 +1152,197 @@
         "movedBranchCommit": "922068cf855ee5679823452e75c4f2a16d552c47",
         "unreachableSourceRemoved": true
       }
+    },
+    {
+      "id": "workspace-import",
+      "title": "go.work 迁入：渐进 feature 与非vendor拆出",
+      "note": "真实本地 CLI，原文件字节/权限不变，只发布新目录；输出中的临时根路径前缀已移除。先在原workspace普通构建更新修改清单的锁；再进行locked feature切换。拆出显式物化继承/path并复制schema4根锁，锁原字节不改。示例不覆盖全部平台和Go政策组合。",
+      "files": [
+        {
+          "path": "native/app/go.mod",
+          "source": "module example.org/app\ngo 1.27\n"
+        },
+        {
+          "path": "native/app/main.go",
+          "source": "package main\nimport(\"fmt\";\"example.org/lib\")\nfunc main(){fmt.Println(lib.Value())}\n"
+        },
+        {
+          "path": "native/go.work",
+          "source": "go 1.27\nuse (\n ./app\n ./lib\n)\n"
+        },
+        {
+          "path": "native/lib/go.mod",
+          "source": "module example.org/lib\ngo 1.27\n"
+        },
+        {
+          "path": "native/lib/lib.go",
+          "source": "package lib\nfunc Value() string{return \"hello workspace\"}\n"
+        },
+        {
+          "path": "migrated/goxide.toml",
+          "source": "[workspace]\nformat = 1\nmembers = ['members/m0', 'members/m1']\n\n[workspace.go]\ngo = '1.27'\n\n[workspace.go.configuration]\nCC = 'gcc'\nCGO_CFLAGS = '-O2 -g'\nCGO_CPPFLAGS = ''\nCGO_CXXFLAGS = '-O2 -g'\nCGO_ENABLED = '1'\nCGO_FFLAGS = '-O2 -g'\nCGO_LDFLAGS = '-O2 -g'\nCXX = 'g++'\nGO386 = ''\nGOAMD64 = 'v1'\nGOARCH = 'amd64'\nGOARM = ''\nGOARM64 = ''\nGOEXPERIMENT = ''\nGOFIPS140 = 'off'\nGOMIPS = ''\nGOMIPS64 = ''\nGOOS = 'linux'\nGOPPC64 = ''\nGORISCV64 = ''\nGOVERSION = 'go1.27.1'\nGOWASM = ''\nPKG_CONFIG = 'pkg-config'\n\n[workspace.dependencies]\n[workspace.dependencies.member0]\nmodule = 'example.org/app'\npath = 'members/m0'\n\n[workspace.dependencies.member1]\nmodule = 'example.org/lib'\npath = 'members/m1'\n"
+        },
+        {
+          "path": "migrated/members/m0/goxide.toml",
+          "source": "[[bin]]\nname = 'app'\npath = '.'\n\n[dependencies]\n[dependencies.member1]\nworkspace = true\n\n[package]\nformat = 2\ngo = '1.27'\nmodule = 'example.org/app'\n"
+        },
+        {
+          "path": "migrated/members/m1/goxide.toml",
+          "source": "[lib]\nname = 'lib'\npath = '.'\n\n[package]\nformat = 2\ngo = '1.27'\nmodule = 'example.org/lib'\n"
+        },
+        {
+          "path": "standalone/app/goxide.toml",
+          "source": "\n[[bin]]\nname = \"app\"\npath = \".\"\n\n[dependencies]\n\n[dependencies.member1]\nmodule = \"example.org/lib\"\npath = \"../lib\"\n\n[package]\nformat = 2\ngo = \"1.27\"\nmodule = \"example.org/app\"\n\n[features]\ndefault = [\"member1/fancy\"]\n"
+        },
+        {
+          "path": "standalone/lib/goxide.toml",
+          "source": "\n[lib]\nname = \"lib\"\npath = \".\"\n\n[package]\nformat = 2\ngo = \"1.27\"\nmodule = \"example.org/lib\"\n\n[features]\nfancy = []\n"
+        },
+        {
+          "path": "增强后 members/m1/lib.hgo",
+          "source": "package lib\nfunc Value()string{if cfg!(feature(\"fancy\")){return \"enhanced workspace\"};return \"plain workspace\"}\n"
+        },
+        {
+          "path": "增强后 members/m0/goxide.toml",
+          "source": "[[bin]]\nname = 'app'\npath = '.'\n\n[dependencies]\n[dependencies.member1]\nworkspace = true\n\n[package]\nformat = 2\ngo = '1.27'\nmodule = 'example.org/app'\n\n[features]\ndefault=[\"member1/fancy\"]\n"
+        },
+        {
+          "path": "增强后 members/m1/goxide.toml",
+          "source": "[lib]\nname = 'lib'\npath = '.'\n\n[package]\nformat = 2\ngo = '1.27'\nmodule = 'example.org/lib'\n\n[features]\nfancy=[]\n"
+        }
+      ],
+      "runs": [
+        {
+          "command": "hgo import-go --workspace --plan --offline native",
+          "stdout": "# Plan only: original files unchanged; native workspace, bounded Go configuration; no install scripts.\n# member example.org/app: native/app -> members/m0\n# explicit dependency example.org/app -> example.org/lib (workspace=true)\n# member example.org/lib: native/lib -> members/m1\n\n# goxide.toml\n[workspace]\nformat = 1\nmembers = ['members/m0', 'members/m1']\n\n[workspace.go]\ngo = '1.27'\n\n[workspace.go.configuration]\nCC = 'gcc'\nCGO_CFLAGS = '-O2 -g'\nCGO_CPPFLAGS = ''\nCGO_CXXFLAGS = '-O2 -g'\nCGO_ENABLED = '1'\nCGO_FFLAGS = '-O2 -g'\nCGO_LDFLAGS = '-O2 -g'\nCXX = 'g++'\nGO386 = ''\nGOAMD64 = 'v1'\nGOARCH = 'amd64'\nGOARM = ''\nGOARM64 = ''\nGOEXPERIMENT = ''\nGOFIPS140 = 'off'\nGOMIPS = ''\nGOMIPS64 = ''\nGOOS = 'linux'\nGOPPC64 = ''\nGORISCV64 = ''\nGOVERSION = 'go1.27.1'\nGOWASM = ''\nPKG_CONFIG = 'pkg-config'\n\n[workspace.dependencies]\n[workspace.dependencies.member0]\nmodule = 'example.org/app'\npath = 'members/m0'\n\n[workspace.dependencies.member1]\nmodule = 'example.org/lib'\npath = 'members/m1'\n\n# members/m0/goxide.toml\n[[bin]]\nname = 'app'\npath = '.'\n\n[dependencies]\n[dependencies.member1]\nworkspace = true\n\n[package]\nformat = 2\ngo = '1.27'\nmodule = 'example.org/app'\n\n# members/m1/goxide.toml\n[lib]\nname = 'lib'\npath = '.'\n\n[package]\nformat = 2\ngo = '1.27'\nmodule = 'example.org/lib'\n"
+        },
+        {
+          "command": "hgo import-go --workspace --out migrated --offline native",
+          "stdout": "migrated workspace: migrated\noriginal workspace retained: native\n"
+        },
+        {
+          "command": "hgo run --package example.org/app --locked --offline migrated",
+          "stdout": "hello workspace\n"
+        },
+        {
+          "command": "hgo run --package example.org/app --offline migrated",
+          "stdout": "enhanced workspace\n"
+        },
+        {
+          "command": "hgo run --package example.org/app --no-default-features --locked --offline migrated",
+          "stdout": "plain workspace\n"
+        },
+        {
+          "command": "hgo run --package example.org/app --locked --offline migrated",
+          "stdout": "enhanced workspace\n"
+        },
+        {
+          "command": "显式物化成员配置并复制根锁后：hgo run --locked --offline standalone/app",
+          "stdout": "enhanced workspace\n"
+        },
+        {
+          "command": "hgo test --package example.org/app --locked --offline migrated",
+          "stdout": "?   \texample.org/app\t[no test files]\n"
+        }
+      ],
+      "verification": {
+        "originalFilesAndModesUnchanged": true,
+        "schema": 4,
+        "coldModuleCache": false,
+        "copiedRootLock": true
+      }
+    },
+    {
+      "id": "workspace-import-vendor",
+      "title": "Workspace vendor：修改字节保留与增强宏",
+      "note": "真实本地 CLI，原文件字节/权限不变，只发布新目录；输出中的临时根路径前缀已移除。go work vendor 仅用于制造输入fixture；迁入不重建vendor。删除原replace目录并使用空module cache、proxy/sumdb关闭，Go构建缓存可用。workspace vendor独立拆出未支持，须另行确认转换协议。",
+      "files": [
+        {
+          "path": "native/app/go.mod",
+          "source": "module example.org/app\ngo 1.27\n"
+        },
+        {
+          "path": "native/app/main.go",
+          "source": "package main\nimport(\"fmt\";\"example.org/lib\")\nfunc main(){fmt.Println(lib.Value())}\n"
+        },
+        {
+          "path": "native/go.work",
+          "source": "go 1.27\nuse (\n ./app\n ./lib\n)\n"
+        },
+        {
+          "path": "native/lib/go.mod",
+          "source": "module example.org/lib\ngo 1.27\nrequire example.org/dep v1.0.0\nreplace example.org/dep => ../dep\n"
+        },
+        {
+          "path": "native/lib/lib.go",
+          "source": "package lib\nimport \"example.org/dep\"\nfunc Value()string{return dep.Value()}\n"
+        },
+        {
+          "path": "native/vendor/example.org/dep/LICENSE",
+          "source": "Demonstration fixture: freely reusable.\n"
+        },
+        {
+          "path": "native/vendor/example.org/dep/dep.go",
+          "source": "package dep\nfunc Value()string{return \"modified vendor\"}\n"
+        },
+        {
+          "path": "native/vendor/modules.txt",
+          "source": "## workspace\n# example.org/dep v1.0.0 => ./dep\n## explicit; go 1.27\nexample.org/dep\n# example.org/dep => ./dep\n"
+        },
+        {
+          "path": "migrated/goxide.toml",
+          "source": "[workspace]\nformat = 1\nmembers = ['members/m0', 'members/m1']\n\n[workspace.go]\ngo = '1.27'\n\n[workspace.go.configuration]\nCC = 'gcc'\nCGO_CFLAGS = '-O2 -g'\nCGO_CPPFLAGS = ''\nCGO_CXXFLAGS = '-O2 -g'\nCGO_ENABLED = '1'\nCGO_FFLAGS = '-O2 -g'\nCGO_LDFLAGS = '-O2 -g'\nCXX = 'g++'\nGO386 = ''\nGOAMD64 = 'v1'\nGOARCH = 'amd64'\nGOARM = ''\nGOARM64 = ''\nGOEXPERIMENT = ''\nGOFIPS140 = 'off'\nGOMIPS = ''\nGOMIPS64 = ''\nGOOS = 'linux'\nGOPPC64 = ''\nGORISCV64 = ''\nGOVERSION = 'go1.27.1'\nGOWASM = ''\nPKG_CONFIG = 'pkg-config'\n\n[workspace.vendor]\nmode = 'go-work'\n\n[workspace.dependencies]\n[workspace.dependencies.member0]\nmodule = 'example.org/app'\npath = 'members/m0'\n\n[workspace.dependencies.member1]\nmodule = 'example.org/lib'\npath = 'members/m1'\n"
+        },
+        {
+          "path": "migrated/members/m0/goxide.toml",
+          "source": "[[bin]]\nname = 'app'\npath = '.'\n\n[dependencies]\n[dependencies.member1]\nworkspace = true\n\n[package]\nformat = 2\ngo = '1.27'\nmodule = 'example.org/app'\n"
+        },
+        {
+          "path": "migrated/members/m1/goxide.toml",
+          "source": "[go]\n[[go.replace]]\nmodule = 'example.org/dep'\npath = '../../dep'\n\n[[go.require]]\nmodule = 'example.org/dep'\nversion = 'v1.0.0'\n\n[lib]\nname = 'lib'\npath = '.'\n\n[package]\nformat = 2\ngo = '1.27'\nmodule = 'example.org/lib'\n"
+        },
+        {
+          "path": "增强后 members/m1/lib.hgo",
+          "source": "package lib\nimport \"example.org/dep\"\nmacro_rules! suffix { () => { \" enhanced\" }; }\nfunc Value()string{return dep.Value()+suffix!()}\n"
+        },
+        {
+          "path": "增强后 members/m0/goxide.toml",
+          "source": "[[bin]]\nname = 'app'\npath = '.'\n\n[dependencies]\n[dependencies.member1]\nworkspace = true\n\n[package]\nformat = 2\ngo = '1.27'\nmodule = 'example.org/app'\n"
+        },
+        {
+          "path": "增强后 members/m1/goxide.toml",
+          "source": "[go]\n[[go.replace]]\nmodule = 'example.org/dep'\npath = '../../dep'\n\n[[go.require]]\nmodule = 'example.org/dep'\nversion = 'v1.0.0'\n\n[lib]\nname = 'lib'\npath = '.'\n\n[package]\nformat = 2\ngo = '1.27'\nmodule = 'example.org/lib'\n"
+        }
+      ],
+      "runs": [
+        {
+          "command": "hgo import-go --workspace --plan --offline native",
+          "stdout": "# Plan only: original files unchanged; native workspace, bounded Go configuration; no install scripts.\n# member example.org/app: native/app -> members/m0\n# explicit dependency example.org/app -> example.org/lib (workspace=true)\n# member example.org/lib: native/lib -> members/m1\n# workspace vendor: preserve supplied bytes/modes/licenses; upstream differences unknown; content hashes are not proxy h1\n# vendor file example.org/dep/dep.go 9ce93f997397813b4dc802c2a8653c02b2ebdd4cffdf01d956fe04bcd5ee2070\n# vendor file modules.txt 9ab39cf1c7d0ad67c1e5bb0cd98a5e18a125b84d99b351101de84d4ba347a9f0\n# vendor license example.org/dep/LICENSE 0f6c7443b567400da5c4b164476b112d4e70dec8f23be3556a6359556cadd9c6\n# vendor module example.org/dep@ replace=./dep@ explicit=false go= packages=\n# vendor module example.org/dep@v1.0.0 replace=./dep@ explicit=true go=1.27 packages=example.org/dep\n\n# goxide.toml\n[workspace]\nformat = 1\nmembers = ['members/m0', 'members/m1']\n\n[workspace.go]\ngo = '1.27'\n\n[workspace.go.configuration]\nCC = 'gcc'\nCGO_CFLAGS = '-O2 -g'\nCGO_CPPFLAGS = ''\nCGO_CXXFLAGS = '-O2 -g'\nCGO_ENABLED = '1'\nCGO_FFLAGS = '-O2 -g'\nCGO_LDFLAGS = '-O2 -g'\nCXX = 'g++'\nGO386 = ''\nGOAMD64 = 'v1'\nGOARCH = 'amd64'\nGOARM = ''\nGOARM64 = ''\nGOEXPERIMENT = ''\nGOFIPS140 = 'off'\nGOMIPS = ''\nGOMIPS64 = ''\nGOOS = 'linux'\nGOPPC64 = ''\nGORISCV64 = ''\nGOVERSION = 'go1.27.1'\nGOWASM = ''\nPKG_CONFIG = 'pkg-config'\n\n[workspace.vendor]\nmode = 'go-work'\n\n[workspace.dependencies]\n[workspace.dependencies.member0]\nmodule = 'example.org/app'\npath = 'members/m0'\n\n[workspace.dependencies.member1]\nmodule = 'example.org/lib'\npath = 'members/m1'\n\n# members/m0/goxide.toml\n[[bin]]\nname = 'app'\npath = '.'\n\n[dependencies]\n[dependencies.member1]\nworkspace = true\n\n[package]\nformat = 2\ngo = '1.27'\nmodule = 'example.org/app'\n\n# members/m1/goxide.toml\n[go]\n[[go.replace]]\nmodule = 'example.org/dep'\npath = '../../dep'\n\n[[go.require]]\nmodule = 'example.org/dep'\nversion = 'v1.0.0'\n\n[lib]\nname = 'lib'\npath = '.'\n\n[package]\nformat = 2\ngo = '1.27'\nmodule = 'example.org/lib'\n"
+        },
+        {
+          "command": "hgo import-go --workspace --out migrated --offline native",
+          "stdout": "migrated workspace: migrated\noriginal workspace retained: native\n"
+        },
+        {
+          "command": "hgo run --package example.org/app --locked --offline migrated",
+          "stdout": "modified vendor\n"
+        },
+        {
+          "command": "替换 lib.go 为 lib.hgo 后：hgo run --package example.org/app --locked --offline migrated",
+          "stdout": "modified vendor enhanced\n"
+        },
+        {
+          "command": "hgo test --package example.org/app --locked --offline migrated",
+          "stdout": "?   \texample.org/app\t[no test files]\n"
+        }
+      ],
+      "verification": {
+        "originalFilesAndModesUnchanged": true,
+        "schema": 4,
+        "coldModuleCache": true,
+        "copiedRootLock": false
+      }
     }
   ],
-  "wasmSha256": "0852558ccf80feaaf7813791381606e668ed170adb5e032a693da78296a43892"
+  "wasmSha256": "426fdb700ca2925166b2f7f613f35999b518915a92de30cb089782f7fd7bddae"
 }
