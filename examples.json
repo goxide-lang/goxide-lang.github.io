@@ -28,11 +28,11 @@
     "-ldflags=-s -w -buildid="
   ],
   "exportTrimpath": true,
-  "commit": "f1474551cb7f18c5610880b91b54e7367a2a6a2e",
-  "websiteCommit": "4152dbb9fe9ac865921d5b97e54d83099651af9d",
+  "commit": "5d777820c5a617db57bcedb50b4d31ad6f2d3f15",
+  "websiteCommit": "6dc779a651af3eb34121f53637a55bfb6feee387",
   "catalog": {
     "schemaVersion": 1,
-    "compilerCommit": "f1474551cb7f18c5610880b91b54e7367a2a6a2e",
+    "compilerCommit": "5d777820c5a617db57bcedb50b4d31ad6f2d3f15",
     "reviewedAt": "2026-10-05",
     "statusLabels": {
       "proposal": "提案",
@@ -504,22 +504,22 @@
       },
       {
         "id": "vendor",
-        "title": "Go vendor 输入 → 普通本地模块",
+        "title": "供应模块：local 默认与显式 remote 选择",
         "topic": "projects",
         "rfcs": [
           "0025"
         ],
         "status": "partial",
         "support": "cli",
-        "summary": "vendor仅作Go迁移输入，供应源码物化到local-modules，以显式本地replace绑定；Goxide没有长期vendor构建模式。",
-        "usage": "默认local核心已支持，保留原工程、供应字节/权限和逻辑module身份，goxide-import.json记录来源与映射；迁入后按普通本地模块编辑、构建和拆出。",
-        "limitation": "不重建vendor或下载补齐缺包，未比对远端时差异为unknown。交互式一次来源选择、显式remote选择和远端差异/修改确认尚未实现；当前只读候选不代表远端已核验。--offline仅指已验证的本地材料/缓存路径，不隔离用户脚本网络。旧vendor TOML/锁字段要求重新迁入。",
+        "summary": "vendor仅作Go迁移输入，没有长期vendor构建模式；默认将供应字节物化普通本地模块，也可明确选择有证据的精确Go module远端来源。",
+        "usage": "stdin/stderr都为TTY且无source参数时，一次展示模块清单；空行全部local，cancel/EOF取消。非TTY默认local且不读管道；重复--source MODULE=local|remote显式选择。差异逐文件列出，TTY需逐模块输入remote MODULE，非TTY需--accept-source-diff MODULE；原供应字节始终保留。",
+        "limitation": "remote仅限原清单证实的精确module path/version（含版本化replacement），local replacement不能确认remote。无Git推断、任意URL、新版本搜索或registry。verified subset只证明供应文件集合相同；unknown不可冒称全发行物等价。--offline禁止工具控制的网络，暖完整缓存可核验remote，缺缓存失败；不隔离用户脚本网络。plan不读取终端、不比对remote，常规build不询问。",
         "examples": [],
         "checks": [],
         "snippet": {
           "language": "CLI · 本机使用",
-          "text": "goxide import-go --bin app=. old-project\ngoxide import-go --out new-project --bin app=. --offline old-project\ngoxide run --bin app --offline --locked new-project",
-          "note": "浏览器不执行 CLI；下方快照来自构建时真实验证。"
+          "text": "goxide import-go --out new-project --bin app=. --offline --source example.org/d=remote --accept-source-diff example.org/d old-project\ngoxide run --bin app --offline --locked new-project",
+          "note": "示例候选来自原清单；offline remote要求完整缓存。下方真实CLI快照展示差异拒绝/确认和原字节保留；浏览器不执行迁入或网络请求。"
         }
       },
       {
@@ -552,14 +552,14 @@
         "status": "partial",
         "support": "cli",
         "summary": "只读plan后向新目录迁入，保留成员go/require/replace/exclude/godebug与根work政策；真实Go包归属分析物化显式成员边，根schema4锁与作者模式schema3分开。",
-        "usage": "迁入后可逐步加入.gox、现有features与明确授权的scripts；未授权不执行，撤销后缓存也拒绝。成员拆出显式物化继承/path并复制根锁，只消费可达记录，恢复成员独立政策。",
-        "limitation": "分析限迁入时平台、Go工具与C配置，换配置需重新分析。供应vendor保留字节/权限，不下载补包或重建；供应源码是普通本地模块，没有vendor构建/拆出模式，独立时物化路径并复制根锁。外部非成员replace不自动打包；不承诺全部workspace功能、统一host resolver或publish。 旧vendor拆出方案已取消；交互式来源选择与remote差异确认仍是下一阶段。",
+        "usage": "迁入后可逐步加入.gox、现有features与明确授权的scripts；未授权不执行，撤销后缓存也拒绝。成员拆出显式物化继承/path并复制根锁，只消费可达记录，恢复成员独立政策。 供应模块来源选择与单模块一致，显式 remote 按普通 Go replacement/锁验证。",
+        "limitation": "分析限迁入时平台、Go工具与C配置，换配置需重新分析。供应vendor保留字节/权限，不下载补包或重建；供应源码是普通本地模块，没有vendor构建/拆出模式，独立时物化路径并复制根锁。外部非成员replace不自动打包；不承诺全部workspace功能、统一host resolver或publish。",
         "examples": [],
         "checks": [],
         "snippet": {
           "language": "CLI · 多文件迁入",
           "text": "goxide import-go --workspace --plan --offline native\ngoxide import-go --workspace --out migrated --offline native\ngoxide run --package example.org/app --locked --offline migrated",
-          "note": "迁入的offline验证仅使用本地材料、完整供应源码或已缓存依赖；只读remote候选未核验，不探测远端。脚本需先plan、trust-project与精确subject allow，迁入不授权。下方快照由真实CLI生成。"
+          "note": "offline只使用本地材料和完整缓存，remote缺缓存失败；所有来源选择受同一规则约束。脚本仍需明确授权，网页不执行迁入。"
         }
       }
     ],
@@ -622,7 +622,7 @@
       "提案语法、Go 机制探针和文档标题都不能单独作为实现证据。"
     ]
   },
-  "compilerDigest": "c03e0b656ede234d0d11f2a8fbeb0a1204534594d70a69737b7d5781fb66b472",
+  "compilerDigest": "27323c6bf7a3066bab1d6546355e681e2b2d548e10c07389ffe2793f6541aa42",
   "exportsDigest": "57e230c1e52ba455ead1dcc30bfe794627290f6e8c4303a1c398dd7651894fdf",
   "exportTarget": {
     "GOARCH": "amd64",
@@ -968,13 +968,13 @@
         },
         {
           "path": "new-project/goxide-import.json",
-          "source": "{\n  \"main_modules\": [\n    \"example.org/vendor-demo\"\n  ],\n  \"input\": {\n    \"mode\": \"go-mod\",\n    \"policy\": \"80994d3cc0104b2706c636418fc681b2c112e0a87fa15c49159041cc5f3c465b\",\n    \"digest\": \"85e20646fba0cf4db61385fb90b9a0a543adfcf6acee8635f7b2d38c01b4add2\",\n    \"files\": {\n      \"example.org/catalogdep/LICENSE\": \"218df5f91ee2ee29f3b5f318bf6424daf1597ad912ecb0672f8f70019113cf00\",\n      \"example.org/catalogdep/dep.go\": \"f32fb55cf8b5a90c9729e4a8f8c142713ad6886919b60056edf7015483bc4627\",\n      \"modules.txt\": \"eb920e349d0d4420883e242f6595c136e2ad202ece0d3778bd9fcb27129ce00f\"\n    },\n    \"modules\": [\n      {\n        \"path\": \"example.org/catalogdep\",\n        \"version\": \"v1.0.0\",\n        \"replace\": \"../dep\",\n        \"go\": \"1.27\",\n        \"explicit\": true,\n        \"packages\": [\n          \"example.org/catalogdep\"\n        ]\n      },\n      {\n        \"path\": \"example.org/catalogdep\",\n        \"replace\": \"../dep\"\n      }\n    ]\n  },\n  \"selected_modules\": {\n    \"example.org/catalogdep\": {\n      \"path\": \"example.org/catalogdep\",\n      \"version\": \"v1.0.0\",\n      \"replace\": \"../dep\",\n      \"go\": \"1.27\",\n      \"explicit\": true,\n      \"packages\": [\n        \"example.org/catalogdep\"\n      ]\n    }\n  },\n  \"local_modules\": {\n    \"example.org/catalogdep\": \"local-modules/7de1562a0eaadc93bdaef25c\"\n  },\n  \"files\": {\n    \"example.org/catalogdep/LICENSE\": [\n      \"local-modules/7de1562a0eaadc93bdaef25c/LICENSE\"\n    ],\n    \"example.org/catalogdep/dep.go\": [\n      \"local-modules/7de1562a0eaadc93bdaef25c/dep.go\"\n    ]\n  },\n  \"generated_metadata\": {\n    \"local-modules/7de1562a0eaadc93bdaef25c/go.mod\": \"module \\\"example.org/catalogdep\\\"\\n\\ngo 1.27\\n\"\n  },\n  \"original_metadata\": {\n    \"go.mod\": \"module example.org/vendor-demo\\n\\ngo 1.27\\n\\nrequire example.org/catalogdep v1.0.0\\nreplace example.org/catalogdep =\\u003e ../dep\\n\",\n    \"members/example.org/vendor-demo/go.mod\": \"module example.org/vendor-demo\\n\\ngo 1.27\\n\\nrequire example.org/catalogdep v1.0.0\\nreplace example.org/catalogdep =\\u003e ../dep\\n\",\n    \"vendor/modules.txt\": \"# example.org/catalogdep v1.0.0 =\\u003e ../dep\\n## explicit; go 1.27\\nexample.org/catalogdep\\n# example.org/catalogdep =\\u003e ../dep\\n\"\n  },\n  \"upstream_difference\": \"unknown (no upstream fetch)\"\n}\n"
+          "source": "{\n  \"direct_requirements\": {\n    \"example.org/catalogdep\": true\n  },\n  \"source_choices\": {\n    \"example.org/catalogdep\": {\n      \"source\": \"local\",\n      \"status\": \"unknown (no upstream comparison)\",\n      \"compared_files\": 0\n    }\n  },\n  \"main_modules\": [\n    \"example.org/vendor-demo\"\n  ],\n  \"input\": {\n    \"mode\": \"go-mod\",\n    \"policy\": \"80994d3cc0104b2706c636418fc681b2c112e0a87fa15c49159041cc5f3c465b\",\n    \"digest\": \"85e20646fba0cf4db61385fb90b9a0a543adfcf6acee8635f7b2d38c01b4add2\",\n    \"files\": {\n      \"example.org/catalogdep/LICENSE\": \"218df5f91ee2ee29f3b5f318bf6424daf1597ad912ecb0672f8f70019113cf00\",\n      \"example.org/catalogdep/dep.go\": \"f32fb55cf8b5a90c9729e4a8f8c142713ad6886919b60056edf7015483bc4627\",\n      \"modules.txt\": \"eb920e349d0d4420883e242f6595c136e2ad202ece0d3778bd9fcb27129ce00f\"\n    },\n    \"modules\": [\n      {\n        \"path\": \"example.org/catalogdep\",\n        \"version\": \"v1.0.0\",\n        \"replace\": \"../dep\",\n        \"go\": \"1.27\",\n        \"explicit\": true,\n        \"packages\": [\n          \"example.org/catalogdep\"\n        ]\n      },\n      {\n        \"path\": \"example.org/catalogdep\",\n        \"replace\": \"../dep\"\n      }\n    ]\n  },\n  \"selected_modules\": {\n    \"example.org/catalogdep\": {\n      \"path\": \"example.org/catalogdep\",\n      \"version\": \"v1.0.0\",\n      \"replace\": \"../dep\",\n      \"go\": \"1.27\",\n      \"explicit\": true,\n      \"packages\": [\n        \"example.org/catalogdep\"\n      ]\n    }\n  },\n  \"local_modules\": {\n    \"example.org/catalogdep\": \"local-modules/7de1562a0eaadc93bdaef25c\"\n  },\n  \"files\": {\n    \"example.org/catalogdep/LICENSE\": [\n      \"local-modules/7de1562a0eaadc93bdaef25c/LICENSE\"\n    ],\n    \"example.org/catalogdep/dep.go\": [\n      \"local-modules/7de1562a0eaadc93bdaef25c/dep.go\"\n    ]\n  },\n  \"generated_metadata\": {\n    \"local-modules/7de1562a0eaadc93bdaef25c/go.mod\": \"module \\\"example.org/catalogdep\\\"\\n\\ngo 1.27\\n\"\n  },\n  \"original_metadata\": {\n    \"go.mod\": \"module example.org/vendor-demo\\n\\ngo 1.27\\n\\nrequire example.org/catalogdep v1.0.0\\nreplace example.org/catalogdep =\\u003e ../dep\\n\",\n    \"members/example.org/vendor-demo/go.mod\": \"module example.org/vendor-demo\\n\\ngo 1.27\\n\\nrequire example.org/catalogdep v1.0.0\\nreplace example.org/catalogdep =\\u003e ../dep\\n\",\n    \"vendor/modules.txt\": \"# example.org/catalogdep v1.0.0 =\\u003e ../dep\\n## explicit; go 1.27\\nexample.org/catalogdep\\n# example.org/catalogdep =\\u003e ../dep\\n\"\n  },\n  \"upstream_difference\": \"see source_choices; verified covers supplied subset only\"\n}\n"
         }
       ],
       "runs": [
         {
           "command": "goxide import-go --bin app=. old-project",
-          "stdout": "# Plan: preserve original files; copy regular source into a new directory; create goxide.toml/goxide.lock; generate Go metadata only under target.\n# source example.org/catalogdep: local=local-modules/7de1562a0eaadc93bdaef25c (default, supplied bytes); remote module=unconfirmed (original replacement is local) version= status=unknown (not remotely verified)\n# Vendor bytes and licenses copied unchanged; upstream content difference: unknown (no fetch); hashes describe supplied content, not proxy checksums.\n# vendor file example.org/catalogdep/dep.go f32fb55cf8b5a90c9729e4a8f8c142713ad6886919b60056edf7015483bc4627\n# vendor file modules.txt eb920e349d0d4420883e242f6595c136e2ad202ece0d3778bd9fcb27129ce00f\n# vendor license example.org/catalogdep/LICENSE 218df5f91ee2ee29f3b5f318bf6424daf1597ad912ecb0672f8f70019113cf00\n# vendor module example.org/catalogdep@ replace=../dep@ explicit=false go= packages=\n# vendor module example.org/catalogdep@v1.0.0 replace=../dep@ explicit=true go=1.27 packages=example.org/catalogdep\n[package]\nformat = 2\nmodule = 'example.org/vendor-demo'\ngo = '1.27'\n\n[go]\n[[go.require]]\nmodule = 'example.org/catalogdep'\nversion = 'v1.0.0'\n\n[[go.replace]]\nmodule = 'example.org/catalogdep'\npath = './local-modules/7de1562a0eaadc93bdaef25c'\n\n[[bin]]\nname = 'app'\npath = '.'\n"
+          "stdout": "# Plan: preserve original files; copy regular source into a new directory; create goxide.toml/goxide.lock; generate Go metadata only under target.\n# source example.org/catalogdep: role=direct; local=local-modules/7de1562a0eaadc93bdaef25c (default, supplied bytes); remote module=unconfirmed (original replacement is local) version= status=unknown (not remotely verified)\n# Vendor bytes and licenses copied unchanged; upstream content difference: unknown (no fetch); hashes describe supplied content, not proxy checksums.\n# vendor file example.org/catalogdep/dep.go f32fb55cf8b5a90c9729e4a8f8c142713ad6886919b60056edf7015483bc4627\n# vendor file modules.txt eb920e349d0d4420883e242f6595c136e2ad202ece0d3778bd9fcb27129ce00f\n# vendor license example.org/catalogdep/LICENSE 218df5f91ee2ee29f3b5f318bf6424daf1597ad912ecb0672f8f70019113cf00\n# vendor module example.org/catalogdep@ replace=../dep@ explicit=false go= packages=\n# vendor module example.org/catalogdep@v1.0.0 replace=../dep@ explicit=true go=1.27 packages=example.org/catalogdep\n[package]\nformat = 2\nmodule = 'example.org/vendor-demo'\ngo = '1.27'\n\n[go]\n[[go.require]]\nmodule = 'example.org/catalogdep'\nversion = 'v1.0.0'\n\n[[go.replace]]\nmodule = 'example.org/catalogdep'\npath = './local-modules/7de1562a0eaadc93bdaef25c'\n\n[[bin]]\nname = 'app'\npath = '.'\n"
         },
         {
           "command": "goxide import-go --out new-project --bin app=. --offline old-project",
@@ -1067,7 +1067,7 @@
         },
         {
           "path": "workspace/goxide.lock（路径已归一化）",
-          "source": "{\n  \"unified\": {\n    \"git_pins\": {},\n    \"minimum_go\": \"1.27\",\n    \"workspace\": \"cb87e1d25c4fb3f1cf18c67f175f5459028d44482465743749b235ca2c8d63b5\",\n    \"sources\": {\n      \"example.org/service\": \"c1ef79532991abc1571b46a6a69ee65bb15e8fa0939434dc1b3b93a69d7c231b\",\n      \"example.org/shared\": \"73fb596273cf63acec1508f6b58661f5dd641b93ccd4afac449c540b7f14fde1\",\n      \"example.org/worker\": \"df4a48b8fbd9db3fba2cc5ee228cf4203c47b46b3173c282ee3d043ef023be1c\"\n    },\n    \"policy\": {\n      \"Godebug\": null,\n      \"Toolchain\": \"\",\n      \"Module\": {\n        \"Path\": \"goxide-workspace.invalid/root\",\n        \"Version\": \"\"\n      },\n      \"Go\": \"1.27\",\n      \"Require\": null,\n      \"Replace\": null,\n      \"Exclude\": null\n    },\n    \"inputs\": {\n      \"example.org/service\": \"8685d738e580b287a5d6c5cb0488f081effe2087a5ec0d2cbeb7d264e27160ea\",\n      \"example.org/shared\": \"456501b63dbd2c8cafced783ea6607db23df743dc05e74cbe1ec0aa8c4a2855b\",\n      \"example.org/worker\": \"23c339ce4217305ec2d8fbe8d3499e57393efcc71e2c524bd93c4610b30b7ed6\"\n    },\n    \"modules\": {\n      \"example.org/service\": {\n        \"Path\": \"example.org/service\",\n        \"Version\": \"v0.0.0\",\n        \"Replace\": {\n          \"Path\": \"workspace/apps/service\",\n          \"Version\": \"\"\n        }\n      },\n      \"example.org/shared\": {\n        \"Path\": \"example.org/shared\",\n        \"Version\": \"v0.0.0\",\n        \"Replace\": {\n          \"Path\": \"workspace/libs/shared\",\n          \"Version\": \"\"\n        }\n      },\n      \"example.org/version\": {\n        \"Path\": \"example.org/version\",\n        \"Version\": \"v1.1.0\",\n        \"Sum\": \"h1:KL9B73YX+tfklNWb7K8X3TMUynUq9fjv3C7zA3sw0A4=\",\n        \"GoModSum\": \"h1:9/UMGBGdf40FPsDTnCdkzlE87YmqlnI99V0Thj0Tcxc=\"\n      },\n      \"example.org/worker\": {\n        \"Path\": \"example.org/worker\",\n        \"Version\": \"v0.0.0\",\n        \"Replace\": {\n          \"Path\": \"workspace/apps/worker\",\n          \"Version\": \"\"\n        }\n      }\n    }\n  },\n  \"planning_sums\": \"example.org/version v1.1.0 h1:KL9B73YX+tfklNWb7K8X3TMUynUq9fjv3C7zA3sw0A4=\\nexample.org/version v1.1.0/go.mod h1:9/UMGBGdf40FPsDTnCdkzlE87YmqlnI99V0Thj0Tcxc=\\n\",\n  \"version\": 3,\n  \"git\": {},\n  \"sums\": {}\n}\n"
+          "source": "{\n  \"unified\": {\n    \"git_pins\": {},\n    \"minimum_go\": \"1.27\",\n    \"workspace\": \"525982c49bbf5b36317420a9c133f5c816afcc99e0f0c11912c27b888d5419b9\",\n    \"sources\": {\n      \"example.org/service\": \"e6ceed751178697a5a00e89fffcec93849fae462bb275c9072a687b20933a851\",\n      \"example.org/shared\": \"2c0e4bb968caca591457407de2cce94c5593917002969f49883db32f0c656520\",\n      \"example.org/worker\": \"c19f13b1ea3d592a32552296e574001fe5958dd20b03019ca645f453ff6a3f0c\"\n    },\n    \"policy\": {\n      \"Godebug\": null,\n      \"Toolchain\": \"\",\n      \"Module\": {\n        \"Path\": \"goxide-workspace.invalid/root\",\n        \"Version\": \"\"\n      },\n      \"Go\": \"1.27\",\n      \"Require\": null,\n      \"Replace\": null,\n      \"Exclude\": null\n    },\n    \"inputs\": {\n      \"example.org/service\": \"403e1ff6954f64dcee374e4b7ceb604d8c5bad3c328e95fd7b0ac6540b7343e5\",\n      \"example.org/shared\": \"456501b63dbd2c8cafced783ea6607db23df743dc05e74cbe1ec0aa8c4a2855b\",\n      \"example.org/worker\": \"d70e2c4443d2ca4ba7db79a77c3c2be4e7b28cd43887b7d2c4884427e528a80f\"\n    },\n    \"modules\": {\n      \"example.org/service\": {\n        \"Path\": \"example.org/service\",\n        \"Version\": \"v0.0.0\",\n        \"Replace\": {\n          \"Path\": \"workspace/apps/service\",\n          \"Version\": \"\"\n        }\n      },\n      \"example.org/shared\": {\n        \"Path\": \"example.org/shared\",\n        \"Version\": \"v0.0.0\",\n        \"Replace\": {\n          \"Path\": \"workspace/libs/shared\",\n          \"Version\": \"\"\n        }\n      },\n      \"example.org/version\": {\n        \"Path\": \"example.org/version\",\n        \"Version\": \"v1.1.0\",\n        \"Sum\": \"h1:KL9B73YX+tfklNWb7K8X3TMUynUq9fjv3C7zA3sw0A4=\",\n        \"GoModSum\": \"h1:9/UMGBGdf40FPsDTnCdkzlE87YmqlnI99V0Thj0Tcxc=\"\n      },\n      \"example.org/worker\": {\n        \"Path\": \"example.org/worker\",\n        \"Version\": \"v0.0.0\",\n        \"Replace\": {\n          \"Path\": \"workspace/apps/worker\",\n          \"Version\": \"\"\n        }\n      }\n    }\n  },\n  \"planning_sums\": \"example.org/version v1.1.0 h1:KL9B73YX+tfklNWb7K8X3TMUynUq9fjv3C7zA3sw0A4=\\nexample.org/version v1.1.0/go.mod h1:9/UMGBGdf40FPsDTnCdkzlE87YmqlnI99V0Thj0Tcxc=\\n\",\n  \"version\": 3,\n  \"git\": {},\n  \"sums\": {}\n}\n"
         }
       ],
       "runs": [
@@ -1085,18 +1085,18 @@
         },
         {
           "command": "goxide build --workspace --offline --locked workspace",
-          "stdout": "workspace/target/bin/linux-amd64/linux-amd64/bin/web/9c2615d47d2bba2c9c55de29303f306abbdbe2417199fc1c3c1380bb5f93cf79/web\nworkspace/target/bin/linux-amd64/linux-amd64/bin/admin/0506e23464a126a0a89878638df9aed5053100214bdd9b40d76a68bd0957bf5c/admin\nworkspace/target/bin/linux-amd64/linux-amd64/bin/web/48c5efa1cf674e5359b83584d86af11c0d53218439e547373fcb2f358bbc9219/web\n"
+          "stdout": "workspace/target/bin/linux-amd64/linux-amd64/bin/web/0c86857ec4c057870643f9baec1d9dc29655f57db26bb5f9465c0d909d8ab56f/web\nworkspace/target/bin/linux-amd64/linux-amd64/bin/admin/0ff0cdd78046f9e6cc87a10bb29702ec3916a319492d10607e04bf838767006d/admin\nworkspace/target/bin/linux-amd64/linux-amd64/bin/web/26fc6c493fcd38457dd98f7e3a5b75d80bf77bf5f9ed83a7d94fcf7885704a1b/web\n"
         },
         {
-          "command": "运行 workspace/target/bin/linux-amd64/linux-amd64/bin/web/9c2615d47d2bba2c9c55de29303f306abbdbe2417199fc1c3c1380bb5f93cf79/web",
+          "command": "运行 workspace/target/bin/linux-amd64/linux-amd64/bin/web/0c86857ec4c057870643f9baec1d9dc29655f57db26bb5f9465c0d909d8ab56f/web",
           "stdout": "v1.1.0 yaml\n"
         },
         {
-          "command": "运行 workspace/target/bin/linux-amd64/linux-amd64/bin/admin/0506e23464a126a0a89878638df9aed5053100214bdd9b40d76a68bd0957bf5c/admin",
+          "command": "运行 workspace/target/bin/linux-amd64/linux-amd64/bin/admin/0ff0cdd78046f9e6cc87a10bb29702ec3916a319492d10607e04bf838767006d/admin",
           "stdout": "yaml\n"
         },
         {
-          "command": "运行 workspace/target/bin/linux-amd64/linux-amd64/bin/web/48c5efa1cf674e5359b83584d86af11c0d53218439e547373fcb2f358bbc9219/web",
+          "command": "运行 workspace/target/bin/linux-amd64/linux-amd64/bin/web/26fc6c493fcd38457dd98f7e3a5b75d80bf77bf5f9ed83a7d94fcf7885704a1b/web",
           "stdout": "v1.1.0 yaml\n"
         },
         {
@@ -1151,7 +1151,7 @@
         },
         {
           "path": "standalone/goxide.lock",
-          "source": "{\n  \"unified\": {\n    \"git_pins\": {\n      \"4fa1198fb377a208918fe30039dc5cf0e1e3ad89a6d2181b3e27bbdd6482c7ab\": \"f8af805c29f7d82dec4bdf18498ee5c067648138\",\n      \"5046846d708e1c2c50b36b95e4680914a9a5332e062148f21cf5337d070a906e\": \"c4fd6e99bffb0e78081d31a5b0e9559a75bb5e42\"\n    },\n    \"minimum_go\": \"1.27\",\n    \"workspace\": \"2291a9b92eea370d191cde8ea6f82ef64e1d8bcc57a78059d65f0b49dfb0988c\",\n    \"sources\": {\n      \"example.org/app\": \"7fc8fafb3a899a6c930f5d1f61cb2dff9b7d62e5b3e1482ffd7ed8ebce00550a\",\n      \"example.org/server\": \"f88bcd1c5004a76d33bd57e54cde32473085c0e99eaf9ec93a614ae4d8b8103e\",\n      \"example.org/unused\": \"853625c10ac7cdd90ec46f34b66bd3c51ce08e47d4c1d02cbbbf0d701554adb9\",\n      \"example.org/used\": \"9f86d38f1eed2023297c5a7e14661185918b8b5cb73ebea0823a89a461aa8c0f\"\n    },\n    \"policy\": {\n      \"Godebug\": null,\n      \"Toolchain\": \"\",\n      \"Module\": {\n        \"Path\": \"goxide-workspace.invalid/root\",\n        \"Version\": \"\"\n      },\n      \"Go\": \"1.27\",\n      \"Require\": null,\n      \"Replace\": null,\n      \"Exclude\": null\n    },\n    \"inputs\": {\n      \"example.org/app\": \"4b6065c961bc806272eb6d9983239533306cef642ca513362b469c33819dd0e1\",\n      \"example.org/server\": \"f74cd47eeb84b1210ce46d33030557b3d0e1b3ed66319e13c309a2d174678b2b\",\n      \"example.org/unused\": \"0edfc895dda04d69e2101f2748bda8cc4d71e237f18734ee6daaacd2171c895c\",\n      \"example.org/used\": \"bb0747213fa7d1c2e951ce287b7dfc7351050c712e3724824f653a113e7c9f5c\"\n    },\n    \"modules\": {\n      \"example.org/app\": {\n        \"Path\": \"example.org/app\",\n        \"Version\": \"v0.0.0\",\n        \"Replace\": {\n          \"Path\": \"git-workspace/app\",\n          \"Version\": \"\"\n        }\n      },\n      \"example.org/server\": {\n        \"Path\": \"example.org/server\",\n        \"Version\": \"v0.0.0\",\n        \"Replace\": {\n          \"Path\": \"git-workspace/server\",\n          \"Version\": \"\"\n        }\n      },\n      \"example.org/unused\": {\n        \"Path\": \"example.org/unused\",\n        \"Version\": \"v0.0.0\",\n        \"Replace\": {\n          \"Path\": \"git-workspace/.goxide/git/4fa1198fb377a208918fe30039dc5cf0e1e3ad89a6d2181b3e27bbdd6482c7ab\",\n          \"Version\": \"\"\n        }\n      },\n      \"example.org/used\": {\n        \"Path\": \"example.org/used\",\n        \"Version\": \"v0.0.0\",\n        \"Replace\": {\n          \"Path\": \"git-workspace/.goxide/git/5046846d708e1c2c50b36b95e4680914a9a5332e062148f21cf5337d070a906e\",\n          \"Version\": \"\"\n        }\n      }\n    }\n  },\n  \"version\": 3,\n  \"git\": {\n    \"4fa1198fb377a208918fe30039dc5cf0e1e3ad89a6d2181b3e27bbdd6482c7ab\": \"f8af805c29f7d82dec4bdf18498ee5c067648138\",\n    \"5046846d708e1c2c50b36b95e4680914a9a5332e062148f21cf5337d070a906e\": \"c4fd6e99bffb0e78081d31a5b0e9559a75bb5e42\"\n  },\n  \"sums\": {}\n}\n"
+          "source": "{\n  \"unified\": {\n    \"git_pins\": {\n      \"b2038b3a0ba5bef073d4ad5240938ed285b66013bd9a951577ba7fcc98545733\": \"f8af805c29f7d82dec4bdf18498ee5c067648138\",\n      \"ba543fa82c9ed1abec0a27474a5bb405141703aa0070ddcc5d078d87017acc45\": \"c4fd6e99bffb0e78081d31a5b0e9559a75bb5e42\"\n    },\n    \"minimum_go\": \"1.27\",\n    \"workspace\": \"780c19eb06980b2ad22a89db4313dad804dc95b23502371af9d9bf22f361329b\",\n    \"sources\": {\n      \"example.org/app\": \"1bcba492968335d71139c00f5a2dfc249b42d51d16d15256c7fa4e4350efc7f1\",\n      \"example.org/server\": \"20492f350914f0aea4d526f9acb5446bd25174bd562fed264df2922f8c1b02f0\",\n      \"example.org/unused\": \"cdf07eb51d4df18ad215d75a2d9571075c51d5f4d11f366cffdd8b1bc27c4a10\",\n      \"example.org/used\": \"09412a110ef40e6b13156b4cb590b09fd356d47021faedf9be352db613777964\"\n    },\n    \"policy\": {\n      \"Godebug\": null,\n      \"Toolchain\": \"\",\n      \"Module\": {\n        \"Path\": \"goxide-workspace.invalid/root\",\n        \"Version\": \"\"\n      },\n      \"Go\": \"1.27\",\n      \"Require\": null,\n      \"Replace\": null,\n      \"Exclude\": null\n    },\n    \"inputs\": {\n      \"example.org/app\": \"91ef10bc1cf03cc85805de58602f92191e7b93401957524f2269b85ad878a4dd\",\n      \"example.org/server\": \"26f799b51115b5c0523301d2d7e75a102b9484233b902aca9b0c986cbab36ca0\",\n      \"example.org/unused\": \"0edfc895dda04d69e2101f2748bda8cc4d71e237f18734ee6daaacd2171c895c\",\n      \"example.org/used\": \"bb0747213fa7d1c2e951ce287b7dfc7351050c712e3724824f653a113e7c9f5c\"\n    },\n    \"modules\": {\n      \"example.org/app\": {\n        \"Path\": \"example.org/app\",\n        \"Version\": \"v0.0.0\",\n        \"Replace\": {\n          \"Path\": \"git-workspace/app\",\n          \"Version\": \"\"\n        }\n      },\n      \"example.org/server\": {\n        \"Path\": \"example.org/server\",\n        \"Version\": \"v0.0.0\",\n        \"Replace\": {\n          \"Path\": \"git-workspace/server\",\n          \"Version\": \"\"\n        }\n      },\n      \"example.org/unused\": {\n        \"Path\": \"example.org/unused\",\n        \"Version\": \"v0.0.0\",\n        \"Replace\": {\n          \"Path\": \"git-workspace/.goxide/git/b2038b3a0ba5bef073d4ad5240938ed285b66013bd9a951577ba7fcc98545733\",\n          \"Version\": \"\"\n        }\n      },\n      \"example.org/used\": {\n        \"Path\": \"example.org/used\",\n        \"Version\": \"v0.0.0\",\n        \"Replace\": {\n          \"Path\": \"git-workspace/.goxide/git/ba543fa82c9ed1abec0a27474a5bb405141703aa0070ddcc5d078d87017acc45\",\n          \"Version\": \"\"\n        }\n      }\n    }\n  },\n  \"version\": 3,\n  \"git\": {\n    \"b2038b3a0ba5bef073d4ad5240938ed285b66013bd9a951577ba7fcc98545733\": \"f8af805c29f7d82dec4bdf18498ee5c067648138\",\n    \"ba543fa82c9ed1abec0a27474a5bb405141703aa0070ddcc5d078d87017acc45\": \"c4fd6e99bffb0e78081d31a5b0e9559a75bb5e42\"\n  },\n  \"sums\": {}\n}\n"
         }
       ],
       "runs": [
@@ -1321,7 +1321,7 @@
         },
         {
           "path": "migrated/goxide-import.json",
-          "source": "{\n  \"main_modules\": [\n    \"example.org/app\",\n    \"example.org/lib\"\n  ],\n  \"input\": {\n    \"mode\": \"go-work\",\n    \"policy\": \"67f8f1d699e32eac791f091a4892cfbdf45cc7b304c588f8342344971ebe6abf\",\n    \"digest\": \"bcf08949abde4dc28a9648906d5c03302e2c4544c64e1bc4d5a0e2a673037563\",\n    \"files\": {\n      \"example.org/dep/LICENSE\": \"0f6c7443b567400da5c4b164476b112d4e70dec8f23be3556a6359556cadd9c6\",\n      \"example.org/dep/dep.go\": \"9ce93f997397813b4dc802c2a8653c02b2ebdd4cffdf01d956fe04bcd5ee2070\",\n      \"modules.txt\": \"9ab39cf1c7d0ad67c1e5bb0cd98a5e18a125b84d99b351101de84d4ba347a9f0\"\n    },\n    \"modules\": [\n      {\n        \"path\": \"example.org/dep\",\n        \"version\": \"v1.0.0\",\n        \"replace\": \"./dep\",\n        \"go\": \"1.27\",\n        \"explicit\": true,\n        \"packages\": [\n          \"example.org/dep\"\n        ]\n      },\n      {\n        \"path\": \"example.org/dep\",\n        \"replace\": \"./dep\"\n      }\n    ]\n  },\n  \"selected_modules\": {\n    \"example.org/dep\": {\n      \"path\": \"example.org/dep\",\n      \"version\": \"v1.0.0\",\n      \"replace\": \"./dep\",\n      \"go\": \"1.27\",\n      \"explicit\": true,\n      \"packages\": [\n        \"example.org/dep\"\n      ]\n    }\n  },\n  \"local_modules\": {\n    \"example.org/dep\": \"local-modules/0471c28a72a7191a12a8ad66\"\n  },\n  \"files\": {\n    \"example.org/dep/LICENSE\": [\n      \"local-modules/0471c28a72a7191a12a8ad66/LICENSE\"\n    ],\n    \"example.org/dep/dep.go\": [\n      \"local-modules/0471c28a72a7191a12a8ad66/dep.go\"\n    ]\n  },\n  \"generated_metadata\": {\n    \"local-modules/0471c28a72a7191a12a8ad66/go.mod\": \"module \\\"example.org/dep\\\"\\n\\ngo 1.27\\n\"\n  },\n  \"original_metadata\": {\n    \"go.work\": \"go 1.27\\nuse (\\n ./app\\n ./lib\\n)\\n\",\n    \"members/example.org/app/go.mod\": \"module example.org/app\\ngo 1.27\\n\",\n    \"members/example.org/lib/go.mod\": \"module example.org/lib\\ngo 1.27\\nrequire example.org/dep v1.0.0\\nreplace example.org/dep =\\u003e ../dep\\n\",\n    \"vendor/modules.txt\": \"## workspace\\n# example.org/dep v1.0.0 =\\u003e ./dep\\n## explicit; go 1.27\\nexample.org/dep\\n# example.org/dep =\\u003e ./dep\\n\"\n  },\n  \"upstream_difference\": \"unknown (no upstream fetch)\"\n}\n"
+          "source": "{\n  \"direct_requirements\": {\n    \"example.org/dep\": true\n  },\n  \"source_choices\": {\n    \"example.org/dep\": {\n      \"source\": \"local\",\n      \"status\": \"unknown (no upstream comparison)\",\n      \"compared_files\": 0\n    }\n  },\n  \"main_modules\": [\n    \"example.org/app\",\n    \"example.org/lib\"\n  ],\n  \"input\": {\n    \"mode\": \"go-work\",\n    \"policy\": \"67f8f1d699e32eac791f091a4892cfbdf45cc7b304c588f8342344971ebe6abf\",\n    \"digest\": \"bcf08949abde4dc28a9648906d5c03302e2c4544c64e1bc4d5a0e2a673037563\",\n    \"files\": {\n      \"example.org/dep/LICENSE\": \"0f6c7443b567400da5c4b164476b112d4e70dec8f23be3556a6359556cadd9c6\",\n      \"example.org/dep/dep.go\": \"9ce93f997397813b4dc802c2a8653c02b2ebdd4cffdf01d956fe04bcd5ee2070\",\n      \"modules.txt\": \"9ab39cf1c7d0ad67c1e5bb0cd98a5e18a125b84d99b351101de84d4ba347a9f0\"\n    },\n    \"modules\": [\n      {\n        \"path\": \"example.org/dep\",\n        \"version\": \"v1.0.0\",\n        \"replace\": \"./dep\",\n        \"go\": \"1.27\",\n        \"explicit\": true,\n        \"packages\": [\n          \"example.org/dep\"\n        ]\n      },\n      {\n        \"path\": \"example.org/dep\",\n        \"replace\": \"./dep\"\n      }\n    ]\n  },\n  \"selected_modules\": {\n    \"example.org/dep\": {\n      \"path\": \"example.org/dep\",\n      \"version\": \"v1.0.0\",\n      \"replace\": \"./dep\",\n      \"go\": \"1.27\",\n      \"explicit\": true,\n      \"packages\": [\n        \"example.org/dep\"\n      ]\n    }\n  },\n  \"local_modules\": {\n    \"example.org/dep\": \"local-modules/0471c28a72a7191a12a8ad66\"\n  },\n  \"files\": {\n    \"example.org/dep/LICENSE\": [\n      \"local-modules/0471c28a72a7191a12a8ad66/LICENSE\"\n    ],\n    \"example.org/dep/dep.go\": [\n      \"local-modules/0471c28a72a7191a12a8ad66/dep.go\"\n    ]\n  },\n  \"generated_metadata\": {\n    \"local-modules/0471c28a72a7191a12a8ad66/go.mod\": \"module \\\"example.org/dep\\\"\\n\\ngo 1.27\\n\"\n  },\n  \"original_metadata\": {\n    \"go.work\": \"go 1.27\\nuse (\\n ./app\\n ./lib\\n)\\n\",\n    \"members/example.org/app/go.mod\": \"module example.org/app\\ngo 1.27\\n\",\n    \"members/example.org/lib/go.mod\": \"module example.org/lib\\ngo 1.27\\nrequire example.org/dep v1.0.0\\nreplace example.org/dep =\\u003e ../dep\\n\",\n    \"vendor/modules.txt\": \"## workspace\\n# example.org/dep v1.0.0 =\\u003e ./dep\\n## explicit; go 1.27\\nexample.org/dep\\n# example.org/dep =\\u003e ./dep\\n\"\n  },\n  \"upstream_difference\": \"see source_choices; verified covers supplied subset only\"\n}\n"
         },
         {
           "path": "migrated/local-modules/0471c28a72a7191a12a8ad66/go.mod",
@@ -1347,7 +1347,7 @@
       "runs": [
         {
           "command": "goxide import-go --workspace --plan --offline native",
-          "stdout": "# Plan only: original files unchanged; native workspace, bounded Go configuration; no install scripts.\n# member example.org/app: native/app -> members/m0\n# explicit dependency example.org/app -> example.org/lib (workspace=true)\n# member example.org/lib: native/lib -> members/m1\n# source example.org/dep: local=local-modules/0471c28a72a7191a12a8ad66 (default, supplied bytes); remote module=unconfirmed (original replacement is local) version= status=unknown (--offline: not remotely verified)\n# supplied vendor input -> ordinary local modules: preserve bytes/modes/licenses; upstream differences unknown; content hashes are not proxy h1\n# vendor file example.org/dep/dep.go 9ce93f997397813b4dc802c2a8653c02b2ebdd4cffdf01d956fe04bcd5ee2070\n# vendor file modules.txt 9ab39cf1c7d0ad67c1e5bb0cd98a5e18a125b84d99b351101de84d4ba347a9f0\n# vendor license example.org/dep/LICENSE 0f6c7443b567400da5c4b164476b112d4e70dec8f23be3556a6359556cadd9c6\n# vendor module example.org/dep@ replace=./dep@ explicit=false go= packages=\n# vendor module example.org/dep@v1.0.0 replace=./dep@ explicit=true go=1.27 packages=example.org/dep\n\n# goxide.toml\n[workspace]\nformat = 1\nmembers = ['members/m0', 'members/m1']\n\n[workspace.go]\ngo = '1.27'\n\n[[workspace.go.replace]]\nmodule = 'example.org/dep'\npath = './local-modules/0471c28a72a7191a12a8ad66'\n\n[workspace.go.configuration]\nCC = 'gcc'\nCGO_CFLAGS = '-O2 -g'\nCGO_CPPFLAGS = ''\nCGO_CXXFLAGS = '-O2 -g'\nCGO_ENABLED = '1'\nCGO_FFLAGS = '-O2 -g'\nCGO_LDFLAGS = '-O2 -g'\nCXX = 'g++'\nGO386 = ''\nGOAMD64 = 'v1'\nGOARCH = 'amd64'\nGOARM = ''\nGOARM64 = ''\nGOEXPERIMENT = ''\nGOFIPS140 = 'off'\nGOMIPS = ''\nGOMIPS64 = ''\nGOOS = 'linux'\nGOPPC64 = ''\nGORISCV64 = ''\nGOVERSION = 'go1.27.1'\nGOWASM = ''\nPKG_CONFIG = 'pkg-config'\n\n[workspace.dependencies]\n[workspace.dependencies.member0]\nmodule = 'example.org/app'\npath = 'members/m0'\n\n[workspace.dependencies.member1]\nmodule = 'example.org/lib'\npath = 'members/m1'\n\n# members/m0/goxide.toml\n[[bin]]\nname = 'app'\npath = '.'\n\n[dependencies]\n[dependencies.member1]\nworkspace = true\n\n[go]\n[[go.replace]]\nmodule = 'example.org/dep'\npath = '../../local-modules/0471c28a72a7191a12a8ad66'\n\n[[go.require]]\nindirect = true\nmodule = 'example.org/dep'\nversion = 'v1.0.0'\n\n[package]\nformat = 2\ngo = '1.27'\nmodule = 'example.org/app'\n\n# members/m1/goxide.toml\n[go]\n[[go.replace]]\nmodule = 'example.org/dep'\npath = '../../local-modules/0471c28a72a7191a12a8ad66'\n\n[[go.require]]\nmodule = 'example.org/dep'\nversion = 'v1.0.0'\n\n[lib]\nname = 'lib'\npath = '.'\n\n[package]\nformat = 2\ngo = '1.27'\nmodule = 'example.org/lib'\n"
+          "stdout": "# Plan only: original files unchanged; native workspace, bounded Go configuration; no install scripts.\n# member example.org/app: native/app -> members/m0\n# explicit dependency example.org/app -> example.org/lib (workspace=true)\n# member example.org/lib: native/lib -> members/m1\n# source example.org/dep: role=direct; local=local-modules/0471c28a72a7191a12a8ad66 (default, supplied bytes); remote module=unconfirmed (original replacement is local) version= status=unknown (--offline: not remotely verified)\n# supplied vendor input -> ordinary local modules: preserve bytes/modes/licenses; upstream differences unknown; content hashes are not proxy h1\n# vendor file example.org/dep/dep.go 9ce93f997397813b4dc802c2a8653c02b2ebdd4cffdf01d956fe04bcd5ee2070\n# vendor file modules.txt 9ab39cf1c7d0ad67c1e5bb0cd98a5e18a125b84d99b351101de84d4ba347a9f0\n# vendor license example.org/dep/LICENSE 0f6c7443b567400da5c4b164476b112d4e70dec8f23be3556a6359556cadd9c6\n# vendor module example.org/dep@ replace=./dep@ explicit=false go= packages=\n# vendor module example.org/dep@v1.0.0 replace=./dep@ explicit=true go=1.27 packages=example.org/dep\n\n# goxide.toml\n[workspace]\nformat = 1\nmembers = ['members/m0', 'members/m1']\n\n[workspace.go]\ngo = '1.27'\n\n[[workspace.go.replace]]\nmodule = 'example.org/dep'\npath = './local-modules/0471c28a72a7191a12a8ad66'\n\n[workspace.go.configuration]\nCC = 'gcc'\nCGO_CFLAGS = '-O2 -g'\nCGO_CPPFLAGS = ''\nCGO_CXXFLAGS = '-O2 -g'\nCGO_ENABLED = '1'\nCGO_FFLAGS = '-O2 -g'\nCGO_LDFLAGS = '-O2 -g'\nCXX = 'g++'\nGO386 = ''\nGOAMD64 = 'v1'\nGOARCH = 'amd64'\nGOARM = ''\nGOARM64 = ''\nGOEXPERIMENT = ''\nGOFIPS140 = 'off'\nGOMIPS = ''\nGOMIPS64 = ''\nGOOS = 'linux'\nGOPPC64 = ''\nGORISCV64 = ''\nGOVERSION = 'go1.27.1'\nGOWASM = ''\nPKG_CONFIG = 'pkg-config'\n\n[workspace.dependencies]\n[workspace.dependencies.member0]\nmodule = 'example.org/app'\npath = 'members/m0'\n\n[workspace.dependencies.member1]\nmodule = 'example.org/lib'\npath = 'members/m1'\n\n# members/m0/goxide.toml\n[[bin]]\nname = 'app'\npath = '.'\n\n[dependencies]\n[dependencies.member1]\nworkspace = true\n\n[go]\n[[go.replace]]\nmodule = 'example.org/dep'\npath = '../../local-modules/0471c28a72a7191a12a8ad66'\n\n[[go.require]]\nindirect = true\nmodule = 'example.org/dep'\nversion = 'v1.0.0'\n\n[package]\nformat = 2\ngo = '1.27'\nmodule = 'example.org/app'\n\n# members/m1/goxide.toml\n[go]\n[[go.replace]]\nmodule = 'example.org/dep'\npath = '../../local-modules/0471c28a72a7191a12a8ad66'\n\n[[go.require]]\nmodule = 'example.org/dep'\nversion = 'v1.0.0'\n\n[lib]\nname = 'lib'\npath = '.'\n\n[package]\nformat = 2\ngo = '1.27'\nmodule = 'example.org/lib'\n"
         },
         {
           "command": "goxide import-go --workspace --out migrated --offline native",
@@ -1372,7 +1372,93 @@
         "coldModuleCache": true,
         "copiedRootLock": false
       }
+    },
+    {
+      "id": "source-selection",
+      "title": "来源选择：默认local、差异确认与真实TTY",
+      "note": "仅本地CLI实测；example.org/d v1.2.0由临时file proxy制造并预热，随后GOPROXY=off。不是公共安装地址或浏览器网络服务。stdout/拒绝诊断与PTY合并输出据实记录，仅去临时根前缀并规范CRLF。remote只验证当前供应文件集合，原修改副本始终保留；空缓存offline失败。",
+      "files": [
+        {
+          "path": "old-project/go.mod",
+          "source": "module example.org/source-demo\n\ngo 1.27\n\nrequire example.org/d v1.2.0\n"
+        },
+        {
+          "path": "old-project/go.sum",
+          "source": "example.org/d v1.2.0 h1:Ft7g4FVrFbSOKcc2XBLg5n1wXo38j5d3PPBBOKCX7nQ=\nexample.org/d v1.2.0/go.mod h1:gFw0hmjUI19YagQAmYpW6jUsFP8IDAr3ZZ0yxoTvhug=\n"
+        },
+        {
+          "path": "old-project/main.go",
+          "source": "package main\nimport(\"fmt\";\"example.org/d\")\nfunc main(){fmt.Println(d.Value)}\n"
+        },
+        {
+          "path": "old-project/vendor/example.org/d/LICENSE",
+          "source": "Demonstration fixture.\n"
+        },
+        {
+          "path": "old-project/vendor/example.org/d/d.go",
+          "source": "package d\nconst Value=\"supplied modification\"\n"
+        },
+        {
+          "path": "old-project/vendor/modules.txt",
+          "source": "# example.org/d v1.2.0\n## explicit; go 1.27\nexample.org/d\n"
+        },
+        {
+          "path": "remote-project/goxide.toml",
+          "source": "[package]\nformat = 2\nmodule = 'example.org/source-demo'\ngo = '1.27'\n\n[go]\n[[go.require]]\nmodule = 'example.org/d'\nversion = 'v1.2.0'\n\n[[go.replace]]\nmodule = 'example.org/d'\nwith = 'example.org/d'\nwith_version = 'v1.2.0'\n\n[[bin]]\nname = 'app'\npath = '.'\n"
+        },
+        {
+          "path": "remote-project/goxide-import.json",
+          "source": "{\n  \"direct_requirements\": {\n    \"example.org/d\": true\n  },\n  \"source_choices\": {\n    \"example.org/d\": {\n      \"source\": \"remote\",\n      \"module\": \"example.org/d\",\n      \"version\": \"v1.2.0\",\n      \"status\": \"modified/unknown\",\n      \"sum\": \"h1:Ft7g4FVrFbSOKcc2XBLg5n1wXo38j5d3PPBBOKCX7nQ=\",\n      \"go_mod_sum\": \"h1:gFw0hmjUI19YagQAmYpW6jUsFP8IDAr3ZZ0yxoTvhug=\",\n      \"compared_files\": 2,\n      \"differences\": [\n        \"example.org/d/d.go: bytes differ\"\n      ],\n      \"differences_accepted\": true\n    }\n  },\n  \"main_modules\": [\n    \"example.org/source-demo\"\n  ],\n  \"input\": {\n    \"mode\": \"go-mod\",\n    \"policy\": \"f54cea23dbc900411986c3efa696ae457002c12a3b5692c58ffc985eeafa095d\",\n    \"digest\": \"7fe4f42bdd4b7a2cd04ae2ef1bd69482981882e1db0b5714d556e33c0ee18e56\",\n    \"files\": {\n      \"example.org/d/LICENSE\": \"e1cb73fe9ff06a32459d67a64146acfb42ccbf7270a0e18b472593598152966b\",\n      \"example.org/d/d.go\": \"0d5d697fb416c07176636bb872584c94e29f89e9da871b6c8d93a9846b516258\",\n      \"modules.txt\": \"d8aeeb21e53deac4037ea1221c0e47ca1560d4a001853cc40be27c8708835d75\"\n    },\n    \"modules\": [\n      {\n        \"path\": \"example.org/d\",\n        \"version\": \"v1.2.0\",\n        \"go\": \"1.27\",\n        \"explicit\": true,\n        \"packages\": [\n          \"example.org/d\"\n        ]\n      }\n    ]\n  },\n  \"selected_modules\": {\n    \"example.org/d\": {\n      \"path\": \"example.org/d\",\n      \"version\": \"v1.2.0\",\n      \"go\": \"1.27\",\n      \"explicit\": true,\n      \"packages\": [\n        \"example.org/d\"\n      ]\n    }\n  },\n  \"local_modules\": {\n    \"example.org/d\": \"local-modules/22519f34d52e6a248894d358\"\n  },\n  \"files\": {\n    \"example.org/d/LICENSE\": [\n      \"local-modules/22519f34d52e6a248894d358/LICENSE\"\n    ],\n    \"example.org/d/d.go\": [\n      \"local-modules/22519f34d52e6a248894d358/d.go\"\n    ]\n  },\n  \"generated_metadata\": {\n    \"local-modules/22519f34d52e6a248894d358/go.mod\": \"module \\\"example.org/d\\\"\\n\\ngo 1.27\\n\"\n  },\n  \"original_metadata\": {\n    \"go.mod\": \"module example.org/source-demo\\n\\ngo 1.27\\n\\nrequire example.org/d v1.2.0\\n\",\n    \"go.sum\": \"example.org/d v1.2.0 h1:Ft7g4FVrFbSOKcc2XBLg5n1wXo38j5d3PPBBOKCX7nQ=\\nexample.org/d v1.2.0/go.mod h1:gFw0hmjUI19YagQAmYpW6jUsFP8IDAr3ZZ0yxoTvhug=\\n\",\n    \"members/example.org/source-demo/go.mod\": \"module example.org/source-demo\\n\\ngo 1.27\\n\\nrequire example.org/d v1.2.0\\n\",\n    \"members/example.org/source-demo/go.sum\": \"example.org/d v1.2.0 h1:Ft7g4FVrFbSOKcc2XBLg5n1wXo38j5d3PPBBOKCX7nQ=\\nexample.org/d v1.2.0/go.mod h1:gFw0hmjUI19YagQAmYpW6jUsFP8IDAr3ZZ0yxoTvhug=\\n\",\n    \"vendor/modules.txt\": \"# example.org/d v1.2.0\\n## explicit; go 1.27\\nexample.org/d\\n\"\n  },\n  \"upstream_difference\": \"see source_choices; verified covers supplied subset only\"\n}\n"
+        },
+        {
+          "path": "保留的原供应 d.go",
+          "source": "package d\nconst Value=\"supplied modification\"\n"
+        }
+      ],
+      "runs": [
+        {
+          "command": "非TTY，管道含remote选择仍不读取：goxide import-go --bin app=. --offline --out local-project old-project",
+          "stdout": "migrated project: local-project\noriginal go.mod/go.sum retained at: old-project\n"
+        },
+        {
+          "command": "goxide run --bin app --offline --locked local-project",
+          "stdout": "supplied modification\n"
+        },
+        {
+          "command": "goxide import-go --bin app=. --offline --source example.org/d=remote --out remote-project old-project（差异未确认，预期失败）",
+          "stdout": "source example.org/d: remote example.org/d@v1.2.0; modified/unknown (2 supplied files compared)\n  example.org/d/d.go: bytes differ\nremote source differs for example.org/d; inspect differences and use --accept-source-diff example.org/d (supplied bytes remain preserved)\n"
+        },
+        {
+          "command": "goxide import-go --bin app=. --offline --source example.org/d=remote --accept-source-diff example.org/d --out remote-project old-project",
+          "stdout": "migrated project: remote-project\noriginal go.mod/go.sum retained at: old-project\n"
+        },
+        {
+          "command": "goxide run --bin app --offline --locked remote-project",
+          "stdout": "remote\n"
+        },
+        {
+          "command": "空module cache下重复offline remote迁入（预期失败）",
+          "stdout": "remote source example.org/d@v1.2.0 (offline=true): Go module planning mod: exit status 1: \n"
+        },
+        {
+          "command": "真实TTY：选择 example.org/d=remote，再逐模块确认 remote example.org/d",
+          "stdout": "Supplied module sources (all local by default):\n# source example.org/d: role=direct; local=local-modules/22519f34d52e6a248894d358 (default, supplied bytes); remote module=example.org/d version=v1.2.0 status=unknown (--offline: not remotely verified)\nEnter MODULE=remote overrides separated by spaces; Enter keeps all local; cancel aborts:\nexample.org/d=remote\nremote example.org/d\nsource example.org/d: remote example.org/d@v1.2.0; modified/unknown (2 supplied files compared)\n  example.org/d/d.go: bytes differ\nType remote example.org/d to confirm changed source, or anything else to cancel:\nmigrated project: tty-project\noriginal go.mod/go.sum retained at: old-project\n"
+        },
+        {
+          "command": "goxide run --bin app --offline --locked tty-project",
+          "stdout": "remote\n"
+        }
+      ],
+      "verification": {
+        "nonTTYDoesNotConsumeInput": true,
+        "missingConfirmationRejected": true,
+        "explicitDifferenceConfirmed": true,
+        "suppliedBytesPreserved": true,
+        "coldOfflineRejected": true,
+        "realPTY": true,
+        "originalUnchanged": true
+      }
     }
   ],
-  "wasmSha256": "838a567da027420f4b7a6d665c18d001434257d7119ba1e90c30e52bb5e1f2c7"
+  "wasmSha256": "a25799bf67a5ed2e9e8ebff195cbf9b18edcb8fc93741830429687867c060772"
 }
