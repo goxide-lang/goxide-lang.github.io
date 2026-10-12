@@ -30,12 +30,12 @@
     "-ldflags=-s -w -buildid="
   ],
   "exportTrimpath": true,
-  "commit": "03251a7cb31cee22a41c37af1df1ff0b90aba6d3",
-  "websiteCommit": "cf56a52c22acff7a1ab353f86515745b542d6abd",
+  "commit": "690cd5178dc11a0089a41e9320ed1275778383e1",
+  "websiteCommit": "38b6e4203d7daf8d622fe10cf57064a84d48ff0d",
   "catalog": {
     "schemaVersion": 1,
-    "compilerCommit": "03251a7cb31cee22a41c37af1df1ff0b90aba6d3",
-    "reviewedAt": "2026-10-09",
+    "compilerCommit": "690cd5178dc11a0089a41e9320ed1275778383e1",
+    "reviewedAt": "2026-10-12",
     "statusLabels": {
       "proposal": "提案",
       "accepted": "已确认待实现",
@@ -634,7 +634,7 @@
       "提案语法、Go 机制探针和文档标题都不能单独作为实现证据。"
     ]
   },
-  "compilerDigest": "880df58f2a8c3d94284344ac83843866a0c5e9d7844659e2dd5701e297213e68",
+  "compilerDigest": "6598024b9eb11a9ee9a710307bc78ab2ff0f6f3400465f8df74f763133adef27",
   "exportsDigest": "f82229fdb9168603e2833529670f65f178c47230cdcd2148dfa116e6081a5244",
   "exportTarget": {
     "GOARCH": "amd64",
@@ -2163,7 +2163,7 @@
       "files": [
         {
           "path": "goxide.toml",
-          "source": "[package]\nformat = 2\nmodule = \"example.org/catalog\"\ngo = \"1.27\"\n\n[features]\ndefault = [\"pretty\"]\npretty = []\n\n[[bin]]\nname = \"demo\"\npath = \"src/main.gox\"\n\n[dependencies.fmt]\nsource = \"toolchain\"\npackage = \"fmt\"\n"
+          "source": "[package]\nformat = 2\nmodule = \"example.org/catalog\"\ngo = \"1.27\"\n\n[features]\ndefault = [\"pretty\"]\npretty = []\n\n[[bin]]\nname = \"demo\"\npath = \"src/main.gox\"\n\n[dependencies.fmt]\ngo = \"fmt\"\n"
         },
         {
           "path": "src/main.gox",
@@ -2171,7 +2171,7 @@
         },
         {
           "path": "goxide.lock",
-          "source": "{\n  \"version\": 2,\n  \"git\": {},\n  \"sums\": {\n    \"c4076320fa9c723eed3ffd2e58ab09e82227cfa1b4919e4315f56309311f692e\": \"\"\n  },\n  \"plans\": {\n    \"1698d24a55035d856439ad9915ea176eab2e50ebf91e274419f7c616505b0926\": {}\n  }\n}\n"
+          "source": "{\n  \"version\": 2,\n  \"git\": {},\n  \"sums\": {\n    \"9135aee73979cb2b7026b446b4b149a81397e1884128a038b6464c64488e6b35\": \"\"\n  },\n  \"plans\": {\n    \"d3c3a600d2921364f8358635a944a967b560e840761d9dcf5fbd6bd807c3015d\": {}\n  }\n}\n"
         },
         {
           "path": "target 生成 Go 1（只读）",
@@ -2195,7 +2195,79 @@
           "command": "goxide run --bin demo --locked --offline .",
           "stdout": "pretty: true\n"
         }
-      ]
+      ],
+      "download": {
+        "path": "project-features.zip",
+        "sha256": "6e445877d02d4f594ebc0e6eec2f9965a2ebe93f9429003cbcd8d5afe3e2390b",
+        "files": [
+          "goxide.toml",
+          "src/main.gox",
+          "goxide.lock",
+          "README.md"
+        ]
+      }
+    },
+    {
+      "id": "targets",
+      "title": "lib、双 bin 与 example：完整工程",
+      "files": [
+        {
+          "path": "goxide.toml",
+          "source": "[package]\nformat = 2\nmodule = \"example.org/goxide-project\"\ngo = \"1.27\"\n\n[package.namespaces]\ngreeting = \"example.org/goxide-project\"\n\n[[bin]]\nname = 'hello'\npath = 'src/main.gox'\n\n[[bin]]\nname = 'inspect'\npath = 'src/inspect.gox'\n\n[[example]]\nname = 'greet'\npath = 'examples/greet.gox'\n\n[features]\ndefault = ['pretty']\npretty = []\n\n[lib]\nname = 'greeting'\npath = 'src/lib.gox'\n\n\n[[go.require]]\nmodule = \"github.com/goxide-lang/serde\"\nversion = \"v0.0.0-20261009021520-f342a31e20d0\"\n\n[[go.require]]\nmodule = \"github.com/goxide-lang/std\"\nversion = \"v0.0.0-20261009104839-c02a09d8c417\"\n\n[dependencies.fmt]\ngo = \"fmt\"\n"
+        },
+        {
+          "path": "goxide.lock",
+          "source": "{\n  \"planning_sums\": \"github.com/goxide-lang/serde v0.0.0-20261009021520-f342a31e20d0 h1:SP87Kr41DUhtaUT+nFCVxdhcAPWYRm/+DF/5cp34Of0=\\ngithub.com/goxide-lang/serde v0.0.0-20261009021520-f342a31e20d0/go.mod h1:m4z9CAWRl/5hQN6+9RQ7Sfr/gK9wcWk+ANoqbSxlW0g=\\ngithub.com/goxide-lang/std v0.0.0-20261009104839-c02a09d8c417 h1:qZkTUGMRpdJJTcFeNd0nal+Yv08fo7yGGPTX9IUKNRw=\\ngithub.com/goxide-lang/std v0.0.0-20261009104839-c02a09d8c417/go.mod h1:63NtaBDSKjpgXiP5gA5tcfO8GCwwcB0SdBzbxzkgXyQ=\\n\",\n  \"version\": 2,\n  \"git\": {},\n  \"sums\": {\n    \"81f46e97f40492cde09c13f3fdbd96507d75eaea28020278b34eaece43d0e886\": \"github.com/goxide-lang/serde v0.0.0-20261009021520-f342a31e20d0 h1:SP87Kr41DUhtaUT+nFCVxdhcAPWYRm/+DF/5cp34Of0=\\ngithub.com/goxide-lang/serde v0.0.0-20261009021520-f342a31e20d0/go.mod h1:m4z9CAWRl/5hQN6+9RQ7Sfr/gK9wcWk+ANoqbSxlW0g=\\ngithub.com/goxide-lang/std v0.0.0-20261009104839-c02a09d8c417 h1:qZkTUGMRpdJJTcFeNd0nal+Yv08fo7yGGPTX9IUKNRw=\\ngithub.com/goxide-lang/std v0.0.0-20261009104839-c02a09d8c417/go.mod h1:63NtaBDSKjpgXiP5gA5tcfO8GCwwcB0SdBzbxzkgXyQ=\\n\",\n    \"a49a4b3d188a8076564c521e98e5b73773597dff7dbdf6935e8c54c94fe6640a\": \"github.com/goxide-lang/serde v0.0.0-20261009021520-f342a31e20d0 h1:SP87Kr41DUhtaUT+nFCVxdhcAPWYRm/+DF/5cp34Of0=\\ngithub.com/goxide-lang/serde v0.0.0-20261009021520-f342a31e20d0/go.mod h1:m4z9CAWRl/5hQN6+9RQ7Sfr/gK9wcWk+ANoqbSxlW0g=\\ngithub.com/goxide-lang/std v0.0.0-20261009104839-c02a09d8c417 h1:qZkTUGMRpdJJTcFeNd0nal+Yv08fo7yGGPTX9IUKNRw=\\ngithub.com/goxide-lang/std v0.0.0-20261009104839-c02a09d8c417/go.mod h1:63NtaBDSKjpgXiP5gA5tcfO8GCwwcB0SdBzbxzkgXyQ=\\n\"\n  },\n  \"plans\": {\n    \"a4bb713038eefb0688833bfe10b0c7a951d14727d1694612f4d332c6f0223238\": {\n      \"github.com/goxide-lang/serde\": {\n        \"Path\": \"github.com/goxide-lang/serde\",\n        \"Version\": \"v0.0.0-20261009021520-f342a31e20d0\",\n        \"Sum\": \"h1:SP87Kr41DUhtaUT+nFCVxdhcAPWYRm/+DF/5cp34Of0=\",\n        \"GoModSum\": \"h1:m4z9CAWRl/5hQN6+9RQ7Sfr/gK9wcWk+ANoqbSxlW0g=\"\n      },\n      \"github.com/goxide-lang/std\": {\n        \"Path\": \"github.com/goxide-lang/std\",\n        \"Version\": \"v0.0.0-20261009104839-c02a09d8c417\",\n        \"Sum\": \"h1:qZkTUGMRpdJJTcFeNd0nal+Yv08fo7yGGPTX9IUKNRw=\",\n        \"GoModSum\": \"h1:63NtaBDSKjpgXiP5gA5tcfO8GCwwcB0SdBzbxzkgXyQ=\"\n      }\n    },\n    \"d500c21742563c4259ac90d9c363fe700ace277735303343111405f29f01a5ff\": {\n      \"github.com/goxide-lang/serde\": {\n        \"Path\": \"github.com/goxide-lang/serde\",\n        \"Version\": \"v0.0.0-20261009021520-f342a31e20d0\",\n        \"Sum\": \"h1:SP87Kr41DUhtaUT+nFCVxdhcAPWYRm/+DF/5cp34Of0=\",\n        \"GoModSum\": \"h1:m4z9CAWRl/5hQN6+9RQ7Sfr/gK9wcWk+ANoqbSxlW0g=\"\n      },\n      \"github.com/goxide-lang/std\": {\n        \"Path\": \"github.com/goxide-lang/std\",\n        \"Version\": \"v0.0.0-20261009104839-c02a09d8c417\",\n        \"Sum\": \"h1:qZkTUGMRpdJJTcFeNd0nal+Yv08fo7yGGPTX9IUKNRw=\",\n        \"GoModSum\": \"h1:63NtaBDSKjpgXiP5gA5tcfO8GCwwcB0SdBzbxzkgXyQ=\"\n      }\n    }\n  }\n}\n"
+        },
+        {
+          "path": "src/inspect.gox",
+          "source": "package main\nuse fmt;\nfunc main() { fmt::Println(\"pretty:\", cfg!(feature(\"pretty\"))) }\n"
+        },
+        {
+          "path": "src/lib.gox",
+          "source": "package greeting\n\nfunc Message() string {\n if cfg!(feature(\"pretty\")) { return \"Hello, goxide!\" }\n return \"hello\"\n}\n"
+        },
+        {
+          "path": "src/main.gox",
+          "source": "package main\nuse fmt;\nuse greeting;\nfunc main() { fmt::Println(greeting::Message()) }\n"
+        },
+        {
+          "path": "examples/greet.gox",
+          "source": "package main\nuse fmt;\nuse greeting;\nfunc main() { fmt::Println(\"example:\", greeting::Message()) }\n"
+        }
+      ],
+      "runs": [
+        {
+          "command": "goxide run --bin hello --offline --locked .",
+          "stdout": "Hello, goxide!\n"
+        },
+        {
+          "command": "goxide run --bin hello --no-default-features --offline --locked .",
+          "stdout": "hello\n"
+        },
+        {
+          "command": "goxide run --bin inspect --offline --locked .",
+          "stdout": "pretty: true\n"
+        },
+        {
+          "command": "goxide run --example greet --offline --locked .",
+          "stdout": "example: Hello, goxide!\n"
+        }
+      ],
+      "download": {
+        "path": "project-targets.zip",
+        "sha256": "52285457cde076cdc52600dec4186e9e527a56320096feadde254c498b1b084b",
+        "files": [
+          "goxide.toml",
+          "goxide.lock",
+          "src/inspect.gox",
+          "src/lib.gox",
+          "src/main.gox",
+          "examples/greet.gox",
+          "README.md"
+        ]
+      },
+      "note": "下载包含完整清单、锁文件和全部源码。Go 支持库按锁文件解析；首次在本机先执行 goxide build --bin hello --locked . 下载依赖，再使用下列 offline 命令。"
     },
     {
       "id": "import-go",
@@ -2245,8 +2317,8 @@
         "originalFilesUnchanged": true,
         "targetModuleMetadata": true,
         "sourceDigests": {
-          "go.mod": "781fd7182644708f7f53142e428381d0126d04bf5dd8a14d9df99296c079bec3",
-          "main.go": "79015f96d7277ad39bb9233a335ab8b6ad4bd8c44499b70f5387d47646837883"
+          "main.go": "79015f96d7277ad39bb9233a335ab8b6ad4bd8c44499b70f5387d47646837883",
+          "go.mod": "781fd7182644708f7f53142e428381d0126d04bf5dd8a14d9df99296c079bec3"
         }
       }
     },
@@ -2337,11 +2409,11 @@
         },
         {
           "command": "goxide run -go args.go（预期失败）",
-          "stdout": "-go is not supported; use --go\nusage: goxide run [flags] INPUT [-- PROGRAM_ARGS...]\n"
+          "stdout": "-go is not supported; use --go\nusage: goxide run [flags] [INPUT] [-- PROGRAM_ARGS...]\n"
         },
         {
           "command": "goxide run -offline args.go（预期失败）",
-          "stdout": "-offline is not supported; use --offline\nusage: goxide run [flags] INPUT [-- PROGRAM_ARGS...]\n"
+          "stdout": "-offline is not supported; use --offline\nusage: goxide run [flags] [INPUT] [-- PROGRAM_ARGS...]\n"
         },
         {
           "command": "goxide scripts --help",
@@ -2360,7 +2432,7 @@
         },
         {
           "path": "workspace/apps/service/goxide.toml",
-          "source": "[package]\nformat = 2\nmodule = \"example.org/service\"\ngo.workspace = true\n\n[dependencies]\nfmt = { workspace = true }\nshared = { workspace = true, features = [\"json\"] }\n\n[[bin]]\nname = \"web\"\npath = \"web.gox\"\n\n[[bin]]\nname = \"admin\"\npath = \"admin.gox\"\n\n[[example]]\nname = \"hello\"\npath = \"hello.gox\"\n\n[dependencies.version]\nmodule = \"example.org/version\"\npackage = \"example.org/version\"\nversion = \"v1.0.0\"\n"
+          "source": "[package]\nformat = 2\nmodule = \"example.org/service\"\ngo.workspace = true\n\n[dependencies]\nfmt = { workspace = true }\nshared = { workspace = true, features = [\"json\"] }\n\n[[bin]]\nname = \"web\"\npath = \"web.gox\"\n\n[[bin]]\nname = \"admin\"\npath = \"admin.gox\"\n\n[[example]]\nname = \"hello\"\npath = \"hello.gox\"\n\n[dependencies.version]\ngo = \"example.org/version\"\npackage = \"example.org/version\"\nversion = \"v1.0.0\"\n"
         },
         {
           "path": "workspace/apps/service/hello.gox",
@@ -2372,15 +2444,19 @@
         },
         {
           "path": "workspace/apps/worker/goxide.toml",
-          "source": "[package]\nformat = 2\nmodule = \"example.org/worker\"\ngo.workspace = true\n\n[dependencies]\nfmt = { workspace = true }\nshared = { workspace = true, features = [\"yaml\"] }\n\n[[bin]]\nname = \"web\"\npath = \"web.gox\"\n\n[dependencies.version]\nmodule = \"example.org/version\"\npackage = \"example.org/version\"\nversion = \"v1.1.0\"\n"
+          "source": "[package]\nformat = 2\nmodule = \"example.org/worker\"\ngo.workspace = true\n\n[dependencies]\nfmt = { workspace = true }\nshared = { workspace = true, features = [\"yaml\"] }\n\n[[bin]]\nname = \"web\"\npath = \"web.gox\"\n\n[dependencies.version]\ngo = \"example.org/version\"\npackage = \"example.org/version\"\nversion = \"v1.1.0\"\n"
         },
         {
           "path": "workspace/apps/worker/web.gox",
           "source": "package main\nuse fmt;\nuse shared;\nuse version;\nfunc main(){fmt::Println(version::Value(), shared::Mode())}\n"
         },
         {
+          "path": "workspace/goxide.lock",
+          "source": "{\n  \"unified\": {\n    \"git_pins\": {},\n    \"minimum_go\": \"1.27\",\n    \"workspace\": \"8cc7ab05f0d677681d16cc35b71563bfc756175905e753461e0d8170134bb6ac\",\n    \"sources\": {\n      \"example.org/service\": \"833f8b488d8f15484d57c38798744330f866eaa70b9b08844d5b411f5b502ae1\",\n      \"example.org/shared\": \"8dbebfb2db8269a8e5a81aa5c83c86cd411be29d2cc1b67aeb19465c219cb703\",\n      \"example.org/worker\": \"41ad3c1a9db1b5928399913a6fe2536cfedd1654d4b2eabdcd3f1b61887cd1c1\"\n    },\n    \"policy\": {\n      \"Godebug\": null,\n      \"Toolchain\": \"\",\n      \"Module\": {\n        \"Path\": \"goxide-workspace.invalid/root\",\n        \"Version\": \"\"\n      },\n      \"Go\": \"1.27\",\n      \"Require\": null,\n      \"Replace\": null,\n      \"Exclude\": null\n    },\n    \"inputs\": {\n      \"example.org/service\": \"24f542ee24f804f4695fccaaf664744a9768dafd54a4a3a7342964df1b9acc34\",\n      \"example.org/shared\": \"456501b63dbd2c8cafced783ea6607db23df743dc05e74cbe1ec0aa8c4a2855b\",\n      \"example.org/worker\": \"b7717f32a1f199e374fc04696d70a131f7a36fc799603fa67b6fe2af58e8275e\"\n    },\n    \"modules\": {\n      \"example.org/service\": {\n        \"Path\": \"example.org/service\",\n        \"Version\": \"v0.0.0\",\n        \"Replace\": {\n          \"Path\": \"./apps/service\",\n          \"Version\": \"\"\n        }\n      },\n      \"example.org/shared\": {\n        \"Path\": \"example.org/shared\",\n        \"Version\": \"v0.0.0\",\n        \"Replace\": {\n          \"Path\": \"./libs/shared\",\n          \"Version\": \"\"\n        }\n      },\n      \"example.org/worker\": {\n        \"Path\": \"example.org/worker\",\n        \"Version\": \"v0.0.0\",\n        \"Replace\": {\n          \"Path\": \"./apps/worker\",\n          \"Version\": \"\"\n        }\n      }\n    }\n  },\n  \"version\": 3,\n  \"git\": {},\n  \"sums\": {}\n}\n"
+        },
+        {
           "path": "workspace/goxide.toml",
-          "source": "[workspace]\nformat = 1\nmembers = [\"apps/service\", \"apps/worker\", \"libs/shared\"]\ndefault-members = [\"apps/service\"]\n\n[workspace.package]\ngo = \"1.27\"\n\n[workspace.dependencies]\nshared = { module = \"example.org/shared\", package = \"example.org/shared\", path = \"libs/shared\", default_features = false }\nfmt = { source = \"toolchain\", package = \"fmt\" }\n"
+          "source": "[workspace]\nformat = 1\nmembers = [\"apps/service\", \"apps/worker\", \"libs/shared\"]\ndefault-members = [\"apps/service\"]\n\n[workspace.package]\ngo = \"1.27\"\n\n[workspace.dependencies]\nshared = { module = \"example.org/shared\", package = \"example.org/shared\", path = \"libs/shared\", default_features = false }\nfmt = { go = \"fmt\" }\n"
         },
         {
           "path": "workspace/libs/shared/goxide.toml",
@@ -2392,7 +2468,7 @@
         },
         {
           "path": "workspace/goxide.lock（路径已归一化）",
-          "source": "{\n  \"unified\": {\n    \"git_pins\": {},\n    \"minimum_go\": \"1.27\",\n    \"workspace\": \"a0868871091e1cf20d48b68430aa7c280ab5952c76d9943a63b3720cba0792e9\",\n    \"sources\": {\n      \"example.org/service\": \"f6fcaf2541405546a6a0d7fcf3481448f0694c0fb0079996729d9a9df0049377\",\n      \"example.org/shared\": \"6fa108f783688c18e5b93cc20dd1bdb287270f0a56fc48e09c56aa6e2276942f\",\n      \"example.org/worker\": \"263282916f922914efb9434fcb564769acaefe9284bd708b69342a14c85b477c\"\n    },\n    \"policy\": {\n      \"Godebug\": null,\n      \"Toolchain\": \"\",\n      \"Module\": {\n        \"Path\": \"goxide-workspace.invalid/root\",\n        \"Version\": \"\"\n      },\n      \"Go\": \"1.27\",\n      \"Require\": null,\n      \"Replace\": null,\n      \"Exclude\": null\n    },\n    \"inputs\": {\n      \"example.org/service\": \"0c3151c8924e77e84b1ec8aacded32f037c4a43f793cf587122596e417de42a3\",\n      \"example.org/shared\": \"456501b63dbd2c8cafced783ea6607db23df743dc05e74cbe1ec0aa8c4a2855b\",\n      \"example.org/worker\": \"ddc89d72db2e3278d62b41c7d741c5888ba92965ccf4dab956612437d6e8700e\"\n    },\n    \"modules\": {\n      \"example.org/service\": {\n        \"Path\": \"example.org/service\",\n        \"Version\": \"v0.0.0\",\n        \"Replace\": {\n          \"Path\": \"workspace/apps/service\",\n          \"Version\": \"\"\n        }\n      },\n      \"example.org/shared\": {\n        \"Path\": \"example.org/shared\",\n        \"Version\": \"v0.0.0\",\n        \"Replace\": {\n          \"Path\": \"workspace/libs/shared\",\n          \"Version\": \"\"\n        }\n      },\n      \"example.org/version\": {\n        \"Path\": \"example.org/version\",\n        \"Version\": \"v1.1.0\",\n        \"Sum\": \"h1:KL9B73YX+tfklNWb7K8X3TMUynUq9fjv3C7zA3sw0A4=\",\n        \"GoModSum\": \"h1:9/UMGBGdf40FPsDTnCdkzlE87YmqlnI99V0Thj0Tcxc=\"\n      },\n      \"example.org/worker\": {\n        \"Path\": \"example.org/worker\",\n        \"Version\": \"v0.0.0\",\n        \"Replace\": {\n          \"Path\": \"workspace/apps/worker\",\n          \"Version\": \"\"\n        }\n      }\n    }\n  },\n  \"planning_sums\": \"example.org/version v1.1.0 h1:KL9B73YX+tfklNWb7K8X3TMUynUq9fjv3C7zA3sw0A4=\\nexample.org/version v1.1.0/go.mod h1:9/UMGBGdf40FPsDTnCdkzlE87YmqlnI99V0Thj0Tcxc=\\n\",\n  \"version\": 3,\n  \"git\": {},\n  \"sums\": {}\n}\n"
+          "source": "{\n  \"unified\": {\n    \"git_pins\": {},\n    \"minimum_go\": \"1.27\",\n    \"workspace\": \"5eef7545f94f756947b37c07e4b21a3476f66119205b6f28be2cebee52511d71\",\n    \"sources\": {\n      \"example.org/service\": \"dba8fb9125766b12f7352ec8e5ee4661f1248ccff7770ff37ecdc34bb9c0bc8a\",\n      \"example.org/shared\": \"de4cb7b9d1da83ef5de6f7ff86c377a6e1b76c9afb690f63bbd1bbe31006768c\",\n      \"example.org/worker\": \"c3a2087ec21ccf12e3329e92f53486dab988beabda30a87c8076100d8c1074b5\"\n    },\n    \"policy\": {\n      \"Godebug\": null,\n      \"Toolchain\": \"\",\n      \"Module\": {\n        \"Path\": \"goxide-workspace.invalid/root\",\n        \"Version\": \"\"\n      },\n      \"Go\": \"1.27\",\n      \"Require\": null,\n      \"Replace\": null,\n      \"Exclude\": null\n    },\n    \"inputs\": {\n      \"example.org/service\": \"0b30e39511daaccba1182204879992a5db79bde418c3fc515c2285524fbf5018\",\n      \"example.org/shared\": \"456501b63dbd2c8cafced783ea6607db23df743dc05e74cbe1ec0aa8c4a2855b\",\n      \"example.org/worker\": \"0dea41010ca2281e77398740b801a32f389d001463b70e7bcfbf215e264b1dcf\"\n    },\n    \"modules\": {\n      \"example.org/service\": {\n        \"Path\": \"example.org/service\",\n        \"Version\": \"v0.0.0\",\n        \"Replace\": {\n          \"Path\": \"./apps/service\",\n          \"Version\": \"\"\n        }\n      },\n      \"example.org/shared\": {\n        \"Path\": \"example.org/shared\",\n        \"Version\": \"v0.0.0\",\n        \"Replace\": {\n          \"Path\": \"./libs/shared\",\n          \"Version\": \"\"\n        }\n      },\n      \"example.org/version\": {\n        \"Path\": \"example.org/version\",\n        \"Version\": \"v1.1.0\",\n        \"Sum\": \"h1:KL9B73YX+tfklNWb7K8X3TMUynUq9fjv3C7zA3sw0A4=\",\n        \"GoModSum\": \"h1:9/UMGBGdf40FPsDTnCdkzlE87YmqlnI99V0Thj0Tcxc=\"\n      },\n      \"example.org/worker\": {\n        \"Path\": \"example.org/worker\",\n        \"Version\": \"v0.0.0\",\n        \"Replace\": {\n          \"Path\": \"./apps/worker\",\n          \"Version\": \"\"\n        }\n      }\n    }\n  },\n  \"planning_sums\": \"example.org/version v1.1.0 h1:KL9B73YX+tfklNWb7K8X3TMUynUq9fjv3C7zA3sw0A4=\\nexample.org/version v1.1.0/go.mod h1:9/UMGBGdf40FPsDTnCdkzlE87YmqlnI99V0Thj0Tcxc=\\n\",\n  \"version\": 3,\n  \"git\": {},\n  \"sums\": {}\n}\n"
         }
       ],
       "runs": [
@@ -2410,18 +2486,18 @@
         },
         {
           "command": "goxide build --workspace --offline --locked workspace",
-          "stdout": "workspace/target/bin/linux-amd64/linux-amd64/bin/web/a2361e80746ba4ec1eafbdf67ea39b53d2ba08f5243d4435ae01a245677b3277/web\nworkspace/target/bin/linux-amd64/linux-amd64/bin/admin/ec8e35b61b7e21af204751b106a00e5ac74a58448fdf9b195c2418bce1198698/admin\nworkspace/target/bin/linux-amd64/linux-amd64/bin/web/3f277f67370f63b6858b459b43032d4c62ae2d7a2868ca30098a0c8c84851c56/web\n"
+          "stdout": "workspace/target/bin/linux-amd64/linux-amd64/bin/web/257ffdeb396e1b6a4cfd7486543b06353dbd52133f17a5b541913c22bd3100c5/web\nworkspace/target/bin/linux-amd64/linux-amd64/bin/admin/f6fb23aa665223eca52c123aff0fc3526017b62195d8d42f55aebdb2a64004b4/admin\nworkspace/target/bin/linux-amd64/linux-amd64/bin/web/58746208fea67bc704c2f547dfca1d17311b8605aa83873f53203cb61ce0fbb7/web\n"
         },
         {
-          "command": "运行 workspace/target/bin/linux-amd64/linux-amd64/bin/web/a2361e80746ba4ec1eafbdf67ea39b53d2ba08f5243d4435ae01a245677b3277/web",
+          "command": "运行 workspace/target/bin/linux-amd64/linux-amd64/bin/web/257ffdeb396e1b6a4cfd7486543b06353dbd52133f17a5b541913c22bd3100c5/web",
           "stdout": "v1.1.0 yaml\n"
         },
         {
-          "command": "运行 workspace/target/bin/linux-amd64/linux-amd64/bin/admin/ec8e35b61b7e21af204751b106a00e5ac74a58448fdf9b195c2418bce1198698/admin",
+          "command": "运行 workspace/target/bin/linux-amd64/linux-amd64/bin/admin/f6fb23aa665223eca52c123aff0fc3526017b62195d8d42f55aebdb2a64004b4/admin",
           "stdout": "yaml\n"
         },
         {
-          "command": "运行 workspace/target/bin/linux-amd64/linux-amd64/bin/web/3f277f67370f63b6858b459b43032d4c62ae2d7a2868ca30098a0c8c84851c56/web",
+          "command": "运行 workspace/target/bin/linux-amd64/linux-amd64/bin/web/58746208fea67bc704c2f547dfca1d17311b8605aa83873f53203cb61ce0fbb7/web",
           "stdout": "v1.1.0 yaml\n"
         },
         {
@@ -2476,7 +2552,7 @@
         },
         {
           "path": "standalone/goxide.lock",
-          "source": "{\n  \"unified\": {\n    \"git_pins\": {\n      \"4ba14a59dde7109f12e1acc5538abecd845547831b6b7870b0057c899294d9a7\": \"c4fd6e99bffb0e78081d31a5b0e9559a75bb5e42\",\n      \"baf2bcc1d2c53a7da6b72d08a744e53609aa9d74694dc3f24efec698f63ca50d\": \"f8af805c29f7d82dec4bdf18498ee5c067648138\"\n    },\n    \"minimum_go\": \"1.27\",\n    \"workspace\": \"45f33672ecedf20b960cfc80c14ee7b74f60a55ef26881e4be77eee6b6976112\",\n    \"sources\": {\n      \"example.org/app\": \"96e35dc07b8983ccb4e62a9c9a0280bf533cddb91d202f30080085a60b417f4f\",\n      \"example.org/server\": \"50547dd60c26049e216099bdf1d61b33555aa7771d465b12f6dde8705cce0106\",\n      \"example.org/unused\": \"9b0670b84d888057a5a3a4e7d260e01a6ad9ddbde1b2dbd3a0131d5642959c4b\",\n      \"example.org/used\": \"c2fefdda55dac028d2bc9292acc02216f61ec8b4e0c0b1f7116856ae32d7246c\"\n    },\n    \"policy\": {\n      \"Godebug\": null,\n      \"Toolchain\": \"\",\n      \"Module\": {\n        \"Path\": \"goxide-workspace.invalid/root\",\n        \"Version\": \"\"\n      },\n      \"Go\": \"1.27\",\n      \"Require\": null,\n      \"Replace\": null,\n      \"Exclude\": null\n    },\n    \"inputs\": {\n      \"example.org/app\": \"8901da1f3c3cfd2f5b87384b47856039037b747ee320fce9289a06db60e7606c\",\n      \"example.org/server\": \"a5a3c90f91150f7e3eafaf0b7004074a2dc66233d76d74a6643d7aab376656cf\",\n      \"example.org/unused\": \"0edfc895dda04d69e2101f2748bda8cc4d71e237f18734ee6daaacd2171c895c\",\n      \"example.org/used\": \"bb0747213fa7d1c2e951ce287b7dfc7351050c712e3724824f653a113e7c9f5c\"\n    },\n    \"modules\": {\n      \"example.org/app\": {\n        \"Path\": \"example.org/app\",\n        \"Version\": \"v0.0.0\",\n        \"Replace\": {\n          \"Path\": \"git-workspace/app\",\n          \"Version\": \"\"\n        }\n      },\n      \"example.org/server\": {\n        \"Path\": \"example.org/server\",\n        \"Version\": \"v0.0.0\",\n        \"Replace\": {\n          \"Path\": \"git-workspace/server\",\n          \"Version\": \"\"\n        }\n      },\n      \"example.org/unused\": {\n        \"Path\": \"example.org/unused\",\n        \"Version\": \"v0.0.0\",\n        \"Replace\": {\n          \"Path\": \"git-workspace/.goxide/git/baf2bcc1d2c53a7da6b72d08a744e53609aa9d74694dc3f24efec698f63ca50d\",\n          \"Version\": \"\"\n        }\n      },\n      \"example.org/used\": {\n        \"Path\": \"example.org/used\",\n        \"Version\": \"v0.0.0\",\n        \"Replace\": {\n          \"Path\": \"git-workspace/.goxide/git/4ba14a59dde7109f12e1acc5538abecd845547831b6b7870b0057c899294d9a7\",\n          \"Version\": \"\"\n        }\n      }\n    }\n  },\n  \"version\": 3,\n  \"git\": {\n    \"4ba14a59dde7109f12e1acc5538abecd845547831b6b7870b0057c899294d9a7\": \"c4fd6e99bffb0e78081d31a5b0e9559a75bb5e42\",\n    \"baf2bcc1d2c53a7da6b72d08a744e53609aa9d74694dc3f24efec698f63ca50d\": \"f8af805c29f7d82dec4bdf18498ee5c067648138\"\n  },\n  \"sums\": {}\n}\n"
+          "source": "{\n  \"unified\": {\n    \"git_pins\": {\n      \"a588b115aede6af785ccc34469f5e707032dc6b7c460c46f98e4b24d603fe081\": \"c4fd6e99bffb0e78081d31a5b0e9559a75bb5e42\",\n      \"b773617523f613dd7b6e6f99f5f00de0053b097c7fc1b3b5108f1ed1d328fc25\": \"f8af805c29f7d82dec4bdf18498ee5c067648138\"\n    },\n    \"minimum_go\": \"1.27\",\n    \"workspace\": \"5f4b5a7b6c6cf33747a39d67a8432e4369dcd3019d275a48d889b98470c0f635\",\n    \"sources\": {\n      \"example.org/app\": \"8e51f9d6527e0c4f2dd39f0ec36fc1059aeb47d9ed40db7dfb99693887e46d14\",\n      \"example.org/server\": \"3b3dd5e099373211c47dfdf88ed169ffddc8ec383bae6976352871e318f664e3\",\n      \"example.org/unused\": \"5ba27c542f6daa24434c0a56c9f1d19e59dc981434eeeaf02dff0df9786993e2\",\n      \"example.org/used\": \"bc4b11942c8a55e9bf33299b3d6f0c58bf33290098648489720c7cf4ec886f5c\"\n    },\n    \"policy\": {\n      \"Godebug\": null,\n      \"Toolchain\": \"\",\n      \"Module\": {\n        \"Path\": \"goxide-workspace.invalid/root\",\n        \"Version\": \"\"\n      },\n      \"Go\": \"1.27\",\n      \"Require\": null,\n      \"Replace\": null,\n      \"Exclude\": null\n    },\n    \"inputs\": {\n      \"example.org/app\": \"2247e6b08885da992a3783988f3e4a63a20c7327a4d8a7b3ec94cfc814be6cc3\",\n      \"example.org/server\": \"41d4640ee2038f261acce6635cb76cc86a9a85ce2f64f02197572417d109631b\",\n      \"example.org/unused\": \"0edfc895dda04d69e2101f2748bda8cc4d71e237f18734ee6daaacd2171c895c\",\n      \"example.org/used\": \"bb0747213fa7d1c2e951ce287b7dfc7351050c712e3724824f653a113e7c9f5c\"\n    },\n    \"modules\": {\n      \"example.org/app\": {\n        \"Path\": \"example.org/app\",\n        \"Version\": \"v0.0.0\",\n        \"Replace\": {\n          \"Path\": \"./app\",\n          \"Version\": \"\"\n        }\n      },\n      \"example.org/server\": {\n        \"Path\": \"example.org/server\",\n        \"Version\": \"v0.0.0\",\n        \"Replace\": {\n          \"Path\": \"./server\",\n          \"Version\": \"\"\n        }\n      },\n      \"example.org/unused\": {\n        \"Path\": \"example.org/unused\",\n        \"Version\": \"v0.0.0\",\n        \"Replace\": {\n          \"Path\": \"example.org/unused\",\n          \"Version\": \"\"\n        }\n      },\n      \"example.org/used\": {\n        \"Path\": \"example.org/used\",\n        \"Version\": \"v0.0.0\",\n        \"Replace\": {\n          \"Path\": \"example.org/used\",\n          \"Version\": \"\"\n        }\n      }\n    }\n  },\n  \"version\": 3,\n  \"git\": {\n    \"a588b115aede6af785ccc34469f5e707032dc6b7c460c46f98e4b24d603fe081\": \"c4fd6e99bffb0e78081d31a5b0e9559a75bb5e42\",\n    \"b773617523f613dd7b6e6f99f5f00de0053b097c7fc1b3b5108f1ed1d328fc25\": \"f8af805c29f7d82dec4bdf18498ee5c067648138\"\n  },\n  \"sums\": {}\n}\n"
         }
       ],
       "runs": [
@@ -2666,7 +2742,7 @@
         },
         {
           "path": "增强后 members/m1/goxide.toml",
-          "source": "[go]\n[[go.replace]]\nmodule = 'example.org/dep'\npath = '../../local-modules/0471c28a72a7191a12a8ad66'\n\n[[go.require]]\nmodule = 'example.org/dep'\nversion = 'v1.0.0'\n\n[lib]\nname = 'lib'\npath = '.'\n\n[package]\nformat = 2\ngo = '1.27'\nmodule = 'example.org/lib'\n\n[dependencies.dep]\nmodule=\"example.org/dep\"\npackage=\"example.org/dep\"\nversion=\"v1.0.0\"\n"
+          "source": "[go]\n[[go.replace]]\nmodule = 'example.org/dep'\npath = '../../local-modules/0471c28a72a7191a12a8ad66'\n\n[[go.require]]\nmodule = 'example.org/dep'\nversion = 'v1.0.0'\n\n[lib]\nname = 'lib'\npath = '.'\n\n[package]\nformat = 2\ngo = '1.27'\nmodule = 'example.org/lib'\n\n[dependencies.dep]\ngo=\"example.org/dep\"\npackage=\"example.org/dep\"\nversion=\"v1.0.0\"\n"
         }
       ],
       "runs": [
@@ -2789,5 +2865,5 @@
       }
     }
   ],
-  "wasmSha256": "62f490f513a15194949e41bb5fb07557fcc674a670b73903439aa7746a61b983"
+  "wasmSha256": "d50538a240e41333b794650c03eb193fe47155c49541297eb183750e1c979aff"
 }
