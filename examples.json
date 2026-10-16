@@ -3,8 +3,8 @@
   "enumRepresentation": "sealed-interface",
   "compilerSource": {
     "kind": "worktree",
-    "baseCommit": "6a80c526216b4d24597089bbebed6e15a3331974",
-    "digest": "edcbd910796749b2e7e5a42a5b6ccf1362a5d234855a2d032cb3cd6aa8d52f25",
+    "baseCommit": "fba740a24e802028954229f1ba19cda7af60451c",
+    "digest": "1121cc56f12dea79f6dcdbf4bcc030d94bd238100da19b9a17f4a44d1e42ef98",
     "dirty": false
   },
   "catalogCompilerCommit": "690cd5178dc11a0089a41e9320ed1275778383e1",
@@ -30,8 +30,8 @@
     "-ldflags=-s -w -buildid= -X main.exportOS=darwin -X main.exportArch=arm64"
   ],
   "exportTrimpath": true,
-  "commit": "6a80c526216b4d24597089bbebed6e15a3331974",
-  "websiteCommit": "6a80c526216b4d24597089bbebed6e15a3331974",
+  "commit": "fba740a24e802028954229f1ba19cda7af60451c",
+  "websiteCommit": "fba740a24e802028954229f1ba19cda7af60451c",
   "catalog": {
     "schemaVersion": 1,
     "compilerCommit": "690cd5178dc11a0089a41e9320ed1275778383e1",
@@ -610,13 +610,13 @@
       "MVP 暂停入口不发布运行快照；提案语法、Go 机制探针和文档标题不能单独作为实现证据。"
     ]
   },
-  "compilerDigest": "edcbd910796749b2e7e5a42a5b6ccf1362a5d234855a2d032cb3cd6aa8d52f25",
-  "exportsDigest": "ae49895833d51d9be4f5a1a32961e5e36d9efdccf99ab7727cb27a0d0918ca58",
+  "compilerDigest": "1121cc56f12dea79f6dcdbf4bcc030d94bd238100da19b9a17f4a44d1e42ef98",
+  "exportsDigest": "4ab9a2dc98b1e7f92253011af6c2719b41ffd073491235a87d413874fd860535",
   "exportTarget": {
     "GOARCH": "arm64",
     "GOOS": "darwin"
   },
-  "toolchain": "go version go1.27.1 darwin/arm64",
+  "toolchain": "go version go1.27.2 darwin/arm64",
   "packages": [
     "fmt",
     "errors",
@@ -635,8 +635,8 @@
   "dependencies": [
     {
       "package": "fmt",
-      "version": "go1.27.1",
-      "source": "Go distribution go1.27.1",
+      "version": "go1.27.2",
+      "source": "Go distribution go1.27.2",
       "files": [
         {
           "path": "GOROOT/src/fmt/doc.go",
@@ -671,7 +671,7 @@
           "sha256": "911f8f5782931320f5b8d1160a76365b83aea6447ee6c04fa6d5591467db9dad"
         }
       ],
-      "exportSha256": "332beee8056f5ab92b2d68747b4d13dfef0bd86c493e058898586163c5fa98cf",
+      "exportSha256": "22cd1fd43fc29de7bfba4ef22a06f718cc5c7320fc7106a3dc2edbfe18563324",
       "kind": "toolchain",
       "staticPaths": [
         "fmt"
@@ -679,8 +679,8 @@
     },
     {
       "package": "errors",
-      "version": "go1.27.1",
-      "source": "Go distribution go1.27.1",
+      "version": "go1.27.2",
+      "source": "Go distribution go1.27.2",
       "files": [
         {
           "path": "GOROOT/src/errors/errors.go",
@@ -705,7 +705,7 @@
           "sha256": "911f8f5782931320f5b8d1160a76365b83aea6447ee6c04fa6d5591467db9dad"
         }
       ],
-      "exportSha256": "44f21376f36016ee523921c61e10ec6b45fdbbe1486b58ab5bb8eb3c17e011de",
+      "exportSha256": "08723687694206cdf6c1d9c53a55521d4f15f592f51847edf3a30ab3bb3667ff",
       "kind": "toolchain",
       "staticPaths": [
         "errors"
@@ -713,8 +713,8 @@
     },
     {
       "package": "io",
-      "version": "go1.27.1",
-      "source": "Go distribution go1.27.1",
+      "version": "go1.27.2",
+      "source": "Go distribution go1.27.2",
       "files": [
         {
           "path": "GOROOT/src/io/io.go",
@@ -739,7 +739,7 @@
           "sha256": "911f8f5782931320f5b8d1160a76365b83aea6447ee6c04fa6d5591467db9dad"
         }
       ],
-      "exportSha256": "05d5f92c252dd4daaedace5b494da733faa7d97d4717b56072775b76811f9be1",
+      "exportSha256": "425314f94cca80d7c67496f286570025be6b472b1e70dee7938747e365b0186a",
       "kind": "toolchain",
       "staticPaths": [
         "io"
@@ -747,8 +747,8 @@
     },
     {
       "package": "strconv",
-      "version": "go1.27.1",
-      "source": "Go distribution go1.27.1",
+      "version": "go1.27.2",
+      "source": "Go distribution go1.27.2",
       "files": [
         {
           "path": "GOROOT/src/strconv/bytealg.go",
@@ -783,7 +783,7 @@
           "sha256": "911f8f5782931320f5b8d1160a76365b83aea6447ee6c04fa6d5591467db9dad"
         }
       ],
-      "exportSha256": "37d7bde499f1246d5b0c4f3b186691741e87991bdf114792762769e98f11d0f1",
+      "exportSha256": "0e35d5c3e003733e1e63f1fd887e78a5f9d61d77630022b32747e725ab8ec13e",
       "kind": "toolchain",
       "staticPaths": [
         "strconv"
@@ -791,8 +791,8 @@
     },
     {
       "package": "strings",
-      "version": "go1.27.1",
-      "source": "Go distribution go1.27.1",
+      "version": "go1.27.2",
+      "source": "Go distribution go1.27.2",
       "files": [
         {
           "path": "GOROOT/src/strings/builder.go",
@@ -842,7 +842,7 @@
           "sha256": "911f8f5782931320f5b8d1160a76365b83aea6447ee6c04fa6d5591467db9dad"
         }
       ],
-      "exportSha256": "929864ce302652155b6d24f03d5096bc7fc04d3a3e9463df2acdd3911a85e2d3",
+      "exportSha256": "554ab3efe1e575e635d24a161d1fbe899f9aac02d28acc967a30fb0d8ff64f1a",
       "kind": "toolchain",
       "staticPaths": [
         "strings"
@@ -850,8 +850,8 @@
     },
     {
       "package": "math",
-      "version": "go1.27.1",
-      "source": "Go distribution go1.27.1",
+      "version": "go1.27.2",
+      "source": "Go distribution go1.27.2",
       "files": [
         {
           "path": "GOROOT/src/math/abs.go",
@@ -1121,7 +1121,7 @@
           "sha256": "911f8f5782931320f5b8d1160a76365b83aea6447ee6c04fa6d5591467db9dad"
         }
       ],
-      "exportSha256": "1e83b97070c7079cbcc2028a74960d039eb8d1f6c85062e32c81e19af29843f0",
+      "exportSha256": "a8b8dc28160a75c2d1cc5e0c57b72808ca2ae442dace9df2e2b9bae5dab903b2",
       "kind": "toolchain",
       "staticPaths": [
         "math"
@@ -1129,8 +1129,8 @@
     },
     {
       "package": "encoding/json",
-      "version": "go1.27.1",
-      "source": "Go distribution go1.27.1",
+      "version": "go1.27.2",
+      "source": "Go distribution go1.27.2",
       "files": [
         {
           "path": "GOROOT/src/encoding/json/v2_decode.go",
@@ -1149,8 +1149,8 @@
         },
         {
           "path": "GOROOT/src/encoding/json/v2_inject.go",
-          "source": "// Copyright 2024 The Go Authors. All rights reserved.\n// Use of this source code is governed by a BSD-style\n// license that can be found in the LICENSE file.\n\n//go:build goexperiment.jsonv2\n\npackage json\n\nimport (\n\t\"fmt\"\n\t\"reflect\"\n\t\"strconv\"\n\t\"strings\"\n\n\t\"encoding/json/internal\"\n\t\"encoding/json/jsontext\"\n\tjsonv2 \"encoding/json/v2\"\n)\n\n// Inject functionality into v2 to properly handle v1 types.\nfunc init() {\n\tinternal.TransformMarshalError = transformMarshalError\n\tinternal.TransformUnmarshalError = transformUnmarshalError\n\tinternal.NewMarshalerError = func(val any, err error, funcName string) error {\n\t\treturn &MarshalerError{reflect.TypeOf(val), err, funcName}\n\t}\n\n\tinternal.NewRawNumber = func() any { return new(Number) }\n\tinternal.RawNumberOf = func(b []byte) any { return Number(b) }\n}\n\nfunc transformMarshalError(root any, err error) error {\n\t// Historically, errors returned from Marshal methods were wrapped\n\t// in a [MarshalerError]. This is directly performed by the v2 package\n\t// via the injected [internal.NewMarshalerError] constructor\n\t// while operating under [ReportErrorsWithLegacySemantics].\n\t// Note that errors from a Marshal method were always wrapped,\n\t// even if wrapped for multiple layers.\n\tif err, ok := err.(*jsonv2.SemanticError); err != nil {\n\t\tif err.Err == nil {\n\t\t\t// Historically, this was only reported for unserializable types\n\t\t\t// like complex numbers, channels, functions, and unsafe.Pointers.\n\t\t\treturn &UnsupportedTypeError{Type: err.GoType}\n\t\t} else {\n\t\t\t// Historically, this was only reported for NaN or ±Inf values\n\t\t\t// and cycles detected in the value.\n\t\t\t// The Value field used to be populated with the reflect.Value,\n\t\t\t// but this is no longer supported.\n\t\t\terrStr := err.Err.Error()\n\t\t\tif err.Err == internal.ErrCycle && err.GoType != nil {\n\t\t\t\terrStr += \" via \" + err.GoType.String()\n\t\t\t}\n\t\t\terrStr = strings.TrimPrefix(errStr, \"unsupported value: \")\n\t\t\treturn &UnsupportedValueError{Str: errStr}\n\t\t}\n\t} else if ok {\n\t\treturn (*UnsupportedValueError)(nil)\n\t}\n\tif err, _ := err.(*MarshalerError); err != nil {\n\t\terr.Err = transformSyntacticError(err.Err)\n\t\treturn err\n\t}\n\treturn transformSyntacticError(err)\n}\n\nfunc transformUnmarshalError(root any, err error) error {\n\t// Historically, errors from Unmarshal methods were never wrapped and\n\t// returned verbatim while operating under [ReportErrorsWithLegacySemantics].\n\tif err, ok := err.(*jsonv2.SemanticError); err != nil {\n\t\tif err.Err == internal.ErrNonNilReference {\n\t\t\treturn &InvalidUnmarshalError{err.GoType}\n\t\t}\n\t\tif err.Err == jsonv2.ErrUnknownName {\n\t\t\treturn fmt.Errorf(\"json: unknown field %q\", err.JSONPointer.LastToken())\n\t\t}\n\t\tif err.Err == internal.ErrNilInterface {\n\t\t\terr.Err = nil // non-descriptive for historical reasons\n\t\t}\n\n\t\t// Historically, UnmarshalTypeError has always been inconsistent\n\t\t// about how it reported position information.\n\t\t//\n\t\t// The Struct field now points to the root type,\n\t\t// rather than some intermediate struct in the path.\n\t\t// This better matches the original intent of the field based\n\t\t// on how the Error message was formatted.\n\t\t//\n\t\t// For a representation closer to the historical representation,\n\t\t// we switch the '/'-delimited representation of a JSON pointer\n\t\t// to use a '.'-delimited representation. This may be ambiguous,\n\t\t// but the prior representation was always ambiguous as well.\n\t\t// Users that care about precise positions should use v2 errors\n\t\t// by disabling [ReportErrorsWithLegacySemantics].\n\t\t//\n\t\t// The introduction of an Err field is new to the v1-to-v2 migration\n\t\t// and allows us to preserve stronger error information\n\t\t// that may be surfaced by the v2 package.\n\t\t//\n\t\t// See https://go.dev/issue/43126\n\t\tvar value string\n\t\tswitch err.JSONKind {\n\t\tcase 'n', '\"', '0':\n\t\t\tvalue = err.JSONKind.String()\n\t\tcase 'f', 't':\n\t\t\tvalue = \"bool\"\n\t\tcase '[', ']':\n\t\t\tvalue = \"array\"\n\t\tcase '{', '}':\n\t\t\tvalue = \"object\"\n\t\t}\n\t\tif len(err.JSONValue) > 0 {\n\t\t\tisStrconvError := err.Err == strconv.ErrRange || err.Err == strconv.ErrSyntax\n\t\t\tisNumericKind := func(t reflect.Type) bool {\n\t\t\t\tif t == nil {\n\t\t\t\t\treturn false\n\t\t\t\t}\n\t\t\t\tswitch t.Kind() {\n\t\t\t\tcase reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64,\n\t\t\t\t\treflect.Uint, reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64, reflect.Uintptr,\n\t\t\t\t\treflect.Float32, reflect.Float64:\n\t\t\t\t\treturn true\n\t\t\t\t}\n\t\t\t\treturn false\n\t\t\t}\n\t\t\tif isStrconvError && isNumericKind(err.GoType) {\n\t\t\t\tvalue = \"number\"\n\t\t\t\tif err.JSONKind == '\"' {\n\t\t\t\t\terr.JSONValue, _ = jsontext.AppendUnquote(nil, err.JSONValue)\n\t\t\t\t}\n\t\t\t\terr.Err = nil\n\t\t\t}\n\t\t\tvalue += \" \" + string(err.JSONValue)\n\t\t}\n\t\tvar rootName string\n\t\tif t := reflect.TypeOf(root); t != nil && err.JSONPointer != \"\" {\n\t\t\tif t.Kind() == reflect.Pointer {\n\t\t\t\tt = t.Elem()\n\t\t\t}\n\t\t\trootName = t.Name()\n\t\t}\n\t\tfieldPath := string(err.JSONPointer)\n\t\tfieldPath = strings.TrimPrefix(fieldPath, \"/\")\n\t\tfieldPath = strings.ReplaceAll(fieldPath, \"/\", \".\")\n\t\treturn &UnmarshalTypeError{\n\t\t\tValue:  value,\n\t\t\tType:   err.GoType,\n\t\t\tOffset: err.ByteOffset,\n\t\t\tStruct: rootName,\n\t\t\tField:  fieldPath,\n\t\t\tErr:    transformSyntacticError(err.Err),\n\t\t}\n\t} else if ok {\n\t\treturn (*UnmarshalTypeError)(nil)\n\t}\n\treturn transformSyntacticError(err)\n}\n",
-          "sha256": "f1fbf89a12eab3f6f6e53d23d801cd4c5f3a2901c0f20aaa3369c9e025560e58"
+          "source": "// Copyright 2024 The Go Authors. All rights reserved.\n// Use of this source code is governed by a BSD-style\n// license that can be found in the LICENSE file.\n\n//go:build goexperiment.jsonv2\n\npackage json\n\nimport (\n\t\"errors\"\n\t\"fmt\"\n\t\"reflect\"\n\t\"strconv\"\n\t\"strings\"\n\n\t\"encoding/json/internal\"\n\t\"encoding/json/jsontext\"\n\tjsonv2 \"encoding/json/v2\"\n)\n\n// Inject functionality into v2 to properly handle v1 types.\nfunc init() {\n\tinternal.TransformMarshalError = transformMarshalError\n\tinternal.TransformUnmarshalError = transformUnmarshalError\n\tinternal.NewMarshalerError = func(val any, err error, funcName string) error {\n\t\treturn &MarshalerError{reflect.TypeOf(val), err, funcName}\n\t}\n\n\tinternal.NewRawNumber = func() any { return new(Number) }\n\tinternal.RawNumberOf = func(b []byte) any { return Number(b) }\n}\n\nfunc transformMarshalError(root any, err error) error {\n\t// Historically, errors returned from Marshal methods were wrapped\n\t// in a [MarshalerError]. This is directly performed by the v2 package\n\t// via the injected [internal.NewMarshalerError] constructor\n\t// while operating under [ReportErrorsWithLegacySemantics].\n\t// Note that errors from a Marshal method were always wrapped,\n\t// even if wrapped for multiple layers.\n\tif err, ok := err.(*jsonv2.SemanticError); err != nil {\n\t\tif err.Err == nil {\n\t\t\t// Historically, this was only reported for unserializable types\n\t\t\t// like complex numbers, channels, functions, and unsafe.Pointers.\n\t\t\treturn &UnsupportedTypeError{Type: err.GoType}\n\t\t} else {\n\t\t\t// Historically, this was only reported for NaN or ±Inf values\n\t\t\t// and cycles detected in the value.\n\t\t\tvar v reflect.Value\n\t\t\tif err, ok := errors.AsType[*internal.ValueError](err.Err); ok {\n\t\t\t\tv = reflect.ValueOf(err.Val)\n\t\t\t}\n\t\t\terrStr := err.Err.Error()\n\t\t\tif err.Err == internal.ErrCycle && err.GoType != nil {\n\t\t\t\terrStr += \" via \" + err.GoType.String()\n\t\t\t}\n\t\t\terrStr = strings.TrimPrefix(errStr, \"unsupported value: \")\n\t\t\treturn &UnsupportedValueError{Value: v, Str: errStr}\n\t\t}\n\t} else if ok {\n\t\treturn (*UnsupportedValueError)(nil)\n\t}\n\tif err, _ := err.(*MarshalerError); err != nil {\n\t\terr.Err = transformSyntacticError(err.Err)\n\t\treturn err\n\t}\n\treturn transformSyntacticError(err)\n}\n\nfunc transformUnmarshalError(root any, err error) error {\n\t// Historically, errors from Unmarshal methods were never wrapped and\n\t// returned verbatim while operating under [ReportErrorsWithLegacySemantics].\n\tif err, ok := err.(*jsonv2.SemanticError); err != nil {\n\t\tif err.Err == internal.ErrNonNilReference {\n\t\t\treturn &InvalidUnmarshalError{err.GoType}\n\t\t}\n\t\tif err.Err == jsonv2.ErrUnknownName {\n\t\t\treturn fmt.Errorf(\"json: unknown field %q\", err.JSONPointer.LastToken())\n\t\t}\n\t\tif err.Err == internal.ErrNilInterface {\n\t\t\terr.Err = nil // non-descriptive for historical reasons\n\t\t}\n\n\t\t// Historically, UnmarshalTypeError has always been inconsistent\n\t\t// about how it reported position information.\n\t\t//\n\t\t// The Struct field now points to the root type,\n\t\t// rather than some intermediate struct in the path.\n\t\t// This better matches the original intent of the field based\n\t\t// on how the Error message was formatted.\n\t\t//\n\t\t// For a representation closer to the historical representation,\n\t\t// we switch the '/'-delimited representation of a JSON pointer\n\t\t// to use a '.'-delimited representation. This may be ambiguous,\n\t\t// but the prior representation was always ambiguous as well.\n\t\t// Users that care about precise positions should use v2 errors\n\t\t// by disabling [ReportErrorsWithLegacySemantics].\n\t\t//\n\t\t// The introduction of an Err field is new to the v1-to-v2 migration\n\t\t// and allows us to preserve stronger error information\n\t\t// that may be surfaced by the v2 package.\n\t\t//\n\t\t// See https://go.dev/issue/43126\n\t\tvar value string\n\t\tswitch err.JSONKind {\n\t\tcase 'n', '\"', '0':\n\t\t\tvalue = err.JSONKind.String()\n\t\tcase 'f', 't':\n\t\t\tvalue = \"bool\"\n\t\tcase '[', ']':\n\t\t\tvalue = \"array\"\n\t\tcase '{', '}':\n\t\t\tvalue = \"object\"\n\t\t}\n\t\tif len(err.JSONValue) > 0 {\n\t\t\tisStrconvError := err.Err == strconv.ErrRange || err.Err == strconv.ErrSyntax\n\t\t\tisNumericKind := func(t reflect.Type) bool {\n\t\t\t\tif t == nil {\n\t\t\t\t\treturn false\n\t\t\t\t}\n\t\t\t\tswitch t.Kind() {\n\t\t\t\tcase reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64,\n\t\t\t\t\treflect.Uint, reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64, reflect.Uintptr,\n\t\t\t\t\treflect.Float32, reflect.Float64:\n\t\t\t\t\treturn true\n\t\t\t\t}\n\t\t\t\treturn false\n\t\t\t}\n\t\t\tif isStrconvError && isNumericKind(err.GoType) {\n\t\t\t\tvalue = \"number\"\n\t\t\t\tif err.JSONKind == '\"' {\n\t\t\t\t\terr.JSONValue, _ = jsontext.AppendUnquote(nil, err.JSONValue)\n\t\t\t\t}\n\t\t\t\terr.Err = nil\n\t\t\t}\n\t\t\tvalue += \" \" + string(err.JSONValue)\n\t\t}\n\t\tvar rootName string\n\t\tif t := reflect.TypeOf(root); t != nil && err.JSONPointer != \"\" {\n\t\t\tif t.Kind() == reflect.Pointer {\n\t\t\t\tt = t.Elem()\n\t\t\t}\n\t\t\trootName = t.Name()\n\t\t}\n\t\tfieldPath := string(err.JSONPointer)\n\t\tfieldPath = strings.TrimPrefix(fieldPath, \"/\")\n\t\tfieldPath = strings.ReplaceAll(fieldPath, \"/\", \".\")\n\t\treturn &UnmarshalTypeError{\n\t\t\tValue:  value,\n\t\t\tType:   err.GoType,\n\t\t\tOffset: err.ByteOffset,\n\t\t\tStruct: rootName,\n\t\t\tField:  fieldPath,\n\t\t\tErr:    transformSyntacticError(err.Err),\n\t\t}\n\t} else if ok {\n\t\treturn (*UnmarshalTypeError)(nil)\n\t}\n\treturn transformSyntacticError(err)\n}\n",
+          "sha256": "b91accbba6b414cbc94bc2e08193736f601e956188bcdff837e2e24f45d74c19"
         },
         {
           "path": "GOROOT/src/encoding/json/v2_options.go",
@@ -1175,7 +1175,7 @@
           "sha256": "911f8f5782931320f5b8d1160a76365b83aea6447ee6c04fa6d5591467db9dad"
         }
       ],
-      "exportSha256": "d9bda6b19ea27aac82682466d6e67a17a198d77a4f75c19cf7ae9f1a701d81c4",
+      "exportSha256": "13ecb6e75ad9cdedbc38ae12ac02f27fb1727da830398f6f6b3fcc21ab5234b7",
       "kind": "toolchain",
       "staticPaths": [
         "encoding::json"
@@ -1204,7 +1204,7 @@
           "sha256": "3f3d9e0024b1921b067d6f7f88deb4a60cbe7a78e76c64e3f1d7fc3b779b9d04"
         }
       ],
-      "exportSha256": "09bdc31f959db5f259a55af79f33517c19c679ffe98b5fb38b28916e404c4839",
+      "exportSha256": "8e82f8e462571d6994c24490360fa753e00cd0a71fbc1a87472f718c259476d9",
       "kind": "module",
       "module": "github.com/goxide-lang/std",
       "sum": "h1:qZkTUGMRpdJJTcFeNd0nal+Yv08fo7yGGPTX9IUKNRw=",
@@ -1231,7 +1231,7 @@
           "sha256": "3f3d9e0024b1921b067d6f7f88deb4a60cbe7a78e76c64e3f1d7fc3b779b9d04"
         }
       ],
-      "exportSha256": "0036f284d40c4492db51f498d1b4a7a313d4a8ddc7a6268776e09dd91d599f72",
+      "exportSha256": "4491d0f3c0f760c409f45f4c616c20d51526fe2d832dbb598c588c9be5ce8f2a",
       "kind": "module",
       "module": "github.com/goxide-lang/std",
       "sum": "h1:qZkTUGMRpdJJTcFeNd0nal+Yv08fo7yGGPTX9IUKNRw=",
@@ -1258,7 +1258,7 @@
           "sha256": "3f3d9e0024b1921b067d6f7f88deb4a60cbe7a78e76c64e3f1d7fc3b779b9d04"
         }
       ],
-      "exportSha256": "a35e37c3dbecde02ca1d984b4b15e1b09086cd9eb643086a83de634cc4998434",
+      "exportSha256": "e7b5a38392ce69918d1a726ea65af2eae1c0addb1731cb18e3f0ef2044e2d7f5",
       "kind": "module",
       "module": "github.com/goxide-lang/std",
       "sum": "h1:qZkTUGMRpdJJTcFeNd0nal+Yv08fo7yGGPTX9IUKNRw=",
@@ -1285,7 +1285,7 @@
           "sha256": "3f3d9e0024b1921b067d6f7f88deb4a60cbe7a78e76c64e3f1d7fc3b779b9d04"
         }
       ],
-      "exportSha256": "085acdbddf73e403fa3c093a62ef63a59302dc9e258f9edcd8bef4fe2081ef1d",
+      "exportSha256": "d5584a778bb80c8aa94c3e4190c14f3aaa2c50cf6da3699b467a47c0b0bdee15",
       "kind": "module",
       "module": "github.com/goxide-lang/std",
       "sum": "h1:qZkTUGMRpdJJTcFeNd0nal+Yv08fo7yGGPTX9IUKNRw=",
@@ -1327,7 +1327,7 @@
           "sha256": "3f3d9e0024b1921b067d6f7f88deb4a60cbe7a78e76c64e3f1d7fc3b779b9d04"
         }
       ],
-      "exportSha256": "454f00616f03bec352a7ed86e7ea68a1736b7bd328d388f5fbd3d738c8b3f2c2",
+      "exportSha256": "70e760cdbe800861872bffd5cc7ce47fae7c2cfee0868605b70a0b610623724f",
       "kind": "module",
       "module": "github.com/goxide-lang/serde",
       "sum": "h1:SP87Kr41DUhtaUT+nFCVxdhcAPWYRm/+DF/5cp34Of0=",
@@ -1359,7 +1359,7 @@
           "sha256": "3f3d9e0024b1921b067d6f7f88deb4a60cbe7a78e76c64e3f1d7fc3b779b9d04"
         }
       ],
-      "exportSha256": "618ea2e9c923d7d670c95c41d078952e40656cd4511e6f2e48f48e91a6817041",
+      "exportSha256": "af802b4c8682c7ddac28abf17e44d33144306716880daa8bec515c1aa0687976",
       "kind": "module",
       "module": "github.com/goxide-lang/serde",
       "sum": "h1:SP87Kr41DUhtaUT+nFCVxdhcAPWYRm/+DF/5cp34Of0=",
@@ -1459,390 +1459,390 @@
     "internal/goarch": {
       "module": "",
       "standard": true,
-      "exportSha256": "d06e760060ac1c3032cb5f683c9f562dc80f0f992480197f66981bead4693a00"
+      "exportSha256": "7f24d88974c62cef6c6e8d24517a1de2e4f71578cd28d5500ee2ce7106aa8ab9"
     },
     "internal/abi": {
       "module": "",
       "standard": true,
-      "exportSha256": "146a1f81eebfa0d4edcf081beab98fe830f9f35feb4be3f8919839cb56a8fc0c"
+      "exportSha256": "4ebb4e3d0a26f80acfe87fb8abac51d22b8d44b214dc530d4a00308c883ac07c"
     },
     "internal/unsafeheader": {
       "module": "",
       "standard": true,
-      "exportSha256": "e68ff2372ba7ec78884765ebfff86637f85488e7a566f608b16f28b95c78760b"
+      "exportSha256": "ba91702a4cd2650b4109260ffce0e14988b946942a76f68759c733a5f4a771cc"
     },
     "internal/cpu": {
       "module": "",
       "standard": true,
-      "exportSha256": "c2c0c6cff5a1b8b6b2b886fcf14e28b817f42431602dcb5f40da9d8a3876c3e5"
+      "exportSha256": "0f0c5ded94c53e3f3ddf067d2dcc83ebee83d89fda705da4e2b027956ea0d4b8"
     },
     "internal/bytealg": {
       "module": "",
       "standard": true,
-      "exportSha256": "1cb95e5b528cadd6af366b4776cf4959865c52589392afefa5042c64e9f67aea"
+      "exportSha256": "e0ceb36fc834d1dd7d060a61dd77d9b3a9862da4c179bdb33376c518415f2447"
     },
     "internal/byteorder": {
       "module": "",
       "standard": true,
-      "exportSha256": "15989ed512156bf298a3c1f792020f84a0ad91c573ae661f6c72f0445cbf1721"
+      "exportSha256": "c3ff5e3f16b1ace65e28bff0370fc41eefd1da390054b9c32efcff8c033354b9"
     },
     "internal/chacha8rand": {
       "module": "",
       "standard": true,
-      "exportSha256": "08718263fd3bcf2a0e34ef424f252bf169d742198c0f5ecd541917026df60755"
+      "exportSha256": "39deb0e2f63422ea9ce683260d03e43fab13bdfec3ffdc5c09879a73489f0223"
     },
     "internal/coverage/rtcov": {
       "module": "",
       "standard": true,
-      "exportSha256": "5ace3d40ed7980162d831489e8eccd1033d985485da2445c858e0af69ea586bf"
+      "exportSha256": "3f8ee661375d19e95e97238bcb4c577b55938b725c3df095e9fe1b0fc66e74be"
     },
     "internal/godebugs": {
       "module": "",
       "standard": true,
-      "exportSha256": "888c42eb683cdc792634e2c2bb8d8095e9ff425d93b65a4c44025378440c61d7"
+      "exportSha256": "e1cb24e3651c67ae59a4c983632e91e1f0adf45b4be99cd9492c28c182bbe101"
     },
     "internal/goexperiment": {
       "module": "",
       "standard": true,
-      "exportSha256": "22121b35d3c3ebff313876a10a717bb651e667f853b6a30f79ac7bdd5d596ae3"
+      "exportSha256": "eee1b054f55c223aefaea8a1d04d5f6219f01a8b01f86e3caab6b3abd31d5629"
     },
     "internal/goos": {
       "module": "",
       "standard": true,
-      "exportSha256": "07230b198076d2f22baa5c3a0b5007b01d48f686a3b482582fc61ea83b79c79e"
+      "exportSha256": "16dc0bd72104665eb9718a3743945951adf244c93ccf081836ccca4e13dfe604"
     },
     "internal/profilerecord": {
       "module": "",
       "standard": true,
-      "exportSha256": "b5e8ce4c50b8224ad177f70627050e1e2cebe9948a4c03024e601a084853bee8"
+      "exportSha256": "c9a432e4e1e61fd8d2530fd4539d3c70a076c4f023a791ddc23f501fd67753b4"
     },
     "internal/runtime/atomic": {
       "module": "",
       "standard": true,
-      "exportSha256": "e03e04e0744bd59f52df38adf6b641f9ee870d17ae9416864cd79fa844fb2863"
+      "exportSha256": "9a50402da863fbe7f6256d7c4cf3e50927588c7486fdc448dc4e31a8a2edaee5"
     },
     "internal/runtime/exithook": {
       "module": "",
       "standard": true,
-      "exportSha256": "ed2ed875dcf7a7265577170a69b8095fa2e854692ecf0df41ff1373596045237"
+      "exportSha256": "930c01c0f070805ad7d8e0c5fe0798fa4660808f8b4ead92e5ece48afc75a293"
     },
     "internal/runtime/gc": {
       "module": "",
       "standard": true,
-      "exportSha256": "86998507df9da6b23ca1aa30c99380502b6b343e9c605512455ea7b7ae6b1d79"
+      "exportSha256": "5e95049d0192a39dd373b8b6b53d4371e38b256f090fd7362d0ecf0b310418d3"
     },
     "internal/runtime/sys": {
       "module": "",
       "standard": true,
-      "exportSha256": "cebec65a3cc5959c8291ba6bca3be25810cbc57c57fb4b7d3f466f118690a82a"
+      "exportSha256": "000885457bfe7405a3a04b8219a6f6a6e50878c5f05bcb01d7acaad5ea57c7c6"
     },
     "internal/runtime/gc/scan": {
       "module": "",
       "standard": true,
-      "exportSha256": "242b852c534a575dacb91dc09378aa70ad529e131f720ee5483bc57803e0976b"
+      "exportSha256": "5eedd55b048d7bb775f612cb8d3145d7cec48ce1086294d0ecfbb25cfbc51c9e"
     },
     "internal/asan": {
       "module": "",
       "standard": true,
-      "exportSha256": "3d7f5a9567f212dc92aa47b16a56d8ada6595bd07ea2f6bf23c3f9437d8ed5aa"
+      "exportSha256": "e38d9210fcffc97b6045abe82bcda13e6180230d4110be8fd9c684587411f575"
     },
     "internal/msan": {
       "module": "",
       "standard": true,
-      "exportSha256": "beaf125dcbd8215c3997428ac1d8982c62d404809b41aa174611d91c99c44b40"
+      "exportSha256": "ac1683fb30372ceb32d65e2a925a714f2e0c585be1117fd1191581c95e5e2878"
     },
     "internal/race": {
       "module": "",
       "standard": true,
-      "exportSha256": "50f42458e61e176580c7f0a3dbf6613053fd48aee43a2b592283222d65c23b23"
+      "exportSha256": "0b3a0c5fa06aea9211a0c579ac095596229de9017b7392565b7b3ffa4c493298"
     },
     "internal/runtime/math": {
       "module": "",
       "standard": true,
-      "exportSha256": "c1aa777cff7a67b7bbf437619cd12acb0ca16d1057f23c533e50655a6fe054f5"
+      "exportSha256": "d668508127fb646714d87ba28f1d4861553d51636367213ef30e5e2b39a0f581"
     },
     "math/bits": {
       "module": "",
       "standard": true,
-      "exportSha256": "a3abff5b56820f6373bfb0bc78d9bb674c79c1ee2d83e3506b67414a56506e1f"
+      "exportSha256": "2ed6a50f74850ac65a408e0cad791d398a635ea1d1f328acaae6227eaa6f41db"
     },
     "internal/runtime/maps": {
       "module": "",
       "standard": true,
-      "exportSha256": "7689f79140c5303142a7009a6dd2ad00f009f3749eff521b90835e7b91ea0bee"
+      "exportSha256": "8f84249fd113072d2694a33218cf67491c0263c661a73dcd5d4a02190787f78a"
     },
     "internal/runtime/pprof/label": {
       "module": "",
       "standard": true,
-      "exportSha256": "4ab97e694223edc892bdd24a937388a310c136141c20ced56fed8ad7dcb156de"
+      "exportSha256": "a951d7bc8148ce236055226104ed6fc7779a72b78bade4642891a22875939cbf"
     },
     "internal/strconv": {
       "module": "",
       "standard": true,
-      "exportSha256": "198c6a567a4cec0da9bb0a59b81f1e92192ebca859126c009efafa1a83336db5"
+      "exportSha256": "e79b6564cfcd0dfaaff6b315b9446f398c69e8b5081625c78df61f7c4b017172"
     },
     "internal/stringslite": {
       "module": "",
       "standard": true,
-      "exportSha256": "02f0ae2cfd4a2023551348fa225e45df8932b1cc934183619a7f8b06566c4772"
+      "exportSha256": "40b45b5afa4e48af4100fc3932e49bee083fbc73e1932cf75d72aa331623b281"
     },
     "internal/trace/tracev2": {
       "module": "",
       "standard": true,
-      "exportSha256": "9c275c91417b21c37c7245883e9c41cc7179f060a6cee390f22c3d8d2fc33602"
+      "exportSha256": "f23296d7cbd7a806d33aec6e4c4b22b42cd5fa39df61c73761170602db78a2f2"
     },
     "runtime": {
       "module": "",
       "standard": true,
-      "exportSha256": "b5c54f9e41b5a29b82567d932cbd89cb9fe7cae95f35f270293161abf6b90b04"
+      "exportSha256": "7357378edd9c40c93d743b7f88a5f98cf2a939f3db363bd79aaf1f5b3b516b6e"
     },
     "internal/reflectlite": {
       "module": "",
       "standard": true,
-      "exportSha256": "dae50719e0f28771a72df04b0436ec30745166ad50f06b1844a4ee1036faade9"
+      "exportSha256": "8612aafb32a4a88338ca37416dd5bb4f4faa2fd84d44cc288eb9a9e865463953"
     },
     "errors": {
       "module": "",
       "standard": true,
-      "exportSha256": "44f21376f36016ee523921c61e10ec6b45fdbbe1486b58ab5bb8eb3c17e011de"
+      "exportSha256": "08723687694206cdf6c1d9c53a55521d4f15f592f51847edf3a30ab3bb3667ff"
     },
     "cmp": {
       "module": "",
       "standard": true,
-      "exportSha256": "3c7fbab8f41bb8cad44189a3fb516d1d4486324df414190cf59b90bc8736509b"
+      "exportSha256": "d3353560e1094175fce50a4021d545c566181a395ae5c2f4a68da24e2124fefc"
     },
     "iter": {
       "module": "",
       "standard": true,
-      "exportSha256": "8638959d44fefb70dd920f7cb6fa26d094a0f44d2ea970646a005b8392ee7c97"
+      "exportSha256": "53176d2d3a71e25da6a4ab8347f87a9e8c8f54b8cc3a6fcbcb5fd1c409bd4df9"
     },
     "math": {
       "module": "",
       "standard": true,
-      "exportSha256": "1e83b97070c7079cbcc2028a74960d039eb8d1f6c85062e32c81e19af29843f0"
+      "exportSha256": "a8b8dc28160a75c2d1cc5e0c57b72808ca2ae442dace9df2e2b9bae5dab903b2"
     },
     "unicode/utf8": {
       "module": "",
       "standard": true,
-      "exportSha256": "4763cc3d683a71ff3630933cc0fba3f4adccd7ebd20db911a7741ec281f17688"
+      "exportSha256": "c3d5ac206af37eaf6be21c0fa194398dad85afa0efa7a444fa4ca39c077ea258"
     },
     "strconv": {
       "module": "",
       "standard": true,
-      "exportSha256": "37d7bde499f1246d5b0c4f3b186691741e87991bdf114792762769e98f11d0f1"
+      "exportSha256": "0e35d5c3e003733e1e63f1fd887e78a5f9d61d77630022b32747e725ab8ec13e"
     },
     "sync/atomic": {
       "module": "",
       "standard": true,
-      "exportSha256": "4889a493a742e57f7edab9b0333c8f3288ada3145fad903d3df3ad1a91efe94e"
+      "exportSha256": "5d981f0d69c0189ccb07c8edf29f0425957e3d2c20e6259d35cfe09cea9c8251"
     },
     "internal/sync": {
       "module": "",
       "standard": true,
-      "exportSha256": "2cc8e51d66007fe6f2552747e8ddcdd08a045dc7d32b8fd26eedf5bbadc1fa96"
+      "exportSha256": "a9363146642e10c4f53e3dff0ec1a4c1bcff0c6ef5e0bafaa64bebf25c5db83b"
     },
     "internal/synctest": {
       "module": "",
       "standard": true,
-      "exportSha256": "db8862abbc9cb2c280ab983cfe18bb5ea027dea4e7e9e52bd0899773cd6633fa"
+      "exportSha256": "4d7ce720ad9cffcb29ec01fcc65210ad70e606c8c7a849cc66b8e0599f65e583"
     },
     "sync": {
       "module": "",
       "standard": true,
-      "exportSha256": "c24947732297653ad7bf8f18e958b95dc1b199d8db13ad518f198c140b6f12ce"
+      "exportSha256": "a966b925f1d31862f2351c45a4c03ecc15364f0f34415f177af6e7eb122b6f2e"
     },
     "unicode": {
       "module": "",
       "standard": true,
-      "exportSha256": "c776678c9066ae7cb5dc7c50d8d47475dae63b3047db1ff0abc93cf3cfacdbc1"
+      "exportSha256": "1e64794dc3ca49dffa19282057ebbbeecb5cdb23835dd47dec046e491149d02b"
     },
     "reflect": {
       "module": "",
       "standard": true,
-      "exportSha256": "ce82c6304225ac7651d32982c653c4019b47548d4dfbb19e77b5ef03223a0e21"
+      "exportSha256": "1c95917c51981e4f8f0da18a841c52e4770fcfcacc8e1c866ac4cbec0e15d3ed"
     },
     "slices": {
       "module": "",
       "standard": true,
-      "exportSha256": "7f26af493fdce3149ff387c29ff612d0e980bf1d98b8a972a6be36e63dc7f91c"
+      "exportSha256": "dd3b003a738c5dd78e51ef59d7162e27c213db3ffb79cab2da28310d17aa25aa"
     },
     "internal/fmtsort": {
       "module": "",
       "standard": true,
-      "exportSha256": "7a0a03aaf6da58ab8f2e7635c3da7b1e278d7f413523c50b8dbe08243c7c15fc"
+      "exportSha256": "cc4ea8efdd88163aef083d0b2ec75ccf123140a78751be8f6dd805dd3f963541"
     },
     "io": {
       "module": "",
       "standard": true,
-      "exportSha256": "05d5f92c252dd4daaedace5b494da733faa7d97d4717b56072775b76811f9be1"
+      "exportSha256": "425314f94cca80d7c67496f286570025be6b472b1e70dee7938747e365b0186a"
     },
     "internal/oserror": {
       "module": "",
       "standard": true,
-      "exportSha256": "b9c366b14aee85cb597e3f9884496f63a9aad04d78101098c21f120954948132"
+      "exportSha256": "b47cb029cc9725f72b68ee31e9fee0564e46bddd54ff00e0b4a91fd60e294b73"
     },
     "path": {
       "module": "",
       "standard": true,
-      "exportSha256": "ef6a1794e8a1ad5a6fcb6f4b4f19e1821d7dc1a1ca5f65dbd83dd373b9eb4cae"
+      "exportSha256": "5924f72125ddd8bdd0eeac3549b2e5b54e274eab7e2823ee87328ec04692df5b"
     },
     "syscall": {
       "module": "",
       "standard": true,
-      "exportSha256": "b22a9c7037061ab2d87ed2a351477e5b0c7e6dda0a2d774ceecb4a43f20bdb3c"
+      "exportSha256": "ea33b38d6033a26d9dcf905998a7d20ec1ce25ed226e0fb1e5839336ea540b6a"
     },
     "time": {
       "module": "",
       "standard": true,
-      "exportSha256": "040dac214218c0257a8d4c0c456f43e68c2b4a33a265015a8d216c8354e20563"
+      "exportSha256": "54c9a83d4b9ff1ced8d508bfd30a8d5c11952b3c36095521476b50115ca8ea7d"
     },
     "io/fs": {
       "module": "",
       "standard": true,
-      "exportSha256": "5e9cdba0c59935a5f2fa8460f7875370a6b6351b90b28970252b670940a1888e"
+      "exportSha256": "06f884e28c5ca5c1fcb8dc483ccf20f50a5d9e433546a86bd9929959619f2b9e"
     },
     "internal/filepathlite": {
       "module": "",
       "standard": true,
-      "exportSha256": "2c5b70bb9fae7788dd8269e456f596501df9f10c8e27b612b4664731a8ee2b25"
+      "exportSha256": "bf464b1cf52c7482ecb41f3c3cf3ea6f22eaa96ceaeb50d53a447912f5e13a1a"
     },
     "internal/syscall/unix": {
       "module": "",
       "standard": true,
-      "exportSha256": "091ff11f46b0b6f7e40b78334bc980bf0a36bbf9fb364cabfb68812ab3aa93fd"
+      "exportSha256": "19118938242f26205c37b2e4132654d533b90f31a18c9e19968233acd7dbcd8a"
     },
     "internal/poll": {
       "module": "",
       "standard": true,
-      "exportSha256": "811443bed371bcb1279a387be299eb79d056ea39734d0daa253604cd1c69bde3"
+      "exportSha256": "2ff9f898c22902ba7148e4ac67abb812724ab29a16017c8d05dca717f1b7f548"
     },
     "internal/syscall/execenv": {
       "module": "",
       "standard": true,
-      "exportSha256": "a5281fbbbaebfab48473452810c178923e210d83b32d25911df92d6fa13a46c1"
+      "exportSha256": "abb0720af74a2a37bad1c698bda101779373cfa2df6efbd20483b7bde8baebbc"
     },
     "internal/testlog": {
       "module": "",
       "standard": true,
-      "exportSha256": "aa53c6ea31ab895fe41643a5918814aa4c33bb4896793d93565b478784791cc4"
+      "exportSha256": "606ab3a8efb66a7847a8bcee6a2e4cd9710e9fce7ffd77b21321432442bed075"
     },
     "os": {
       "module": "",
       "standard": true,
-      "exportSha256": "763db925061de0412c9e0ba38b3c4f917799b1d3035f9f580a08370af0050125"
+      "exportSha256": "62c27e8c258bb995da5b30414ea79bb0043661085e8b20283e28e55fcb887ed4"
     },
     "fmt": {
       "module": "",
       "standard": true,
-      "exportSha256": "332beee8056f5ab92b2d68747b4d13dfef0bd86c493e058898586163c5fa98cf"
+      "exportSha256": "22cd1fd43fc29de7bfba4ef22a06f718cc5c7320fc7106a3dc2edbfe18563324"
     },
     "strings": {
       "module": "",
       "standard": true,
-      "exportSha256": "929864ce302652155b6d24f03d5096bc7fc04d3a3e9463df2acdd3911a85e2d3"
+      "exportSha256": "554ab3efe1e575e635d24a161d1fbe899f9aac02d28acc967a30fb0d8ff64f1a"
     },
     "bytes": {
       "module": "",
       "standard": true,
-      "exportSha256": "af25d31e08e227af5e045c666ca5695387c1ddfbb90e1a0ef6fad05e8c4c7fb5"
+      "exportSha256": "150bc64df7f3d2fc037b1b8bef58a6189a39698d2a46b58a11216f88c10b41e0"
     },
     "encoding": {
       "module": "",
       "standard": true,
-      "exportSha256": "b4db067888fcc16ef200833f6550a5ad7a492a54e0b32fd17595a6f5eaa90ef6"
+      "exportSha256": "2bc58d0399e0962f8576e19bcab187dc065631ae5e55895124f893504ff2b448"
     },
     "encoding/json/internal": {
       "module": "",
       "standard": true,
-      "exportSha256": "740b876b60a2893f5e65100e5d0e0d0ed05be522880b95532c0d9c8b64363b50"
+      "exportSha256": "5e8aff692d3358cbfa8f28b1f512005539ef15752766be50fb56d948998fff56"
     },
     "encoding/json/internal/jsonflags": {
       "module": "",
       "standard": true,
-      "exportSha256": "1375334c69c9135fdb59f22e61fd183f98ff8bbbcd9dfb44a7c10c65d8d4a59c"
+      "exportSha256": "e581eccf73c6ba0219e9a9a03afbb30bc8f376fc5bcac7cbfbb847aa4a21d551"
     },
     "encoding/json/internal/jsonopts": {
       "module": "",
       "standard": true,
-      "exportSha256": "ac8d813ae40f6132c801a842635bc24c046216498ec53571c18ed7f377b31413"
+      "exportSha256": "111fc80ec9a70b26c0af94edda06db3575539f8ea13befc0e5a206ca0af9adc2"
     },
     "unicode/utf16": {
       "module": "",
       "standard": true,
-      "exportSha256": "2735852cdfd5d088b2be9e0e5bae57c4cf55a37e0d54b96293bf02ae959052b7"
+      "exportSha256": "2f861bbe22cf0ff0e991ee2dfcb6d2bb36d55dda0ca01b0b0b691c8a0a999130"
     },
     "encoding/json/internal/jsonwire": {
       "module": "",
       "standard": true,
-      "exportSha256": "86e7a26126bbd3c5874b829bc1354b95a980ae54a93c03bd23b6e443dd187cfe"
+      "exportSha256": "55c632db95da91e37530ab7cc65320d2cc15fe97bb27ec0c9cfe38022b31d9d3"
     },
     "encoding/json/jsontext": {
       "module": "",
       "standard": true,
-      "exportSha256": "2abba50a86a7b6f09b007b4636bc80715984fb470e71c9fdd28432f56302e0ad"
+      "exportSha256": "fb3c00a5259c9184deb3048e0dae8c0691acd6a29fee0d648de507874a34b82d"
     },
     "encoding/base32": {
       "module": "",
       "standard": true,
-      "exportSha256": "00cea618fb7edea1012046e0de0d1df8d8f7859137d05b01ccbedb1eed53fb69"
+      "exportSha256": "dd164285aed72bbe9f134a52b5b3a3a497eb770af13a922bdc2100a0563f4d88"
     },
     "encoding/base64": {
       "module": "",
       "standard": true,
-      "exportSha256": "0b784ce95e4c5182c3e52948fc6b220478e243d12b5a1525247d49bb20019b06"
+      "exportSha256": "acf8cfd97720fc52735a3fd7c2bf80db82e422f74c10fa51f57011a6390af32b"
     },
     "encoding/binary": {
       "module": "",
       "standard": true,
-      "exportSha256": "216a434cef56d78f6c9d58c6e94069175332807e4db0280a1fe43f89f8f72eb1"
+      "exportSha256": "d7b39cae475fb56fe8d88289d82f59441c12972ec73892d0309e3ca06d500130"
     },
     "encoding/hex": {
       "module": "",
       "standard": true,
-      "exportSha256": "acc883c4a6613376c4fbecf24ab0ebe62dd84e0b69efe74f94e778a41f7f8009"
+      "exportSha256": "241b56e55d79db59f9e26ea3fcc76778ea57b2bf78585c418f044f2d284fca4e"
     },
     "encoding/json/v2": {
       "module": "",
       "standard": true,
-      "exportSha256": "3c2bc4248c99710da239303193201d8731c071c488b21d7c4965879c55f51f7a"
+      "exportSha256": "a08fdf620874f80147a4632941568439cdcf38b2eef2d4dc30604074c6df62d7"
     },
     "encoding/json": {
       "module": "",
       "standard": true,
-      "exportSha256": "d9bda6b19ea27aac82682466d6e67a17a198d77a4f75c19cf7ae9f1a701d81c4"
+      "exportSha256": "13ecb6e75ad9cdedbc38ae12ac02f27fb1727da830398f6f6b3fcc21ab5234b7"
     },
     "github.com/goxide-lang/std/runtime": {
       "module": "github.com/goxide-lang/std",
       "standard": false,
-      "exportSha256": "09bdc31f959db5f259a55af79f33517c19c679ffe98b5fb38b28916e404c4839"
+      "exportSha256": "8e82f8e462571d6994c24490360fa753e00cd0a71fbc1a87472f718c259476d9"
     },
     "github.com/goxide-lang/std/formatting": {
       "module": "github.com/goxide-lang/std",
       "standard": false,
-      "exportSha256": "0036f284d40c4492db51f498d1b4a7a313d4a8ddc7a6268776e09dd91d599f72"
+      "exportSha256": "4491d0f3c0f760c409f45f4c616c20d51526fe2d832dbb598c588c9be5ce8f2a"
     },
     "github.com/goxide-lang/std/sum": {
       "module": "github.com/goxide-lang/std",
       "standard": false,
-      "exportSha256": "a35e37c3dbecde02ca1d984b4b15e1b09086cd9eb643086a83de634cc4998434"
+      "exportSha256": "e7b5a38392ce69918d1a726ea65af2eae1c0addb1731cb18e3f0ef2044e2d7f5"
     },
     "github.com/goxide-lang/std/typeinfo": {
       "module": "github.com/goxide-lang/std",
       "standard": false,
-      "exportSha256": "085acdbddf73e403fa3c093a62ef63a59302dc9e258f9edcd8bef4fe2081ef1d"
+      "exportSha256": "d5584a778bb80c8aa94c3e4190c14f3aaa2c50cf6da3699b467a47c0b0bdee15"
     },
     "github.com/goxide-lang/serde": {
       "module": "github.com/goxide-lang/serde",
       "standard": false,
-      "exportSha256": "454f00616f03bec352a7ed86e7ea68a1736b7bd328d388f5fbd3d738c8b3f2c2"
+      "exportSha256": "70e760cdbe800861872bffd5cc7ce47fae7c2cfee0868605b70a0b610623724f"
     },
     "github.com/goxide-lang/serde/json": {
       "module": "github.com/goxide-lang/serde",
       "standard": false,
-      "exportSha256": "618ea2e9c923d7d670c95c41d078952e40656cd4511e6f2e48f48e91a6817041"
+      "exportSha256": "af802b4c8682c7ddac28abf17e44d33144306716880daa8bec515c1aa0687976"
     }
   },
-  "exportOriginsSha256": "9d45b92bf5852bfd31e94921349e5f77cc1401179b92d20c48332b49c2f5e9e3",
+  "exportOriginsSha256": "f554d82cada648df83d7ef0873952aae781c46982aa25a2b7cead538160227b4",
   "importClosure": [
     "bytes",
     "cmp",
@@ -2199,7 +2199,7 @@
         },
         {
           "path": "README.md",
-          "source": "# Reproduce the reexports directory example\n\nUse the matching goxide CLI and Go 1.27+. Extract every file together. The directory uses go.mod and goxide.roots.toml; no build scripts are required.\n\nCompiler worktree based on 6a80c526216b4d24597089bbebed6e15a3331974; SHA-256 edcbd910796749b2e7e5a42a5b6ccf1362a5d234855a2d032cb3cd6aa8d52f25\n\nVerified toolchain: go version go1.27.1 darwin/arm64\n\n```sh\ngoxide build -o ../reexports .\ngoxide run .\n```\n\nExpected output:\n\n```text\nshared 2 2 true\n42 2 7\n```\n"
+          "source": "# Reproduce the reexports directory example\n\nUse the matching goxide CLI and go1.27.2 (exact version, including the patch). Extract every file together. The directory uses go.mod and goxide.roots.toml; no build scripts are required.\n\nCompiler worktree based on fba740a24e802028954229f1ba19cda7af60451c; SHA-256 1121cc56f12dea79f6dcdbf4bcc030d94bd238100da19b9a17f4a44d1e42ef98\n\nVerified toolchain: go version go1.27.2 darwin/arm64\n\n```sh\ngoxide build -o ../reexports .\ngoxide run .\n```\n\nExpected output:\n\n```text\nshared 2 2 true\n42 2 7\n```\n"
         }
       ],
       "runs": [
@@ -2210,7 +2210,7 @@
       ],
       "download": {
         "path": "project-reexports.zip",
-        "sha256": "e3b5a1426a1a79b27296c068cc6681440c2dd4454ce2396012b9a7d74a88ad1c",
+        "sha256": "dd46628ff3f4dcae0a908902bc71d2540bff875d128832c0d5870ea9e6da0875",
         "files": [
           "api/api.gox",
           "go.mod",
@@ -2274,7 +2274,7 @@
           },
           {
             "path": "README.md",
-            "source": "# Orders tutorial: go\n\n用 Go 的结构体、状态常量和 switch 写一个订单状态 CLI。\n\nUse Go 1.27+. Extract every file together.\n\nCompiler worktree based on 6a80c526216b4d24597089bbebed6e15a3331974; SHA-256 edcbd910796749b2e7e5a42a5b6ccf1362a5d234855a2d032cb3cd6aa8d52f25\n\nVerified toolchain: go version go1.27.1 darwin/arm64\n\n```sh\ngo build -o ../orders .\ngo run .\ngo test -count=1 ./...\n```\n\nExpected program output:\n\n```text\norder 1001: pending\norder 1002: paid 42\norder 1003: shipped TRACK-7\n```\n"
+            "source": "# Orders tutorial: go\n\n用 Go 的结构体、状态常量和 switch 写一个订单状态 CLI。\n\nUse Go 1.27+. Extract every file together.\n\nCompiler worktree based on fba740a24e802028954229f1ba19cda7af60451c; SHA-256 1121cc56f12dea79f6dcdbf4bcc030d94bd238100da19b9a17f4a44d1e42ef98\n\nVerified toolchain: go version go1.27.2 darwin/arm64\n\n```sh\ngo build -o ../orders .\ngo run .\ngo test -count=1 ./...\n```\n\nExpected program output:\n\n```text\norder 1001: pending\norder 1002: paid 42\norder 1003: shipped TRACK-7\n```\n"
           }
         ],
         "generatedFiles": [],
@@ -2289,13 +2289,13 @@
           },
           {
             "command": "go test -count=1 ./...",
-            "stdout": "ok  \texample.org/orders\t0.278s\n"
+            "stdout": "ok  \texample.org/orders\t0.300s\n"
           }
         ],
         "stdout": "order 1001: pending\norder 1002: paid 42\norder 1003: shipped TRACK-7\n",
         "download": {
           "path": "tutorial-go.zip",
-          "sha256": "2cd32e7b85ff735bb9876e6ebbe28d63ad5fb86a18a5c3f0843c96ac7a536926",
+          "sha256": "d7bfcdfd67ac540d340d3c7fc8ed54be0b02c3c4ca57d849bc3ce4e012ac9ac4",
           "files": [
             "README.md",
             "go.mod",
@@ -2328,7 +2328,7 @@
           },
           {
             "path": "README.md",
-            "source": "# Orders tutorial: mixed\n\n保留 go.mod、Go 入口和 Go 测试，用 enum 与 match 替换状态表示。\n\nUse the matching goxide CLI and Go 1.27+. Extract every file together.\n\nCompiler worktree based on 6a80c526216b4d24597089bbebed6e15a3331974; SHA-256 edcbd910796749b2e7e5a42a5b6ccf1362a5d234855a2d032cb3cd6aa8d52f25\n\nVerified toolchain: go version go1.27.1 darwin/arm64\n\n```sh\ngo generate ./...\ngo build -o ../orders .\ngo run .\ngo test -count=1 ./...\n```\n\nExpected program output:\n\n```text\norder 1001: pending\norder 1002: paid 42\norder 1003: shipped TRACK-7\n```\n"
+            "source": "# Orders tutorial: mixed\n\n保留 go.mod、Go 入口和 Go 测试，用 enum 与 match 替换状态表示。\n\nUse the matching goxide CLI and go1.27.2 (exact version, including the patch). Extract every file together.\n\nCompiler worktree based on fba740a24e802028954229f1ba19cda7af60451c; SHA-256 1121cc56f12dea79f6dcdbf4bcc030d94bd238100da19b9a17f4a44d1e42ef98\n\nVerified toolchain: go version go1.27.2 darwin/arm64\n\n```sh\ngo generate ./...\ngo build -o ../orders .\ngo run .\ngo test -count=1 ./...\n```\n\nExpected program output:\n\n```text\norder 1001: pending\norder 1002: paid 42\norder 1003: shipped TRACK-7\n```\n"
           }
         ],
         "generatedFiles": [
@@ -2352,13 +2352,13 @@
           },
           {
             "command": "go test -count=1 ./...",
-            "stdout": "ok  \texample.org/orders\t0.286s\n"
+            "stdout": "ok  \texample.org/orders\t0.300s\n"
           }
         ],
         "stdout": "order 1001: pending\norder 1002: paid 42\norder 1003: shipped TRACK-7\n",
         "download": {
           "path": "tutorial-mixed.zip",
-          "sha256": "87a22cc46b6c1811a16f5ca12be2c245ae24cf515eca6fbdaf49370b0bc74754",
+          "sha256": "6140cfb6a2d018a42da7d174b2ab8b4d923711ce30b63388567798bcfe1fb972",
           "files": [
             "README.md",
             "go.mod",
@@ -2395,7 +2395,7 @@
           },
           {
             "path": "README.md",
-            "source": "# Orders tutorial: gox\n\n业务和测试都使用 .gox，以 goxide.toml 声明模块、包名映射和命令入口。\n\nUse the matching goxide CLI and Go 1.27+. Extract every file together.\n\nCompiler worktree based on 6a80c526216b4d24597089bbebed6e15a3331974; SHA-256 edcbd910796749b2e7e5a42a5b6ccf1362a5d234855a2d032cb3cd6aa8d52f25\n\nVerified toolchain: go version go1.27.1 darwin/arm64\n\n```sh\ngoxide build --offline .\ngoxide gen --offline --locked -o ../gox-generated-default .\ngoxide build --offline --locked -o ../orders .\ngoxide run --offline --locked .\ngoxide test --offline --locked .\n```\n\nExpected program output:\n\n```text\norder 1001: pending\norder 1002: paid 42\norder 1003: shipped TRACK-7\n```\n"
+            "source": "# Orders tutorial: gox\n\n业务和测试都使用 .gox，以 goxide.toml 声明模块、包名映射和命令入口。\n\nUse the matching goxide CLI and go1.27.2 (exact version, including the patch). Extract every file together.\n\nCompiler worktree based on fba740a24e802028954229f1ba19cda7af60451c; SHA-256 1121cc56f12dea79f6dcdbf4bcc030d94bd238100da19b9a17f4a44d1e42ef98\n\nVerified toolchain: go version go1.27.2 darwin/arm64\n\n```sh\ngoxide build --offline .\ngoxide gen --offline --locked -o ../gox-generated-default .\ngoxide build --offline --locked -o ../orders .\ngoxide run --offline --locked .\ngoxide test --offline --locked .\n```\n\nExpected program output:\n\n```text\norder 1001: pending\norder 1002: paid 42\norder 1003: shipped TRACK-7\n```\n"
           }
         ],
         "generatedFiles": [
@@ -2419,7 +2419,7 @@
         "commands": [
           {
             "command": "goxide build --offline .",
-            "stdout": "target/bin/darwin-arm64/darwin-arm64/bin/orders/8611ecb919833644a1e88898f6719ec178bb723b068f8f684043eee282894d3d/orders\n"
+            "stdout": "target/bin/darwin-arm64/darwin-arm64/bin/orders/3919f1b66b4efcb9aa02a96f93eef45fc7bc10a61eb7edd6d9cf90de444cf87f/orders\n"
           },
           {
             "command": "goxide gen --offline --locked -o ../gox-generated-default .",
@@ -2435,13 +2435,13 @@
           },
           {
             "command": "goxide test --offline --locked .",
-            "stdout": "ok  \texample.org/orders/cmd/orders\t1.287s\n"
+            "stdout": "ok  \texample.org/orders/cmd/orders\t1.304s\n"
           }
         ],
         "stdout": "order 1001: pending\norder 1002: paid 42\norder 1003: shipped TRACK-7\n",
         "download": {
           "path": "tutorial-gox.zip",
-          "sha256": "342c792f897b5aa967b208c429d1a815c7b4799ede419ddf9513fac23df5c47a",
+          "sha256": "e8b3bca22ecfc7fcae0a0301a5811584bf39e410478e7d2239afe3cadfcb3050",
           "files": [
             "README.md",
             "cmd/orders/main.gox",
@@ -2487,7 +2487,7 @@
           },
           {
             "path": "README.md",
-            "source": "# Orders tutorial: features\n\n切换 pretty、trace 和 report，并向本地可选 reporter 模块转发 feature。\n\nUse the matching goxide CLI and Go 1.27+. Extract every file together.\n\nCompiler worktree based on 6a80c526216b4d24597089bbebed6e15a3331974; SHA-256 edcbd910796749b2e7e5a42a5b6ccf1362a5d234855a2d032cb3cd6aa8d52f25\n\nVerified toolchain: go version go1.27.1 darwin/arm64\n\n```sh\ngoxide build --offline .\ngoxide gen --offline --locked -o ../features-generated-default .\ngoxide build --offline --locked -o ../orders .\ngoxide run --offline --locked .\ngoxide test --offline --locked .\n```\n\nExpected program output:\n\n```text\n[orders] order 1001: pending\n[orders] order 1002: paid 42\n[orders] order 1003: shipped TRACK-7\n```\n\nThe archive contains the default build lock. After moving this local-path project, or activating report for the first time, run build without --locked to record the module plan at the current location. Then use --locked --offline there.\n\nFeature presets:\n\n```sh\ngoxide build --offline .\ngoxide run --offline --locked .\ngoxide build --offline --no-default-features .\ngoxide run --offline --locked --no-default-features .\ngoxide build --offline --features=trace .\ngoxide run --offline --locked --features=trace .\ngoxide build --offline --features=report .\ngoxide run --offline --locked --features=report .\n```\n\n`report` activates `dep:reporter` and forwards `reporter/pretty`. The local reporter is a separate Goxide module in `reporter/`; no workspace is needed.\n"
+            "source": "# Orders tutorial: features\n\n切换 pretty、trace 和 report，并向本地可选 reporter 模块转发 feature。\n\nUse the matching goxide CLI and go1.27.2 (exact version, including the patch). Extract every file together.\n\nCompiler worktree based on fba740a24e802028954229f1ba19cda7af60451c; SHA-256 1121cc56f12dea79f6dcdbf4bcc030d94bd238100da19b9a17f4a44d1e42ef98\n\nVerified toolchain: go version go1.27.2 darwin/arm64\n\n```sh\ngoxide build --offline .\ngoxide gen --offline --locked -o ../features-generated-default .\ngoxide build --offline --locked -o ../orders .\ngoxide run --offline --locked .\ngoxide test --offline --locked .\n```\n\nExpected program output:\n\n```text\n[orders] order 1001: pending\n[orders] order 1002: paid 42\n[orders] order 1003: shipped TRACK-7\n```\n\nThe archive contains the default build lock. After moving this local-path project, or activating report for the first time, run build without --locked to record the module plan at the current location. Then use --locked --offline there.\n\nFeature presets:\n\n```sh\ngoxide build --offline .\ngoxide run --offline --locked .\ngoxide build --offline --no-default-features .\ngoxide run --offline --locked --no-default-features .\ngoxide build --offline --features=trace .\ngoxide run --offline --locked --features=trace .\ngoxide build --offline --features=report .\ngoxide run --offline --locked --features=report .\n```\n\n`report` activates `dep:reporter` and forwards `reporter/pretty`. The local reporter is a separate Goxide module in `reporter/`; no workspace is needed.\n"
           }
         ],
         "generatedFiles": [
@@ -2511,7 +2511,7 @@
         "commands": [
           {
             "command": "goxide build --offline .",
-            "stdout": "target/bin/darwin-arm64/darwin-arm64/bin/orders/56fc32a4e308127b8141cd63d6d7dcab59e51428ece75261edd4c603e163e6bc/orders\n"
+            "stdout": "target/bin/darwin-arm64/darwin-arm64/bin/orders/4c51c50c2bfb92887aef8caf87bf052504b2415b33d9a43917617719e77a6dc7/orders\n"
           },
           {
             "command": "goxide gen --offline --locked -o ../features-generated-default .",
@@ -2527,13 +2527,13 @@
           },
           {
             "command": "goxide test --offline --locked .",
-            "stdout": "ok  \texample.org/orders/cmd/orders\t1.324s\n"
+            "stdout": "ok  \texample.org/orders/cmd/orders\t1.337s\n"
           }
         ],
         "stdout": "[orders] order 1001: pending\n[orders] order 1002: paid 42\n[orders] order 1003: shipped TRACK-7\n",
         "download": {
           "path": "tutorial-features.zip",
-          "sha256": "b6d5aa69f8890ed8f15540de8cc348acf7738a0df6e78241e967a1437e4bf859",
+          "sha256": "647447ea056d6678cdf2a0089d6e3d011270b0c06f7899bccdacd53ddac05add",
           "files": [
             "README.md",
             "cmd/orders/main.gox",
@@ -2585,7 +2585,7 @@
               },
               {
                 "path": "README.md",
-                "source": "# Orders tutorial: features\n\n切换 pretty、trace 和 report，并向本地可选 reporter 模块转发 feature。\n\nUse the matching goxide CLI and Go 1.27+. Extract every file together.\n\nCompiler worktree based on 6a80c526216b4d24597089bbebed6e15a3331974; SHA-256 edcbd910796749b2e7e5a42a5b6ccf1362a5d234855a2d032cb3cd6aa8d52f25\n\nVerified toolchain: go version go1.27.1 darwin/arm64\n\n```sh\ngoxide build --offline .\ngoxide gen --offline --locked -o ../features-generated-default .\ngoxide build --offline --locked -o ../orders .\ngoxide run --offline --locked .\ngoxide test --offline --locked .\n```\n\nExpected program output:\n\n```text\n[orders] order 1001: pending\n[orders] order 1002: paid 42\n[orders] order 1003: shipped TRACK-7\n```\n\nThe archive contains the default build lock. After moving this local-path project, or activating report for the first time, run build without --locked to record the module plan at the current location. Then use --locked --offline there.\n\nFeature presets:\n\n```sh\ngoxide build --offline .\ngoxide run --offline --locked .\ngoxide build --offline --no-default-features .\ngoxide run --offline --locked --no-default-features .\ngoxide build --offline --features=trace .\ngoxide run --offline --locked --features=trace .\ngoxide build --offline --features=report .\ngoxide run --offline --locked --features=report .\n```\n\n`report` activates `dep:reporter` and forwards `reporter/pretty`. The local reporter is a separate Goxide module in `reporter/`; no workspace is needed.\n"
+                "source": "# Orders tutorial: features\n\n切换 pretty、trace 和 report，并向本地可选 reporter 模块转发 feature。\n\nUse the matching goxide CLI and go1.27.2 (exact version, including the patch). Extract every file together.\n\nCompiler worktree based on fba740a24e802028954229f1ba19cda7af60451c; SHA-256 1121cc56f12dea79f6dcdbf4bcc030d94bd238100da19b9a17f4a44d1e42ef98\n\nVerified toolchain: go version go1.27.2 darwin/arm64\n\n```sh\ngoxide build --offline .\ngoxide gen --offline --locked -o ../features-generated-default .\ngoxide build --offline --locked -o ../orders .\ngoxide run --offline --locked .\ngoxide test --offline --locked .\n```\n\nExpected program output:\n\n```text\n[orders] order 1001: pending\n[orders] order 1002: paid 42\n[orders] order 1003: shipped TRACK-7\n```\n\nThe archive contains the default build lock. After moving this local-path project, or activating report for the first time, run build without --locked to record the module plan at the current location. Then use --locked --offline there.\n\nFeature presets:\n\n```sh\ngoxide build --offline .\ngoxide run --offline --locked .\ngoxide build --offline --no-default-features .\ngoxide run --offline --locked --no-default-features .\ngoxide build --offline --features=trace .\ngoxide run --offline --locked --features=trace .\ngoxide build --offline --features=report .\ngoxide run --offline --locked --features=report .\n```\n\n`report` activates `dep:reporter` and forwards `reporter/pretty`. The local reporter is a separate Goxide module in `reporter/`; no workspace is needed.\n"
               }
             ],
             "generatedFiles": [
@@ -2645,7 +2645,7 @@
               },
               {
                 "path": "README.md",
-                "source": "# Orders tutorial: features\n\n切换 pretty、trace 和 report，并向本地可选 reporter 模块转发 feature。\n\nUse the matching goxide CLI and Go 1.27+. Extract every file together.\n\nCompiler worktree based on 6a80c526216b4d24597089bbebed6e15a3331974; SHA-256 edcbd910796749b2e7e5a42a5b6ccf1362a5d234855a2d032cb3cd6aa8d52f25\n\nVerified toolchain: go version go1.27.1 darwin/arm64\n\n```sh\ngoxide build --offline .\ngoxide gen --offline --locked -o ../features-generated-default .\ngoxide build --offline --locked -o ../orders .\ngoxide run --offline --locked .\ngoxide test --offline --locked .\n```\n\nExpected program output:\n\n```text\n[orders] order 1001: pending\n[orders] order 1002: paid 42\n[orders] order 1003: shipped TRACK-7\n```\n\nThe archive contains the default build lock. After moving this local-path project, or activating report for the first time, run build without --locked to record the module plan at the current location. Then use --locked --offline there.\n\nFeature presets:\n\n```sh\ngoxide build --offline .\ngoxide run --offline --locked .\ngoxide build --offline --no-default-features .\ngoxide run --offline --locked --no-default-features .\ngoxide build --offline --features=trace .\ngoxide run --offline --locked --features=trace .\ngoxide build --offline --features=report .\ngoxide run --offline --locked --features=report .\n```\n\n`report` activates `dep:reporter` and forwards `reporter/pretty`. The local reporter is a separate Goxide module in `reporter/`; no workspace is needed.\n"
+                "source": "# Orders tutorial: features\n\n切换 pretty、trace 和 report，并向本地可选 reporter 模块转发 feature。\n\nUse the matching goxide CLI and go1.27.2 (exact version, including the patch). Extract every file together.\n\nCompiler worktree based on fba740a24e802028954229f1ba19cda7af60451c; SHA-256 1121cc56f12dea79f6dcdbf4bcc030d94bd238100da19b9a17f4a44d1e42ef98\n\nVerified toolchain: go version go1.27.2 darwin/arm64\n\n```sh\ngoxide build --offline .\ngoxide gen --offline --locked -o ../features-generated-default .\ngoxide build --offline --locked -o ../orders .\ngoxide run --offline --locked .\ngoxide test --offline --locked .\n```\n\nExpected program output:\n\n```text\n[orders] order 1001: pending\n[orders] order 1002: paid 42\n[orders] order 1003: shipped TRACK-7\n```\n\nThe archive contains the default build lock. After moving this local-path project, or activating report for the first time, run build without --locked to record the module plan at the current location. Then use --locked --offline there.\n\nFeature presets:\n\n```sh\ngoxide build --offline .\ngoxide run --offline --locked .\ngoxide build --offline --no-default-features .\ngoxide run --offline --locked --no-default-features .\ngoxide build --offline --features=trace .\ngoxide run --offline --locked --features=trace .\ngoxide build --offline --features=report .\ngoxide run --offline --locked --features=report .\n```\n\n`report` activates `dep:reporter` and forwards `reporter/pretty`. The local reporter is a separate Goxide module in `reporter/`; no workspace is needed.\n"
               }
             ],
             "generatedFiles": [
@@ -2708,7 +2708,7 @@
               },
               {
                 "path": "README.md",
-                "source": "# Orders tutorial: features\n\n切换 pretty、trace 和 report，并向本地可选 reporter 模块转发 feature。\n\nUse the matching goxide CLI and Go 1.27+. Extract every file together.\n\nCompiler worktree based on 6a80c526216b4d24597089bbebed6e15a3331974; SHA-256 edcbd910796749b2e7e5a42a5b6ccf1362a5d234855a2d032cb3cd6aa8d52f25\n\nVerified toolchain: go version go1.27.1 darwin/arm64\n\n```sh\ngoxide build --offline .\ngoxide gen --offline --locked -o ../features-generated-default .\ngoxide build --offline --locked -o ../orders .\ngoxide run --offline --locked .\ngoxide test --offline --locked .\n```\n\nExpected program output:\n\n```text\n[orders] order 1001: pending\n[orders] order 1002: paid 42\n[orders] order 1003: shipped TRACK-7\n```\n\nThe archive contains the default build lock. After moving this local-path project, or activating report for the first time, run build without --locked to record the module plan at the current location. Then use --locked --offline there.\n\nFeature presets:\n\n```sh\ngoxide build --offline .\ngoxide run --offline --locked .\ngoxide build --offline --no-default-features .\ngoxide run --offline --locked --no-default-features .\ngoxide build --offline --features=trace .\ngoxide run --offline --locked --features=trace .\ngoxide build --offline --features=report .\ngoxide run --offline --locked --features=report .\n```\n\n`report` activates `dep:reporter` and forwards `reporter/pretty`. The local reporter is a separate Goxide module in `reporter/`; no workspace is needed.\n"
+                "source": "# Orders tutorial: features\n\n切换 pretty、trace 和 report，并向本地可选 reporter 模块转发 feature。\n\nUse the matching goxide CLI and go1.27.2 (exact version, including the patch). Extract every file together.\n\nCompiler worktree based on fba740a24e802028954229f1ba19cda7af60451c; SHA-256 1121cc56f12dea79f6dcdbf4bcc030d94bd238100da19b9a17f4a44d1e42ef98\n\nVerified toolchain: go version go1.27.2 darwin/arm64\n\n```sh\ngoxide build --offline .\ngoxide gen --offline --locked -o ../features-generated-default .\ngoxide build --offline --locked -o ../orders .\ngoxide run --offline --locked .\ngoxide test --offline --locked .\n```\n\nExpected program output:\n\n```text\n[orders] order 1001: pending\n[orders] order 1002: paid 42\n[orders] order 1003: shipped TRACK-7\n```\n\nThe archive contains the default build lock. After moving this local-path project, or activating report for the first time, run build without --locked to record the module plan at the current location. Then use --locked --offline there.\n\nFeature presets:\n\n```sh\ngoxide build --offline .\ngoxide run --offline --locked .\ngoxide build --offline --no-default-features .\ngoxide run --offline --locked --no-default-features .\ngoxide build --offline --features=trace .\ngoxide run --offline --locked --features=trace .\ngoxide build --offline --features=report .\ngoxide run --offline --locked --features=report .\n```\n\n`report` activates `dep:reporter` and forwards `reporter/pretty`. The local reporter is a separate Goxide module in `reporter/`; no workspace is needed.\n"
               }
             ],
             "generatedFiles": [
@@ -2771,7 +2771,7 @@
               },
               {
                 "path": "README.md",
-                "source": "# Orders tutorial: features\n\n切换 pretty、trace 和 report，并向本地可选 reporter 模块转发 feature。\n\nUse the matching goxide CLI and Go 1.27+. Extract every file together.\n\nCompiler worktree based on 6a80c526216b4d24597089bbebed6e15a3331974; SHA-256 edcbd910796749b2e7e5a42a5b6ccf1362a5d234855a2d032cb3cd6aa8d52f25\n\nVerified toolchain: go version go1.27.1 darwin/arm64\n\n```sh\ngoxide build --offline .\ngoxide gen --offline --locked -o ../features-generated-default .\ngoxide build --offline --locked -o ../orders .\ngoxide run --offline --locked .\ngoxide test --offline --locked .\n```\n\nExpected program output:\n\n```text\n[orders] order 1001: pending\n[orders] order 1002: paid 42\n[orders] order 1003: shipped TRACK-7\n```\n\nThe archive contains the default build lock. After moving this local-path project, or activating report for the first time, run build without --locked to record the module plan at the current location. Then use --locked --offline there.\n\nFeature presets:\n\n```sh\ngoxide build --offline .\ngoxide run --offline --locked .\ngoxide build --offline --no-default-features .\ngoxide run --offline --locked --no-default-features .\ngoxide build --offline --features=trace .\ngoxide run --offline --locked --features=trace .\ngoxide build --offline --features=report .\ngoxide run --offline --locked --features=report .\n```\n\n`report` activates `dep:reporter` and forwards `reporter/pretty`. The local reporter is a separate Goxide module in `reporter/`; no workspace is needed.\n"
+                "source": "# Orders tutorial: features\n\n切换 pretty、trace 和 report，并向本地可选 reporter 模块转发 feature。\n\nUse the matching goxide CLI and go1.27.2 (exact version, including the patch). Extract every file together.\n\nCompiler worktree based on fba740a24e802028954229f1ba19cda7af60451c; SHA-256 1121cc56f12dea79f6dcdbf4bcc030d94bd238100da19b9a17f4a44d1e42ef98\n\nVerified toolchain: go version go1.27.2 darwin/arm64\n\n```sh\ngoxide build --offline .\ngoxide gen --offline --locked -o ../features-generated-default .\ngoxide build --offline --locked -o ../orders .\ngoxide run --offline --locked .\ngoxide test --offline --locked .\n```\n\nExpected program output:\n\n```text\n[orders] order 1001: pending\n[orders] order 1002: paid 42\n[orders] order 1003: shipped TRACK-7\n```\n\nThe archive contains the default build lock. After moving this local-path project, or activating report for the first time, run build without --locked to record the module plan at the current location. Then use --locked --offline there.\n\nFeature presets:\n\n```sh\ngoxide build --offline .\ngoxide run --offline --locked .\ngoxide build --offline --no-default-features .\ngoxide run --offline --locked --no-default-features .\ngoxide build --offline --features=trace .\ngoxide run --offline --locked --features=trace .\ngoxide build --offline --features=report .\ngoxide run --offline --locked --features=report .\n```\n\n`report` activates `dep:reporter` and forwards `reporter/pretty`. The local reporter is a separate Goxide module in `reporter/`; no workspace is needed.\n"
               }
             ],
             "generatedFiles": [
@@ -2820,13 +2820,13 @@
         "id": "install",
         "category": "开始使用",
         "title": "安装",
-        "markdown": "当前从源码安装。准备 Go 1.27，先运行 `go version` 确认工具链，再执行：\n\n```sh\ngit clone https://github.com/goxide-lang/goxide.git\ncd goxide\nGOTOOLCHAIN=local GOWORK=off go install ./cmd/goxide\n```\n\n将 Go 安装可执行文件的目录加入 `PATH`：设置了 `GOBIN` 时使用该目录，否则使用 `go env GOPATH` 对应目录下的 `bin`。然后确认命令可用：\n\n```sh\ngoxide --help\ngoxide env\n```\n\n也可以在仓库中构建一个本地二进制：\n\n```sh\nGOTOOLCHAIN=local GOWORK=off go build -o ./bin/goxide ./cmd/goxide\n./bin/goxide --help\n```\n\n首个发行标签 `v0.0.1` 尚未发布，当前安装使用上面的源码命令。仓库位于 `goxide-lang/goxide`，Go module 路径仍为 `github.com/hxsf/goxide`。\n\n`--go` 可选择 Go 可执行文件；它的版本须与构建 Goxide 时使用的工具链一致。升级 Go 时，用同一工具链重新构建 Goxide。"
+        "markdown": "`v0.0.1` 是实验性预发布，尚非正式稳定发行。后续版本即使只增加 patch 或 minor，仍可能对语言、CLI、配置格式和生成代码作出不兼容变更。\n\n## 下载 CLI v0.0.1\n\n按运行 CLI 的机器选择平台与 CPU 架构。归档包含 Goxide 可执行文件、许可证和安装说明；Go 工具链需要单独安装。\n\n| 平台 | CPU 架构 | 下载 |\n| --- | --- | --- |\n| macOS | Intel（amd64） | [下载 tar.gz](https://github.com/goxide-lang/goxide/releases/download/v0.0.1/goxide_v0.0.1_darwin_amd64.tar.gz) |\n| macOS | Apple silicon（arm64） | [下载 tar.gz](https://github.com/goxide-lang/goxide/releases/download/v0.0.1/goxide_v0.0.1_darwin_arm64.tar.gz) |\n| Linux | x86-64（amd64） | [下载 tar.gz](https://github.com/goxide-lang/goxide/releases/download/v0.0.1/goxide_v0.0.1_linux_amd64.tar.gz) |\n| Linux | ARM64（arm64） | [下载 tar.gz](https://github.com/goxide-lang/goxide/releases/download/v0.0.1/goxide_v0.0.1_linux_arm64.tar.gz) |\n| Windows | x64（amd64） | [下载 zip](https://github.com/goxide-lang/goxide/releases/download/v0.0.1/goxide_v0.0.1_windows_amd64.zip) |\n\n[SHA-256 校验值](https://github.com/goxide-lang/goxide/releases/download/v0.0.1/checksums.txt) · [v0.0.1 版本说明](https://github.com/goxide-lang/goxide/releases/tag/v0.0.1)\n\n下载后核对归档的 SHA-256。解压归档，将其中 `goxide`（Windows 为 `goxide.exe`）所在目录加入 `PATH`。\n\n## 配套 Go 与安装检查\n\n这五个平台的预编译 CLI 均使用 **Go 1.27.2** 构建，运行编译命令时必须使用 **Go 1.27.2，补丁号也须一致**。将 Go 加入 `PATH`；`--go` 可以指定其他位置的同版本 Go 可执行文件。CLI 不会自动下载或切换 Go 工具链。\n\n```sh\ngo version\ngoxide --version\ngoxide env\n```\n\n`go version` 的版本应为 `go1.27.2`；发布二进制的版本输出应为：\n\n```text\ngoxide v0.0.1 (go1.27.2)\n```\n\n`goxide test` 使用 Go race detector，还需要启用 cgo 并安装该平台的 C 编译器。只运行浏览器 Playground 时，无需安装本地 CLI 或 Go。\n\n## 从标签源码安装\n\n也可以使用 Go 1.27.2 从同一标签构建。下面的环境变量写法适用于 macOS / Linux 终端：\n\n```sh\ngit clone --branch v0.0.1 --depth 1 https://github.com/goxide-lang/goxide.git\ncd goxide\nGOTOOLCHAIN=local GOWORK=off go install -ldflags=\"-X main.version=v0.0.1\" ./cmd/goxide\n```\n\n将 Go 安装可执行文件的目录加入 `PATH`：设置了 `GOBIN` 时使用该目录，否则使用 `go env GOPATH` 对应目录下的 `bin`。未传版本注入参数的普通源码构建显示 `goxide dev`，上述 `-ldflags` 将版本设为 `v0.0.1`。\n\n仓库位于 `goxide-lang/goxide`，Go module 路径仍为 `github.com/hxsf/goxide`。源码构建同样要求运行时所选 Go 与构建 CLI 的 Go 版本完全一致；更换 Go 版本后，须用新工具链重新构建 CLI。"
       },
       {
         "id": "go-gen",
         "category": "开始使用",
         "title": "在已有 Go 项目中使用 Goxide",
-        "markdown": "`goxide gen` 将一个包里的 `.gox` 转成同目录的 Go 文件。保留现有 `go.mod`、手写 Go 与构建流程，用 `go generate` 在选定包中加入 enum、match、宏或派生。\n\n## 五分钟上手\n\n准备 Go 1.27，在 Goxide 源码仓库根目录执行 `GOTOOLCHAIN=local go install ./cmd/goxide`，并将安装目录（默认 `go env GOPATH` 下的 `bin`）加入 `PATH`。以下用一个空目录演示；已有项目直接在目标包添加两个文件中的相应内容。\n\n```sh\nmkdir trygen\ncd trygen\ngo mod init example.com/trygen\n```\n\n手写 `main.go`，保留类型、函数与 Go 入口：\n\n```go\npackage main\n\nimport \"fmt\"\n\n//go:generate goxide gen .\ntype Order struct { Total int }\nfunc total(order Order) int { return order.Total }\nfunc main() { fmt.Println(classify(Order{Total: 42})) }\n```\n\n新增 `order.gox`，直接引用同包的手写类型和函数：\n\n```gox\npackage main\n\nenum Decision { Accept(int), Reject }\nfunc classify(order Order) int {\n    return match Decision::Accept(total(order)) {\n        Decision::Accept(value) => value,\n        Decision::Reject => 0,\n    }\n}\n```\n\n```sh\ngo generate ./...\ngo build ./...\ngo run .                 # 输出 42\ngo generate ./...        # 输入不变时，order_gox.go 字节不变\n```\n\n`go:generate` 使用 `.`：Go 不通过 shell 执行它，`*.gox` 不会展开。`gen` 与 `transpile` 是同一命令的两个名称；默认原位生成，`-o -` 可将单个 `.gox` 的结果写到标准输出。\n\n## 按 feature 选择代码\n\n在每个包的生成命令中指定配置：\n\n```go\n//go:generate goxide gen --features=json,trace .\n```\n\n`.gox` 用 `#[cfg(...)]` 选择完整顶层声明，用 `#[cfg_attr(...)]` 选择属性：\n\n```gox\n#[cfg(feature(\"json\"))]\nfunc Encoding() string { return \"json\" }\n\n#[cfg(not(feature(\"json\")))]\nfunc Encoding() string { return \"plain\" }\n\n#[cfg_attr(feature(\"trace\"), derive(Debug))]\ntype Message struct { Text string }\n\nconst HasJSON = cfg!(feature(\"json\"))\n```\n\n原生 Go 模式缺省不启用 feature，未启用的合法名称查询为 false；配置只作用于当前生成包。支持 `all(...)`、`any(...)`、`not(...)` 组合。`cfg!` 只生成布尔常量，`if cfg!(...)` 的两支仍检查；引用条件声明的代码也要放进对应 cfg 声明中。\n\n切换 feature 后重新 `go generate`，再 build/test。包内使用条件编译时，原位生成必须用目录输入，确保所有 `_gox.go` 同时切换配置；某源文件的声明全被关闭时会生成包壳，覆盖旧声明。`gen --features=json -o - file.gox` 可单独预览。Go build tags 与 feature 独立；`--no-default-features` 用于有 `[features]` 声明的 TOML 项目。完整规则见 [RFC 0022](/design/?page=rfc-0022)。\n\n## 目标与环境条件\n\n原生 Go 包和单文件的 `gen/transpile` 继承当前 Go 环境的 GOOS/GOARCH，包括 `go env -w` 保存的默认值，不接受 --target。`-o` 不改变这条规则。条件可写 `target_os(\"linux\")`、`target_arch(\"arm64\")`、`target_platform(\"unix\")`、`target_endian(\"little\")`、`target_pointer_width(\"64\")`，参数区分大小写。\n\n`env(\"APP_EDITION\")` 查询启动时是否设置变量，`env(\"APP_EDITION\", \"pro\")` 比较原值；不需要清单或 CLI 登记。空串算已设置。切换环境值后重新整包生成，Go build 不会自动重新求值。\n\n```sh\nGOOS=linux GOARCH=arm64 goxide gen .\ngoxide env --json\ngoxide env --json APP_EDITION\n```\n\nTOML 项目的 gen/transpile，以及所有输入的 expand/build/run/test，使用工具链目标：缺省为运行 Goxide 的宿主，可用 `--target arm64-unknown-linux` 或等价的 `--target linux/arm64`。可跨目标生成或 build，非宿主 run/test 提前拒绝。`goxide env --list` 列出值域和可用组合；`--go` 对所有编译入口生效，所选 Go 版本须与 Goxide 的构建工具链一致。\n\n## 共存规则与摩擦点\n\n同目录、同包的手写 `.go` 只读加入类型检查，`.gox` 可引用其中的类型、常量和函数；手写 Go 也可调用生成声明。`gen .` 在发布前检查生成 Go 和手写 Go 的完整函数体。`gen order.gox` 只编译并覆盖该文件，但原位生成会扫描同包 `.gox` 的配置使用；宏输入或模板含 cfg/cfg_attr 名称时也要求目录输入，以覆盖动态构造属性名的情况。引用其他 `.gox` 声明时使用目录输入。`order.gox` 对应 `order_gox.go`。生成文件带 `// Code generated by goxide. DO NOT EDIT.`；只允许覆盖带标准 `Code generated … DO NOT EDIT.` 标记的同名文件，遇到无标记的同名文件会报错。将冲突的手写文件改名，修改逻辑时编辑 `.gox`，再生成。\n\n完整包检查需要可用的导入依赖。若导入包也要生成，先运行它自己的生成命令；可在当前包的 `goxide gen .` 指令前放置 `//go:generate go generate ./child`。各包仍由自己的命令选择 feature。\n\n用户 enum 与 match 本身可生成不依赖支持库的 Go；Option/Result、格式化等能力按需导入 `github.com/goxide-lang/std`，serde 派生另需 `github.com/goxide-lang/serde`。缺失时按诊断中的 `go get` 命令补齐；`gen` 不修改 `go.mod`。版本跟随所用编译器 `go.mod` 的 require pin；当前分别是 `std@v0.0.0-20261009104839-c02a09d8c417` 与 `serde@v0.0.0-20261009021520-f342a31e20d0`，升级后重新生成。\n\n生成文件包含行级 `//line`，Go 编译诊断可回到 `.gox` 的源行；宏映射到可用的定义点或调用点。`go vet` 仍会检查生成文件，按诊断回到源文件修复。第三方 linter 对生成标记和 `//line` 的处理各异，按工具自身配置处理生成文件。这里没有列级调试映射或 LSP。\n\n## 何时选择完整工具链\n\n已有 Go 项目只在少数包试用时使用 `gen`，然后继续运行原来的 `go build` / `go test`。需要由 Goxide 按 `goxide.toml` 选择目标、管理 Goxide 多包依赖、生成独立模块并 build/run/test 时，使用完整 CLI 的项目模式。当前 workspace、vendor、构建脚本、列级 source map 与 LSP 均未开放，完整工具链也不提供这些入口；进度见[能力状态表](/docs/?page=status)。\n\n## 给 coding agent 的提示词\n\n> 在这个已有 Go module 的指定包里局部加入 Goxide。先阅读编译器的 `docs/using-goxide-gen.md` 和能力状态表。保留 `go.mod`、手写 Go 和现有构建结构；将新增逻辑写入 `package` 声明与该包相同的 `.gox`，用同包 Go 类型和函数，并在一个手写 `.go` 文件加入 `//go:generate goxide gen .`。不要用通配符。只允许覆盖带标准 `Code generated … DO NOT EDIT.` 标记的 `_gox.go`，出现手写文件冲突时改名。按缺依赖提示和编译器 pin 补齐 std/serde。执行 `go generate ./...`、`go build ./...`、相关测试与真实运行，再次生成并比较字节。报告改动、输出和未通过检查；不引入 workspace、vendor、构建脚本或 LSP。"
+        "markdown": "`goxide gen` 将一个包里的 `.gox` 转成同目录的 Go 文件。保留现有 `go.mod`、手写 Go 与构建流程，用 `go generate` 在选定包中加入 enum、match、宏或派生。\n\n## 五分钟上手\n\n按[安装说明](/docs/?page=install)下载 CLI `v0.0.1` 或从标签源码安装，并准备完全匹配的 Go 1.27.2。将 `goxide` 与 Go 加入 `PATH`，用 `goxide --version` 确认输出 `goxide v0.0.1 (go1.27.2)`。这是实验性预发布，后续 patch/minor 更新仍可能包含不兼容变更。以下用一个空目录演示；已有项目直接在目标包添加两个文件中的相应内容。\n\n```sh\nmkdir trygen\ncd trygen\ngo mod init example.com/trygen\n```\n\n手写 `main.go`，保留类型、函数与 Go 入口：\n\n```go\npackage main\n\nimport \"fmt\"\n\n//go:generate goxide gen .\ntype Order struct { Total int }\nfunc total(order Order) int { return order.Total }\nfunc main() { fmt.Println(classify(Order{Total: 42})) }\n```\n\n新增 `order.gox`，直接引用同包的手写类型和函数：\n\n```gox\npackage main\n\nenum Decision { Accept(int), Reject }\nfunc classify(order Order) int {\n    return match Decision::Accept(total(order)) {\n        Decision::Accept(value) => value,\n        Decision::Reject => 0,\n    }\n}\n```\n\n```sh\ngo generate ./...\ngo build ./...\ngo run .                 # 输出 42\ngo generate ./...        # 输入不变时，order_gox.go 字节不变\n```\n\n`go:generate` 使用 `.`：Go 不通过 shell 执行它，`*.gox` 不会展开。`gen` 与 `transpile` 是同一命令的两个名称；默认原位生成，`-o -` 可将单个 `.gox` 的结果写到标准输出。\n\n## 按 feature 选择代码\n\n在每个包的生成命令中指定配置：\n\n```go\n//go:generate goxide gen --features=json,trace .\n```\n\n`.gox` 用 `#[cfg(...)]` 选择完整顶层声明，用 `#[cfg_attr(...)]` 选择属性：\n\n```gox\n#[cfg(feature(\"json\"))]\nfunc Encoding() string { return \"json\" }\n\n#[cfg(not(feature(\"json\")))]\nfunc Encoding() string { return \"plain\" }\n\n#[cfg_attr(feature(\"trace\"), derive(Debug))]\ntype Message struct { Text string }\n\nconst HasJSON = cfg!(feature(\"json\"))\n```\n\n原生 Go 模式缺省不启用 feature，未启用的合法名称查询为 false；配置只作用于当前生成包。支持 `all(...)`、`any(...)`、`not(...)` 组合。`cfg!` 只生成布尔常量，`if cfg!(...)` 的两支仍检查；引用条件声明的代码也要放进对应 cfg 声明中。\n\n切换 feature 后重新 `go generate`，再 build/test。包内使用条件编译时，原位生成必须用目录输入，确保所有 `_gox.go` 同时切换配置；某源文件的声明全被关闭时会生成包壳，覆盖旧声明。`gen --features=json -o - file.gox` 可单独预览。Go build tags 与 feature 独立；`--no-default-features` 用于有 `[features]` 声明的 TOML 项目。完整规则见 [RFC 0022](/design/?page=rfc-0022)。\n\n## 目标与环境条件\n\n原生 Go 包和单文件的 `gen/transpile` 继承当前 Go 环境的 GOOS/GOARCH，包括 `go env -w` 保存的默认值，不接受 --target。`-o` 不改变这条规则。条件可写 `target_os(\"linux\")`、`target_arch(\"arm64\")`、`target_platform(\"unix\")`、`target_endian(\"little\")`、`target_pointer_width(\"64\")`，参数区分大小写。\n\n`env(\"APP_EDITION\")` 查询启动时是否设置变量，`env(\"APP_EDITION\", \"pro\")` 比较原值；不需要清单或 CLI 登记。空串算已设置。切换环境值后重新整包生成，Go build 不会自动重新求值。\n\n```sh\nGOOS=linux GOARCH=arm64 goxide gen .\ngoxide env --json\ngoxide env --json APP_EDITION\n```\n\nTOML 项目的 gen/transpile，以及所有输入的 expand/build/run/test，使用工具链目标：缺省为运行 Goxide 的宿主，可用 `--target arm64-unknown-linux` 或等价的 `--target linux/arm64`。可跨目标生成或 build，非宿主 run/test 提前拒绝。`goxide env --list` 列出值域和可用组合；`--go` 对所有编译入口生效，所选 Go 版本须与 Goxide 的构建工具链一致。\n\n## 共存规则与摩擦点\n\n同目录、同包的手写 `.go` 只读加入类型检查，`.gox` 可引用其中的类型、常量和函数；手写 Go 也可调用生成声明。`gen .` 在发布前检查生成 Go 和手写 Go 的完整函数体。`gen order.gox` 只编译并覆盖该文件，但原位生成会扫描同包 `.gox` 的配置使用；宏输入或模板含 cfg/cfg_attr 名称时也要求目录输入，以覆盖动态构造属性名的情况。引用其他 `.gox` 声明时使用目录输入。`order.gox` 对应 `order_gox.go`。生成文件带 `// Code generated by goxide. DO NOT EDIT.`；只允许覆盖带标准 `Code generated … DO NOT EDIT.` 标记的同名文件，遇到无标记的同名文件会报错。将冲突的手写文件改名，修改逻辑时编辑 `.gox`，再生成。\n\n完整包检查需要可用的导入依赖。若导入包也要生成，先运行它自己的生成命令；可在当前包的 `goxide gen .` 指令前放置 `//go:generate go generate ./child`。各包仍由自己的命令选择 feature。\n\n用户 enum 与 match 本身可生成不依赖支持库的 Go；Option/Result、格式化等能力按需导入 `github.com/goxide-lang/std`，serde 派生另需 `github.com/goxide-lang/serde`。缺失时按诊断中的 `go get` 命令补齐；`gen` 不修改 `go.mod`。版本跟随所用编译器 `go.mod` 的 require pin；当前分别是 `std@v0.0.0-20261009104839-c02a09d8c417` 与 `serde@v0.0.0-20261009021520-f342a31e20d0`，升级后重新生成。\n\n生成文件包含行级 `//line`，Go 编译诊断可回到 `.gox` 的源行；宏映射到可用的定义点或调用点。`go vet` 仍会检查生成文件，按诊断回到源文件修复。第三方 linter 对生成标记和 `//line` 的处理各异，按工具自身配置处理生成文件。这里没有列级调试映射或 LSP。\n\n## 何时选择完整工具链\n\n已有 Go 项目只在少数包试用时使用 `gen`，然后继续运行原来的 `go build` / `go test`。需要由 Goxide 按 `goxide.toml` 选择目标、管理 Goxide 多包依赖、生成独立模块并 build/run/test 时，使用完整 CLI 的项目模式。当前 workspace、vendor、构建脚本、列级 source map 与 LSP 均未开放，完整工具链也不提供这些入口；进度见[能力状态表](/docs/?page=status)。\n\n## 给 coding agent 的提示词\n\n> 在这个已有 Go module 的指定包里局部加入 Goxide。先阅读编译器的 `docs/using-goxide-gen.md` 和能力状态表。保留 `go.mod`、手写 Go 和现有构建结构；将新增逻辑写入 `package` 声明与该包相同的 `.gox`，用同包 Go 类型和函数，并在一个手写 `.go` 文件加入 `//go:generate goxide gen .`。不要用通配符。只允许覆盖带标准 `Code generated … DO NOT EDIT.` 标记的 `_gox.go`，出现手写文件冲突时改名。按缺依赖提示和编译器 pin 补齐 std/serde。执行 `go generate ./...`、`go build ./...`、相关测试与真实运行，再次生成并比较字节。报告改动、输出和未通过检查；不引入 workspace、vendor、构建脚本或 LSP。"
       },
       {
         "id": "first-project",
@@ -2880,7 +2880,7 @@
         "id": "cli",
         "category": "CLI参考",
         "title": "CLI 参考",
-        "markdown": "命令选项放在输入路径之前。`run` 的程序参数放在显式输入后的 `--` 之后，例如 `goxide run . -- --port 8080`。\n\n| 命令 | 用途 |\n| --- | --- |\n| `goxide gen .` | 原位生成当前 Go 包；与 `transpile` 同义 |\n| `goxide build` | 生成并构建当前 TOML 项目；也接受显式文件或目录 |\n| `goxide run` | 生成、构建并运行当前项目 |\n| `goxide test` | 对目录或项目运行带 race 检测的测试 |\n| `goxide env` | 查询环境、工具链和目标，不加载源码 |\n\n无 INPUT 的项目命令从当前目录向上寻找最近的 `goxide.toml`。原生 Go 包用 `goxide gen .` 明确指定当前目录；默认原位生成在最近的 `go.mod` 边界停止。`test` 接受目录或项目，`expand` 只接受单文件。\n\n目前项目目标选择使用 `--bin`。帮助中的 `--workspace`、`--package`、`--lib`、`--example` 和 `--source-map` 尚未开放。`--expanded` 可为单文件显式导出展开结果，目录与原位生成不接受；直接查看展开结果可用 `goxide expand`。行级 `//line` 已用于原位和 stdout 生成。完整能力见[状态页](/docs/?page=status)。\n\n以下帮助在网站构建时直接读取当前 `goxide` 可执行程序。也可以随时在本机运行 `goxide COMMAND --help`。\n\n## goxide\n\n```text\n编译、运行和测试 Goxide 源码。\n长选项使用 --name，短选项使用 -x；所有选项放在输入路径之前。\n旧式 -go、-offline 等拼写不再接受，请改为 --go、--offline。\n\n用法：\n  goxide [flags]\n\n子命令：\n  build       编译文件、目录或项目并保留构建产物\n  completion  生成 shell 补全脚本\n  env         查询宿主、Go 环境和 Goxide 编译目标\n  expand      查看单文件的宏展开结果\n  help        查看命令帮助\n  run         编译并运行程序\n  test        测试目录或项目\n  transpile   就地生成 Go；别名 gen 推荐用于 go generate\n\n选项：\n  -h, --help   help for goxide\n\n示例：\n  goxide run --go /absolute/path/to/go main.gox\n  goxide help build\n  goxide completion bash\n\n使用 \"goxide help COMMAND\" 或子命令的 --help 查看帮助。\n```\n\n## goxide gen\n\n```text\ngen 是 transpile 的别名。默认将当前包或指定 .gox 写成同目录的 *_gox.go；只读加载同包手写 Go 声明，不编译或运行程序。\n推荐 //go:generate goxide gen .；用 -o - 将单个生成文件写到 stdout，用 -o PATH 保留显式文件或模块目录导出。\n原地和 stdout 输出包含生成标记与 //line 行指令；--source-map JSON 输出尚未实现。\n\n用法：\n  goxide transpile [flags] [INPUT]\n\n选项：\n      --bin string            select project binary\n      --example string        select project example\n      --expanded string       write single-file expanded Go source\n      --features string       enabled features (comma/space separated)\n      --go string             Go compiler executable (must match the frontend toolchain; used by all compilation modes) (default \"go\")\n  -h, --help                  help for transpile\n      --lib                   select project library\n      --locked                require unchanged goxide.lock\n      --no-default-features   disable project default features\n  -o, --o string              output source/directory (transpile), expanded source (expand), or binary (build)\n      --offline               use cached dependencies; does not sandbox scripts\n  -p, --package stringArray   select workspace member by module identity (repeatable)\n      --roots string          explicit dependency namespace mapping file (native Go module or standalone source)\n      --runtime string        Go module root selecting pinned public std/serde dependencies (standalone single-file run/build only)\n      --source-map string     write single-file source mapping JSON\n      --tags string           Go build tags (directory mode; comma/space separated)\n      --target string         compilation target: GOARCH-unknown-GOOS or GOOS/GOARCH (toolchain workflow only)\n      --target-dir string     managed project artifacts (flag > GOXIDE_TARGET_DIR > target)\n      --workspace             build all workspace members\n\n示例：\n  goxide gen .\n  goxide gen -o - order.gox\n  goxide transpile -o ./generated ./source\n```\n\n## goxide build\n\n```text\n省略输入时，从当前目录向上发现 goxide.toml。项目构建会打印稳定的二进制路径；用 --bin 选择项目二进制目标。缺省编译目标为宿主，可用 --target GOARCH-unknown-GOOS 跨目标构建。\n\n用法：\n  goxide build [flags] [INPUT]\n\n选项：\n      --bin string            select project binary\n      --example string        select project example\n      --expanded string       write single-file expanded Go source\n      --features string       enabled features (comma/space separated)\n      --go string             Go compiler executable (must match the frontend toolchain; used by all compilation modes) (default \"go\")\n  -h, --help                  help for build\n      --lib                   select project library\n      --locked                require unchanged goxide.lock\n      --no-default-features   disable project default features\n  -o, --o string              output source/directory (transpile), expanded source (expand), or binary (build)\n      --offline               use cached dependencies; does not sandbox scripts\n  -p, --package stringArray   select workspace member by module identity (repeatable)\n      --roots string          explicit dependency namespace mapping file (native Go module or standalone source)\n      --runtime string        Go module root selecting pinned public std/serde dependencies (standalone single-file run/build only)\n      --source-map string     write single-file source mapping JSON\n      --tags string           Go build tags (directory mode; comma/space separated)\n      --target string         compilation target: GOARCH-unknown-GOOS or GOOS/GOARCH (toolchain workflow only)\n      --target-dir string     managed project artifacts (flag > GOXIDE_TARGET_DIR > target)\n      --workspace             build all workspace members\n\n示例：\n  goxide build -o ./app main.gox\n  goxide build --bin app --offline ./project\n```\n\n## goxide run\n\n```text\n省略输入时，从当前目录向上发现项目。传递程序参数时，显式输入路径（当前目录可写 .）后使用 -- 分隔。\n路径以短横线开头时，先用 -- 结束 goxide 选项，再用第二个 -- 分隔程序参数。\n\n用法：\n  goxide run [flags] [INPUT] [-- PROGRAM_ARGS...]\n\n选项：\n      --bin string            select project binary\n      --example string        select project example\n      --expanded string       write single-file expanded Go source\n      --features string       enabled features (comma/space separated)\n      --go string             Go compiler executable (must match the frontend toolchain; used by all compilation modes) (default \"go\")\n  -h, --help                  help for run\n      --lib                   select project library\n      --locked                require unchanged goxide.lock\n      --no-default-features   disable project default features\n  -o, --o string              output source/directory (transpile), expanded source (expand), or binary (build)\n      --offline               use cached dependencies; does not sandbox scripts\n  -p, --package stringArray   select workspace member by module identity (repeatable)\n      --roots string          explicit dependency namespace mapping file (native Go module or standalone source)\n      --runtime string        Go module root selecting pinned public std/serde dependencies (standalone single-file run/build only)\n      --source-map string     write single-file source mapping JSON\n      --tags string           Go build tags (directory mode; comma/space separated)\n      --target string         compilation target: GOARCH-unknown-GOOS or GOOS/GOARCH (toolchain workflow only)\n      --target-dir string     managed project artifacts (flag > GOXIDE_TARGET_DIR > target)\n      --workspace             build all workspace members\n\n示例：\n  goxide run main.gox -- --port 8080\n  goxide run -- -input.gox -- --verbose\n```\n\n## goxide test\n\n```text\n转译目录或项目并运行带 race 检测的 Go 测试；省略输入时从当前目录向上发现项目。此命令不接受单个 .gox 文件或额外 Go 测试参数。\n\n用法：\n  goxide test [flags] [INPUT]\n\n选项：\n      --bin string            select project binary\n      --example string        select project example\n      --expanded string       write single-file expanded Go source\n      --features string       enabled features (comma/space separated)\n      --go string             Go compiler executable (must match the frontend toolchain; used by all compilation modes) (default \"go\")\n  -h, --help                  help for test\n      --lib                   select project library\n      --locked                require unchanged goxide.lock\n      --no-default-features   disable project default features\n  -o, --o string              output source/directory (transpile), expanded source (expand), or binary (build)\n      --offline               use cached dependencies; does not sandbox scripts\n  -p, --package stringArray   select workspace member by module identity (repeatable)\n      --roots string          explicit dependency namespace mapping file (native Go module or standalone source)\n      --runtime string        Go module root selecting pinned public std/serde dependencies (standalone single-file run/build only)\n      --source-map string     write single-file source mapping JSON\n      --tags string           Go build tags (directory mode; comma/space separated)\n      --target string         compilation target: GOARCH-unknown-GOOS or GOOS/GOARCH (toolchain workflow only)\n      --target-dir string     managed project artifacts (flag > GOXIDE_TARGET_DIR > target)\n      --workspace             build all workspace members\n\n示例：\n  goxide test --go /absolute/path/to/go ./project\n  goxide test --offline --locked ./project\n```\n\n## goxide env\n\n```text\n显示三种目标及所选 Go 工具链；--target 仅选择 Goxide 工具链目标。名称参数查询原始进程环境，--list 列出目标值域。该命令不执行源码或解析项目。\n\n用法：\n  goxide env [flags] [NAME ...]\n\n选项：\n      --go string       Go compiler executable (default \"go\")\n  -h, --help            help for env\n      --json            print JSON\n      --list            list target predicate values and supported target combinations\n      --target string   Goxide toolchain target: GOARCH-unknown-GOOS or GOOS/GOARCH\n\n示例：\n  goxide env --json --target linux/amd64\n  goxide env --list\n  goxide env --json GOOS APP_EDITION\n```"
+        "markdown": "命令选项放在输入路径之前。`run` 的程序参数放在显式输入后的 `--` 之后，例如 `goxide run . -- --port 8080`。\n\n| 命令 | 用途 |\n| --- | --- |\n| `goxide gen .` | 原位生成当前 Go 包；与 `transpile` 同义 |\n| `goxide build` | 生成并构建当前 TOML 项目；也接受显式文件或目录 |\n| `goxide run` | 生成、构建并运行当前项目 |\n| `goxide test` | 对目录或项目运行带 race 检测的测试 |\n| `goxide env` | 查询环境、工具链和目标，不加载源码 |\n\n无 INPUT 的项目命令从当前目录向上寻找最近的 `goxide.toml`。原生 Go 包用 `goxide gen .` 明确指定当前目录；默认原位生成在最近的 `go.mod` 边界停止。`test` 接受目录或项目，`expand` 只接受单文件。\n\n目前项目目标选择使用 `--bin`。帮助中的 `--workspace`、`--package`、`--lib`、`--example` 和 `--source-map` 尚未开放。`--expanded` 可为单文件显式导出展开结果，目录与原位生成不接受；直接查看展开结果可用 `goxide expand`。行级 `//line` 已用于原位和 stdout 生成。完整能力见[状态页](/docs/?page=status)。\n\n以下帮助在网站构建时直接读取当前 `goxide` 可执行程序。也可以随时在本机运行 `goxide COMMAND --help`。\n\n## goxide\n\n```text\n编译、运行和测试 Goxide 源码。\n长选项使用 --name，短选项使用 -x；所有选项放在输入路径之前。\n旧式 -go、-offline 等拼写不再接受，请改为 --go、--offline。\n\n用法：\n  goxide [flags]\n\n子命令：\n  build       编译文件、目录或项目并保留构建产物\n  completion  生成 shell 补全脚本\n  env         查询宿主、Go 环境和 Goxide 编译目标\n  expand      查看单文件的宏展开结果\n  help        查看命令帮助\n  run         编译并运行程序\n  test        测试目录或项目\n  transpile   就地生成 Go；别名 gen 推荐用于 go generate\n\n选项：\n  -h, --help      help for goxide\n      --version   print the Goxide and Go toolchain versions\n\n示例：\n  goxide --version\n  goxide run --go /absolute/path/to/go main.gox\n  goxide help build\n  goxide completion bash\n\n使用 \"goxide help COMMAND\" 或子命令的 --help 查看帮助。\n```\n\n## goxide gen\n\n```text\ngen 是 transpile 的别名。默认将当前包或指定 .gox 写成同目录的 *_gox.go；只读加载同包手写 Go 声明，不编译或运行程序。\n推荐 //go:generate goxide gen .；用 -o - 将单个生成文件写到 stdout，用 -o PATH 保留显式文件或模块目录导出。\n原地和 stdout 输出包含生成标记与 //line 行指令；--source-map JSON 输出尚未实现。\n\n用法：\n  goxide transpile [flags] [INPUT]\n\n选项：\n      --bin string            select project binary\n      --example string        select project example\n      --expanded string       write single-file expanded Go source\n      --features string       enabled features (comma/space separated)\n      --go string             Go compiler executable (must match the frontend toolchain; used by all compilation modes) (default \"go\")\n  -h, --help                  help for transpile\n      --lib                   select project library\n      --locked                require unchanged goxide.lock\n      --no-default-features   disable project default features\n  -o, --o string              output source/directory (transpile), expanded source (expand), or binary (build)\n      --offline               use cached dependencies; does not sandbox scripts\n  -p, --package stringArray   select workspace member by module identity (repeatable)\n      --roots string          explicit dependency namespace mapping file (native Go module or standalone source)\n      --runtime string        Go module root selecting pinned public std/serde dependencies (standalone single-file run/build only)\n      --source-map string     write single-file source mapping JSON\n      --tags string           Go build tags (directory mode; comma/space separated)\n      --target string         compilation target: GOARCH-unknown-GOOS or GOOS/GOARCH (toolchain workflow only)\n      --target-dir string     managed project artifacts (flag > GOXIDE_TARGET_DIR > target)\n      --workspace             build all workspace members\n\n示例：\n  goxide gen .\n  goxide gen -o - order.gox\n  goxide transpile -o ./generated ./source\n```\n\n## goxide build\n\n```text\n省略输入时，从当前目录向上发现 goxide.toml。项目构建会打印稳定的二进制路径；用 --bin 选择项目二进制目标。缺省编译目标为宿主，可用 --target GOARCH-unknown-GOOS 跨目标构建。\n\n用法：\n  goxide build [flags] [INPUT]\n\n选项：\n      --bin string            select project binary\n      --example string        select project example\n      --expanded string       write single-file expanded Go source\n      --features string       enabled features (comma/space separated)\n      --go string             Go compiler executable (must match the frontend toolchain; used by all compilation modes) (default \"go\")\n  -h, --help                  help for build\n      --lib                   select project library\n      --locked                require unchanged goxide.lock\n      --no-default-features   disable project default features\n  -o, --o string              output source/directory (transpile), expanded source (expand), or binary (build)\n      --offline               use cached dependencies; does not sandbox scripts\n  -p, --package stringArray   select workspace member by module identity (repeatable)\n      --roots string          explicit dependency namespace mapping file (native Go module or standalone source)\n      --runtime string        Go module root selecting pinned public std/serde dependencies (standalone single-file run/build only)\n      --source-map string     write single-file source mapping JSON\n      --tags string           Go build tags (directory mode; comma/space separated)\n      --target string         compilation target: GOARCH-unknown-GOOS or GOOS/GOARCH (toolchain workflow only)\n      --target-dir string     managed project artifacts (flag > GOXIDE_TARGET_DIR > target)\n      --workspace             build all workspace members\n\n示例：\n  goxide build -o ./app main.gox\n  goxide build --bin app --offline ./project\n```\n\n## goxide run\n\n```text\n省略输入时，从当前目录向上发现项目。传递程序参数时，显式输入路径（当前目录可写 .）后使用 -- 分隔。\n路径以短横线开头时，先用 -- 结束 goxide 选项，再用第二个 -- 分隔程序参数。\n\n用法：\n  goxide run [flags] [INPUT] [-- PROGRAM_ARGS...]\n\n选项：\n      --bin string            select project binary\n      --example string        select project example\n      --expanded string       write single-file expanded Go source\n      --features string       enabled features (comma/space separated)\n      --go string             Go compiler executable (must match the frontend toolchain; used by all compilation modes) (default \"go\")\n  -h, --help                  help for run\n      --lib                   select project library\n      --locked                require unchanged goxide.lock\n      --no-default-features   disable project default features\n  -o, --o string              output source/directory (transpile), expanded source (expand), or binary (build)\n      --offline               use cached dependencies; does not sandbox scripts\n  -p, --package stringArray   select workspace member by module identity (repeatable)\n      --roots string          explicit dependency namespace mapping file (native Go module or standalone source)\n      --runtime string        Go module root selecting pinned public std/serde dependencies (standalone single-file run/build only)\n      --source-map string     write single-file source mapping JSON\n      --tags string           Go build tags (directory mode; comma/space separated)\n      --target string         compilation target: GOARCH-unknown-GOOS or GOOS/GOARCH (toolchain workflow only)\n      --target-dir string     managed project artifacts (flag > GOXIDE_TARGET_DIR > target)\n      --workspace             build all workspace members\n\n示例：\n  goxide run main.gox -- --port 8080\n  goxide run -- -input.gox -- --verbose\n```\n\n## goxide test\n\n```text\n转译目录或项目并运行带 race 检测的 Go 测试；省略输入时从当前目录向上发现项目。此命令不接受单个 .gox 文件或额外 Go 测试参数。\n\n用法：\n  goxide test [flags] [INPUT]\n\n选项：\n      --bin string            select project binary\n      --example string        select project example\n      --expanded string       write single-file expanded Go source\n      --features string       enabled features (comma/space separated)\n      --go string             Go compiler executable (must match the frontend toolchain; used by all compilation modes) (default \"go\")\n  -h, --help                  help for test\n      --lib                   select project library\n      --locked                require unchanged goxide.lock\n      --no-default-features   disable project default features\n  -o, --o string              output source/directory (transpile), expanded source (expand), or binary (build)\n      --offline               use cached dependencies; does not sandbox scripts\n  -p, --package stringArray   select workspace member by module identity (repeatable)\n      --roots string          explicit dependency namespace mapping file (native Go module or standalone source)\n      --runtime string        Go module root selecting pinned public std/serde dependencies (standalone single-file run/build only)\n      --source-map string     write single-file source mapping JSON\n      --tags string           Go build tags (directory mode; comma/space separated)\n      --target string         compilation target: GOARCH-unknown-GOOS or GOOS/GOARCH (toolchain workflow only)\n      --target-dir string     managed project artifacts (flag > GOXIDE_TARGET_DIR > target)\n      --workspace             build all workspace members\n\n示例：\n  goxide test --go /absolute/path/to/go ./project\n  goxide test --offline --locked ./project\n```\n\n## goxide env\n\n```text\n显示三种目标及所选 Go 工具链；--target 仅选择 Goxide 工具链目标。名称参数查询原始进程环境，--list 列出目标值域。该命令不执行源码或解析项目。\n\n用法：\n  goxide env [flags] [NAME ...]\n\n选项：\n      --go string       Go compiler executable (default \"go\")\n  -h, --help            help for env\n      --json            print JSON\n      --list            list target predicate values and supported target combinations\n      --target string   Goxide toolchain target: GOARCH-unknown-GOOS or GOOS/GOARCH\n\n示例：\n  goxide env --json --target linux/amd64\n  goxide env --list\n  goxide env --json GOOS APP_EDITION\n```"
       },
       {
         "id": "status",
@@ -3092,5 +3092,5 @@
       }
     ]
   },
-  "wasmSha256": "e5aa870af6d75eec2640e9a7f205fdb2ac1b387cfcbebd66445976f0cfd7c734"
+  "wasmSha256": "766172c17647ffd9a31f0e27fcef47ef5ce20cf0d5c267ed6e666e498733bb2e"
 }

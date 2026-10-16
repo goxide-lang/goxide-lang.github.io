@@ -2,6 +2,7 @@
 
 本仓库托管 [Goxide 网站源码](https://github.com/goxide-lang/goxide/tree/main/website)生成的静态产物：语言介绍、快速开始、使用参考、设计文档与浏览器 Playground。
 
+- [下载 CLI v0.0.1](https://goxide-lang.github.io/docs/?page=install)：五个平台的二进制、校验值与安装说明。配套 Go 必须为 1.27.2，包括补丁号。此版本是实验性预发布，尚非正式稳定发行；后续 patch/minor 仍可包含不兼容变更。
 - [快速开始](https://goxide-lang.github.io/learn/)：同一个订单项目，从纯 Go、混合接入到完整 Gox 项目和 feature 配置；源码包含清单与锁文件，并提供完整 ZIP 下载。
 - [使用参考](https://goxide-lang.github.io/docs/)：项目、包管理、CLI 与互操作指南。
 - [设计文档](https://goxide-lang.github.io/design/)：词法与文法、各阶段输入输出与翻译语义、前端和 enum 规范、完整 RFC；从仓库 Markdown 生成。
@@ -9,13 +10,13 @@
 
 ## 编译器与产物
 
-网站和编译器由干净检出 [`6a80c52`](https://github.com/goxide-lang/goxide/commit/6a80c526216b4d24597089bbebed6e15a3331974) 构建。完整构建身份、依赖、项目源码与生成结果记录在 [examples.json](examples.json) 中；`compilerSource.kind=worktree`、`dirty=false`。
+网站和编译器由干净检出 [`fba740a`](https://github.com/goxide-lang/goxide/commit/fba740a24e802028954229f1ba19cda7af60451c) 构建，编译器源码与 [CLI v0.0.1](https://github.com/goxide-lang/goxide/releases/tag/v0.0.1) 标签逐文件一致。完整构建身份、依赖、项目源码与生成结果记录在 [examples.json](examples.json) 中；`compilerSource.kind=worktree`、`dirty=false`。
 
 | 内容 | 标识 |
 | --- | --- |
-| 编译器源码 SHA-256 | `edcbd910796749b2e7e5a42a5b6ccf1362a5d234855a2d032cb3cd6aa8d52f25` |
-| `compiler.wasm` SHA-256 | `e5aa870af6d75eec2640e9a7f205fdb2ac1b387cfcbebd66445976f0cfd7c734` |
-| 构建工具链 | Go 1.27.1 |
+| 编译器源码 SHA-256 | `1121cc56f12dea79f6dcdbf4bcc030d94bd238100da19b9a17f4a44d1e42ef98` |
+| `compiler.wasm` SHA-256 | `766172c17647ffd9a31f0e27fcef47ef5ce20cf0d5c267ed6e666e498733bb2e` |
+| 构建工具链 | Go 1.27.2 |
 | 浏览器编译目标 | darwin/arm64，与内嵌 Go 导出数据一致 |
 | 编译管线 | `parser → expand → resolve → check → lower` |
 
