@@ -1,11 +1,28 @@
-# goxide 网站与浏览器 Playground
+# Goxide 网站与浏览器 Playground
 
-此仓库只托管静态网站产物。编译器版本：`ae61ec628b55e0fc66ce96d47261c0a6809c0280`，Go 1.27.1。包集合、源码摘要和真实生成示例记录在 [examples.json](examples.json)。页面文案适配公开访问；WASM 和示例保持该版本构建结果。
+本仓库托管 [Goxide 网站源码](https://github.com/goxide-lang/goxide/tree/main/website)生成的静态产物：特性与示例目录、只读 CLI 项目快照，以及单包多文件的浏览器转译 Playground。浏览器使用 WASM 将 `.gox` 转成 Go，不执行生成的 Go。
 
-`main` 分支根目录作为 GitHub Pages 发布源，`.nojekyll` 关闭 Jekyll 处理。无需服务器端执行、账户、数据库或外部编译服务。
+## 编译器与产物
 
-本地可运行 `python3 -m http.server 8080 --bind 127.0.0.1`，打开 http://127.0.0.1:8080 。
+本地待发布快照的编译器源码与 [P7 提交 `1a70654255e0388c5c2a775367ae7a1491d7a04a`](https://github.com/goxide-lang/goxide/commit/1a70654255e0388c5c2a775367ae7a1491d7a04a)一致。产物创建时的原始身份保留在 [examples.json](examples.json)：基准提交 `bd90e606dcfa220b4054fe41c56bdc63a5687355`、`kind=worktree`、`dirty=true`。这份快照不包含后续的 CLI `gen` 改动。下文引用的站点文件（包括 `examples.json` 和 `compiler.wasm`）将随该快照发布。
 
-浏览器只转译单文件和清单内随附包，不运行生成 Go、解析任意模块或执行构建脚本。源码限制 32 KiB；Worker 单次转译 10 秒，支持中断恢复。CLI 多包示例是构建时生成的只读快照，不是浏览器多包功能，也不是完整项目源码。
+| 内容 | 标识 |
+| --- | --- |
+| 编译器源码 SHA-256 | `05db6dc5c35745b056df570b16b28057447d92e7e827345047494faf546b463a` |
+| `compiler.wasm` SHA-256 | `2bb850d33f628a82b147833adaef141b2736f2414a8e175b8e2d27e95901f578` |
+| 构建工具链 | Go 1.27.1 |
+| 编译管线 | `parser → expand → resolve → check → lower` |
 
-WASM 为可下载、可分析的浏览器编译器产物；未包含完整私有源码仓库、RFC、历史、凭据或本机调试路径。Go runtime 许可见 [GO-LICENSE.txt](GO-LICENSE.txt)。`_headers` 是静态资产中的托管配置，GitHub Pages 不使用它，不保证提供其中的 CSP 响应头。
+示例的源码、生成 Go、依赖版本和包集合均在 `examples.json` 中。浏览器允许一个用户包内最多 16 个文件、总计 32 KiB；固定随附依赖只读。每次转译限时 10 秒，并支持中断后恢复。CLI 多包示例来自构建时快照；浏览器不解析任意模块或执行构建脚本。
+
+## 预览与托管
+
+```sh
+python3 -m http.server 8080 --bind 127.0.0.1
+```
+
+打开 [本地网站](http://127.0.0.1:8080)。GitHub Pages 从 `main` 分支根目录发布；`.nojekyll` 关闭 Jekyll 处理。页面不需要账户、数据库或外部编译服务。
+
+Go runtime 许可见 [GO-LICENSE.txt](GO-LICENSE.txt)，其他前端许可见 [THIRD-PARTY-LICENSES.txt](THIRD-PARTY-LICENSES.txt)。`_headers` 供支持该格式的静态托管平台使用，GitHub Pages 不读取它。
+
+语言与工具链能力以 [当前状态表](https://github.com/goxide-lang/goxide/blob/main/docs/mvp-gap-audit.md)为准；已有 Go 项目的使用方式见 [gen 用户指南](https://github.com/goxide-lang/goxide/blob/main/docs/using-goxide-gen.md)。网站上的指南页面待从同一份 Markdown 生成。
