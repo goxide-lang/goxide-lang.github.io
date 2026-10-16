@@ -4,13 +4,14 @@
 
 ## 编译器与产物
 
-本地待发布快照的编译器源码与 [P7 提交 `1a70654255e0388c5c2a775367ae7a1491d7a04a`](https://github.com/goxide-lang/goxide/commit/1a70654255e0388c5c2a775367ae7a1491d7a04a)一致。产物创建时的原始身份保留在 [examples.json](examples.json)：基准提交 `bd90e606dcfa220b4054fe41c56bdc63a5687355`、`kind=worktree`、`dirty=true`。这份快照不包含后续的 CLI `gen` 改动。下文引用的站点文件（包括 `examples.json` 和 `compiler.wasm`）将随该快照发布。
+当前产物由编译器干净检出 [`0df22b6`](https://github.com/goxide-lang/goxide/commit/0df22b6f81d387c697934309f4230e3074944ff8) 重建，包含新前端、原生 Go 生成和统一 feature/target/env 配置。完整构建身份、依赖、示例源码与生成结果记录在 [examples.json](examples.json) 中；`compilerSource.kind=worktree`、`dirty=false`。
 
 | 内容 | 标识 |
 | --- | --- |
-| 编译器源码 SHA-256 | `05db6dc5c35745b056df570b16b28057447d92e7e827345047494faf546b463a` |
-| `compiler.wasm` SHA-256 | `2bb850d33f628a82b147833adaef141b2736f2414a8e175b8e2d27e95901f578` |
+| 编译器源码 SHA-256 | `edcbd910796749b2e7e5a42a5b6ccf1362a5d234855a2d032cb3cd6aa8d52f25` |
+| `compiler.wasm` SHA-256 | `e5aa870af6d75eec2640e9a7f205fdb2ac1b387cfcbebd66445976f0cfd7c734` |
 | 构建工具链 | Go 1.27.1 |
+| 浏览器编译目标 | darwin/arm64，与内嵌 Go 导出数据一致 |
 | 编译管线 | `parser → expand → resolve → check → lower` |
 
 示例的源码、生成 Go、依赖版本和包集合均在 `examples.json` 中。浏览器允许一个用户包内最多 16 个文件、总计 32 KiB；固定随附依赖只读。每次转译限时 10 秒，并支持中断后恢复。CLI 多包示例来自构建时快照；浏览器不解析任意模块或执行构建脚本。
@@ -21,7 +22,7 @@
 python3 -m http.server 8080 --bind 127.0.0.1
 ```
 
-打开 [本地网站](http://127.0.0.1:8080)。GitHub Pages 从 `main` 分支根目录发布；`.nojekyll` 关闭 Jekyll 处理。页面不需要账户、数据库或外部编译服务。
+打开 [本地网站](http://127.0.0.1:8080)。GitHub Pages 沿用 `deploy/goxide-site-ae61ec6` 分支根目录发布，`main` 同步保存相同产物；`.nojekyll` 关闭 Jekyll 处理。页面不需要账户、数据库或外部编译服务。
 
 Go runtime 许可见 [GO-LICENSE.txt](GO-LICENSE.txt)，其他前端许可见 [THIRD-PARTY-LICENSES.txt](THIRD-PARTY-LICENSES.txt)。`_headers` 供支持该格式的静态托管平台使用，GitHub Pages 不读取它。
 
