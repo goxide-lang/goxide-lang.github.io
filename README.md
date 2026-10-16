@@ -1,10 +1,15 @@
 # Goxide 网站与浏览器 Playground
 
-本仓库托管 [Goxide 网站源码](https://github.com/goxide-lang/goxide/tree/main/website)生成的静态产物：特性与示例目录、只读 CLI 项目快照，以及单包多文件的浏览器转译 Playground。浏览器使用 WASM 将 `.gox` 转成 Go，不执行生成的 Go。
+本仓库托管 [Goxide 网站源码](https://github.com/goxide-lang/goxide/tree/main/website)生成的静态产物：语言介绍、快速开始、使用参考、设计文档与浏览器 Playground。
+
+- [快速开始](https://goxide-lang.github.io/learn/)：同一个订单项目，从纯 Go、混合接入到完整 Gox 项目和 feature 配置；源码包含清单与锁文件，并提供完整 ZIP 下载。
+- [使用参考](https://goxide-lang.github.io/docs/)：项目、包管理、CLI 与互操作指南。
+- [设计文档](https://goxide-lang.github.io/design/)：词法与文法、各阶段输入输出与翻译语义、前端和 enum 规范、完整 RFC；从仓库 Markdown 生成。
+- [Playground](https://goxide-lang.github.io/playground.html)：浏览器使用 WASM 将 `.gox` 转成 Go，不执行生成的 Go。
 
 ## 编译器与产物
 
-当前产物由编译器干净检出 [`0df22b6`](https://github.com/goxide-lang/goxide/commit/0df22b6f81d387c697934309f4230e3074944ff8) 重建，包含新前端、原生 Go 生成和统一 feature/target/env 配置。完整构建身份、依赖、示例源码与生成结果记录在 [examples.json](examples.json) 中；`compilerSource.kind=worktree`、`dirty=false`。
+网站和编译器由干净检出 [`6a80c52`](https://github.com/goxide-lang/goxide/commit/6a80c526216b4d24597089bbebed6e15a3331974) 构建。完整构建身份、依赖、项目源码与生成结果记录在 [examples.json](examples.json) 中；`compilerSource.kind=worktree`、`dirty=false`。
 
 | 内容 | 标识 |
 | --- | --- |
@@ -14,7 +19,7 @@
 | 浏览器编译目标 | darwin/arm64，与内嵌 Go 导出数据一致 |
 | 编译管线 | `parser → expand → resolve → check → lower` |
 
-示例的源码、生成 Go、依赖版本和包集合均在 `examples.json` 中。浏览器允许一个用户包内最多 16 个文件、总计 32 KiB；固定随附依赖只读。每次转译限时 10 秒，并支持中断后恢复。CLI 多包示例来自构建时快照；浏览器不解析任意模块或执行构建脚本。
+快速开始项目在构建时真实生成、运行和测试。浏览器允许一个用户包内最多 16 个文件、总计 32 KiB；固定随附依赖只读。每次转译限时 10 秒，并支持中断后恢复。完整项目使用 CLI 快照与下载包；浏览器不解析任意模块或执行构建脚本。
 
 ## 预览与托管
 
@@ -26,4 +31,4 @@ python3 -m http.server 8080 --bind 127.0.0.1
 
 Go runtime 许可见 [GO-LICENSE.txt](GO-LICENSE.txt)，其他前端许可见 [THIRD-PARTY-LICENSES.txt](THIRD-PARTY-LICENSES.txt)。`_headers` 供支持该格式的静态托管平台使用，GitHub Pages 不读取它。
 
-语言与工具链能力以 [当前状态表](https://github.com/goxide-lang/goxide/blob/main/docs/mvp-gap-audit.md)为准；已有 Go 项目的使用方式见 [gen 用户指南](https://github.com/goxide-lang/goxide/blob/main/docs/using-goxide-gen.md)。网站上的指南页面待从同一份 Markdown 生成。
+语言与工具链能力以 [当前状态表](https://github.com/goxide-lang/goxide/blob/main/docs/mvp-gap-audit.md)为准。
