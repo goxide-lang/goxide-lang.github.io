@@ -1,13 +1,13 @@
 {
-  "websiteCommit": "fba740a24e802028954229f1ba19cda7af60451c",
+  "websiteCommit": "624b5dd2af32efc94ca600d7fe5f85df73a53f10",
   "assets": {
     "assets/MonacoPane-DE-FEWeF.css": "771760d7346c75cae101fbe275958d0da2de4df62a355b9b90e0f67d41110267",
-    "assets/MonacoPane-bAadeDLY.js": "aeb5fe18b27a9e2c84b6188f0da2096da169f2ea4ef182fb5246ed6e0be1ef10",
-    "assets/Playground-_aCVxmf_.js": "6b8ea2f4aa01a7c6a9099040f35640860d7074b291c483599a270992bfbd4fdc",
+    "assets/MonacoPane-vJbjd5L0.js": "04d877525cf34260eb353f7b7c5d7f6cd0ea6f40be9fe2443bb1f38f248d1fd5",
+    "assets/Playground-DE5ZPy8K.js": "e9b2081d936d9359a63dbe920b6061e9d09bc46ea4bded3b46ffba2e41c83ccd",
     "assets/codicon-DF1abBS2.ttf": "77f902557231f95c4c71ae517d09a1a842753656f5f665086b3e5ad8095538da",
     "assets/editor.worker-C8DPLl6p.js": "524be3dee28ebe629009bc0a466cb0cdb7d74ade6cae225dd8c65c4b07fa35fc",
     "assets/go-C-y9NEjX.js": "ca236e02f3a5f8225d83597bb65b036ea8caae5f79549ea37213bb2979bcb085",
-    "assets/index-BRDBr-Si.js": "fd5452d94c7c64b36976ebae021e039d899fd4ea30d51b6896bb66ceecd63502",
-    "assets/index-LhmfD3P_.css": "5057a314dbfc62f10baad85aa078fca9360601ba97f421eb071ddf6ab1911aef"
+    "assets/index-LhmfD3P_.css": "5057a314dbfc62f10baad85aa078fca9360601ba97f421eb071ddf6ab1911aef",
+    "assets/index-X6ni9g3X.js": "0944cdaa7d540e371dd8fd1392b4cecbcbb7eb23509d4827998cfca143e050c7"
   }
 }
