@@ -1,6 +1,6 @@
 # Goxide 网站与浏览器 Playground
 
-本仓库托管 [Goxide 网站源码](https://github.com/goxide-lang/goxide/tree/22b8fb2452fba79c30ee429fe16f517a1e4a87ef/website)生成的静态产物：语言介绍、快速开始、使用参考、设计文档与浏览器 Playground。
+本仓库托管 [Goxide 网站源码](https://github.com/goxide-lang/goxide/tree/b96d6752272ba97fc5de925380f5c966d761afd6/website)生成的静态产物：语言介绍、快速开始、使用参考、设计文档与浏览器 Playground。
 
 - [安装当前编译器](https://goxide-lang.github.io/docs/?page=install)：使用 Go 1.27.3 从本页对应的源码提交构建；正式构建脚本会写入过程宏 SDK 身份。运行时的 Go 工具链也须为 1.27.3，包括补丁号。
 - [快速开始](https://goxide-lang.github.io/learn/)：从纯 Go、混合接入到完整 Goxide 项目、feature 配置和用户过程宏，共五个阶段；提供包含清单、锁文件与测试的完整 ZIP 下载。
@@ -10,7 +10,7 @@
 
 ## 编译器与产物
 
-编译器绑定干净提交 [`92b0a0c`](https://github.com/goxide-lang/goxide/commit/92b0a0c42d904b338afee48c04c6d1293427708c)，网站源码提交为 [`22b8fb2`](https://github.com/goxide-lang/goxide/commit/22b8fb2452fba79c30ee429fe16f517a1e4a87ef)。完整构建身份、公开库版本、项目源码与生成结果记录在 [examples.json](examples.json) 中；`compilerSource.kind=commit`、`dirty=false`。
+编译器绑定干净提交 [`92b0a0c`](https://github.com/goxide-lang/goxide/commit/92b0a0c42d904b338afee48c04c6d1293427708c)，网站源码提交为 [`b96d675`](https://github.com/goxide-lang/goxide/commit/b96d6752272ba97fc5de925380f5c966d761afd6)。完整构建身份、公开库版本、项目源码与生成结果记录在 [examples.json](examples.json) 中；`compilerSource.kind=commit`、`dirty=false`。
 
 | 内容 | 标识 |
 | --- | --- |

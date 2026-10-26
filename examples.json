@@ -38,7 +38,6 @@
   ],
   "exportTrimpath": true,
   "commit": "92b0a0c42d904b338afee48c04c6d1293427708c",
-  "websiteCommit": "22b8fb2452fba79c30ee429fe16f517a1e4a87ef",
   "catalog": {
     "schemaVersion": 1,
     "compilerCommit": "92b0a0c42d904b338afee48c04c6d1293427708c",
@@ -6517,5 +6516,6 @@
       }
     ]
   },
-  "wasmSha256": "d44217bdc2f8919b84e5d0b2c147e0f9970c250a7844c9c889728b343d40540e"
+  "wasmSha256": "d44217bdc2f8919b84e5d0b2c147e0f9970c250a7844c9c889728b343d40540e",
+  "websiteCommit": "b96d6752272ba97fc5de925380f5c966d761afd6"
 }
