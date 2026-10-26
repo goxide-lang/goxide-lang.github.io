@@ -1,0 +1,154 @@
+name: Publish website
+
+on:
+  workflow_dispatch:
+    inputs:
+      source_ref:
+        description: Source branch (main or publish/serde-json-sugar) or full commit SHA
+        type: string
+        required: true
+        default: publish/serde-json-sugar
+
+permissions:
+  contents: read
+
+concurrency:
+  group: website-publish
+  cancel-in-progress: false
+
+env:
+  CGO_ENABLED: '1'
+  GOTOOLCHAIN: local
+  GOWORK: 'off'
+  GOMAXPROCS: '4'
+  PYTHONDONTWRITEBYTECODE: '1'
+
+jobs:
+  resolve:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    outputs:
+      source_sha: ${{ steps.source.outputs.source_sha }}
+    steps:
+      - name: Resolve the public source to an exact commit
+        id: source
+        env:
+          SOURCE_REF: ${{ inputs.source_ref }}
+        run: |
+          python3 - <<'PY'
+          import json, os, re, urllib.parse, urllib.request
+          source_ref = os.environ['SOURCE_REF']
+          if source_ref not in {'main', 'publish/serde-json-sugar'} and not re.fullmatch('[0-9a-f]{40}', source_ref):
+              raise SystemExit('Expected an approved source branch or a full commit SHA')
+          url = 'https://api.github.com/repos/goxide-lang/goxide/commits/' + urllib.parse.quote(source_ref, safe='')
+          request = urllib.request.Request(url, headers={'Accept': 'application/vnd.github+json'})
+          with urllib.request.urlopen(request, timeout=30) as response:
+              sha = json.load(response)['sha']
+          if not re.fullmatch('[0-9a-f]{40}', sha) or (len(source_ref) == 40 and sha != source_ref):
+              raise SystemExit('Source commit does not match the requested ref')
+          with open(os.environ['GITHUB_OUTPUT'], 'a') as output:
+              print('source_sha=' + sha, file=output)
+          print('Website source: ' + sha)
+          PY
+
+  build:
+    needs: resolve
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    defaults:
+      run:
+        working-directory: source
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          repository: goxide-lang/goxide
+          ref: ${{ needs.resolve.outputs.source_sha }}
+          path: source
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16 # v6
+        with:
+          go-version: '1.27.3'
+          cache-dependency-path: source/go.sum
+      - name: Prepare the pinned module graph
+        run: |
+          go version
+          gcc --version
+          echo "GO_BIN=$(command -v go)" >> "$GITHUB_ENV"
+          module_prep_dir="$(mktemp -d "$RUNNER_TEMP/modules.XXXXXX")"
+          cp go.mod go.sum "$module_prep_dir/"
+          GOFLAGS=-mod=readonly go mod download -modfile="$module_prep_dir/go.mod" all
+          GOFLAGS=-mod=readonly go mod verify -modfile="$module_prep_dir/go.mod"
+          cmp go.mod "$module_prep_dir/go.mod"
+          cmp go.sum "$module_prep_dir/go.sum"
+          echo 'GOPROXY=off' >> "$GITHUB_ENV"
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: source/website/package-lock.json
+      - name: Install locked frontend and QA dependencies
+        run: npm ci --prefix website
+      - name: Website build identity regressions
+        run: python3 -B website/build_support_test.py
+      - name: Worker observation protocol regressions
+        run: node --test website/validation/worker-observations_test.mjs
+      - name: Compiler UI synchronous invalidation regressions
+        run: node website/compiler_test.mjs
+      - name: Browser macro loading and deadline regressions
+        run: node --test website/proc-macro-host_test.mjs
+      - name: Build matching CLI examples, exports and WASM offline
+        run: python3 -B website/build.py
+      - name: Embedded HTTP server race gate
+        run: python3 -B scripts/ci_go_test.py web-race -mod=readonly -race -vet=off -tags=goxideweb -count=1 -timeout=10m ./cmd/goxide-web
+      - name: Embedded HTTP server vet gate
+        run: go vet -mod=readonly -tags=goxideweb ./cmd/goxide-web
+      - name: Ensure build did not change tracked inputs
+        run: git diff --exit-code
+      - name: Audit the publishable website
+        run: python3 -B website/hosting/audit.py
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
+        with:
+          name: website-${{ needs.resolve.outputs.source_sha }}
+          path: source/website/dist/
+          include-hidden-files: true
+          if-no-files-found: error
+          retention-days: 7
+
+  publish:
+    needs: [resolve, build]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    permissions:
+      contents: write
+      pages: write
+      actions: read
+    env:
+      WEBSITE_SOURCE_SHA: ${{ needs.resolve.outputs.source_sha }}
+      WEBSITE_ARTIFACT: ${{ runner.temp }}/website-artifact
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          ref: main
+          path: site
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          repository: goxide-lang/goxide
+          ref: ${{ needs.resolve.outputs.source_sha }}
+          path: source
+          persist-credentials: false
+      - uses: actions/download-artifact@018cc2cf5baa6db3ef3c5f8a56943fffe632ef53 # v6
+        with:
+          name: website-${{ needs.resolve.outputs.source_sha }}
+          path: ${{ runner.temp }}/website-artifact
+      - name: Verify the exact artifact and repeat the source audit
+        run: python3 -B site/.github/scripts/publish.py verify
+      - name: Publish both branches and wait for GitHub Pages
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python3 -B site/.github/scripts/publish.py publish
