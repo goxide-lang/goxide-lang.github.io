@@ -128,7 +128,6 @@ jobs:
       actions: read
     env:
       WEBSITE_SOURCE_SHA: ${{ needs.resolve.outputs.source_sha }}
-      WEBSITE_ARTIFACT: ${{ runner.temp }}/website-artifact
     steps:
       - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
         with:
@@ -147,8 +146,11 @@ jobs:
           name: website-${{ needs.resolve.outputs.source_sha }}
           path: ${{ runner.temp }}/website-artifact
       - name: Verify the exact artifact and repeat the source audit
+        env:
+          WEBSITE_ARTIFACT: ${{ runner.temp }}/website-artifact
         run: python3 -B site/.github/scripts/publish.py verify
       - name: Publish both branches and wait for GitHub Pages
         env:
+          WEBSITE_ARTIFACT: ${{ runner.temp }}/website-artifact
           GH_TOKEN: ${{ github.token }}
         run: python3 -B site/.github/scripts/publish.py publish
