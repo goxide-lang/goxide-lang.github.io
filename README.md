@@ -1,6 +1,6 @@
 # Goxide 网站与浏览器 Playground
 
-本仓库保存 [Goxide 网站源码](https://github.com/goxide-lang/goxide/tree/cdf69aca80fe55569cd9b0c27ab0400390f0c20f/website)生成的静态产物。
+本仓库保存 [Goxide 网站源码](https://github.com/goxide-lang/goxide/tree/2a9091ec92e8a4e12bd1c97227d1c0f145c5e84a/website)生成的静态产物。
 
 - [安装当前编译器](https://goxide-lang.github.io/docs/?page=install)
 - [快速开始](https://goxide-lang.github.io/learn/)
@@ -11,13 +11,13 @@
 
 ## 编译器与产物
 
-网站源码提交为 [`cdf69ac`](https://github.com/goxide-lang/goxide/commit/cdf69aca80fe55569cd9b0c27ab0400390f0c20f)，编译器绑定干净提交 [`8112e7c`](https://github.com/goxide-lang/goxide/commit/8112e7ccf71218d7d117d5be44b4180437cb8b09)。完整构建身份和公开库版本记录在 [examples.json](examples.json) 中。
+网站源码提交为 [`2a9091e`](https://github.com/goxide-lang/goxide/commit/2a9091ec92e8a4e12bd1c97227d1c0f145c5e84a)，编译器绑定干净提交 [`17d9ae5`](https://github.com/goxide-lang/goxide/commit/17d9ae56a552e4910fda7fcb5482a8cabc0fa339)。完整构建身份和公开库版本记录在 [examples.json](examples.json) 中。
 
 | 内容 | 标识 |
 | --- | --- |
-| 编译器源码 SHA-256 | `ad9cc553ba37a08ac7ba04130e59a6719c49c6945f65bdf7ce98de7992f668c3` |
-| `compiler.wasm` SHA-256 | `3343e2f0f86a225fa4ff2a647f5e60715e764053bcd9535f52275bf3a2e40c7d` |
-| Go 导出数据 SHA-256 | `45e8cd7d3c4626d15500c4d2d539d4c0e7d56be87b205d5dfb8781701675b89c` |
+| 编译器源码 SHA-256 | `d9ff208da140f6dc453096ee3fccee36b0f848071c43449cc582b938635ffc64` |
+| `compiler.wasm` SHA-256 | `ab3f5e1674284500ec07ebc480ae4362a8cc9ca257124fe09e4efca1a3fb99fd` |
+| Go 导出数据 SHA-256 | `ec7a417a4f0ee318da32a17b2286023799f10df9341e54c0015a4fb80deb2361` |
 | 构建工具链 | `go version go1.27.3 linux/amd64` |
 | 浏览器编译目标 | `linux/amd64`，与内嵌 Go 导出数据一致 |
 | 编译管线 | `parser-expand-resolve-check-lower` |
@@ -32,4 +32,4 @@ GitHub Pages 从 `deploy/goxide-site-ae61ec6` 分支根目录发布，`main` 原
 
 Go runtime 许可见 [GO-LICENSE.txt](GO-LICENSE.txt)，其他前端许可见 [THIRD-PARTY-LICENSES.txt](THIRD-PARTY-LICENSES.txt)。`_headers` 供支持该格式的托管平台使用，GitHub Pages 不读取它。
 
-语言与工具链能力以[当前状态表](https://github.com/goxide-lang/goxide/blob/8112e7ccf71218d7d117d5be44b4180437cb8b09/docs/mvp-gap-audit.md)为准。
+语言与工具链能力以[当前状态表](https://github.com/goxide-lang/goxide/blob/17d9ae56a552e4910fda7fcb5482a8cabc0fa339/docs/mvp-gap-audit.md)为准。
